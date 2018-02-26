@@ -1,7 +1,7 @@
 # Jupyter notebook
 ## Pros
 * Fácil subir archivos
-* Permise centrarse en programar el código de minería de datos
+* Permite centrarse en programar el código de minería de datos
 * Plotly dentro del notebook
 ## Contras
 * Menos bonito y usable
@@ -16,7 +16,7 @@
 * Más bonito y usable
 * Subida de ficheros manejada por Flask
 ## Contras
-* Difícl escritura de HTML al tener que escribirse programaticamente
+* Difícil escritura de HTML al tener que escribirse programaticamente
 * Gráfico en un pestaña aparte, posiblemente sin el mismo formato del resto de la web por la desventaja anterior
 
 
