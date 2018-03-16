@@ -1,6 +1,63 @@
 \capitulo{4}{Técnicas y herramientas}
 
-Esta parte de la memoria tiene como objetivo presentar las técnicas metodológicas y las herramientas de desarrollo que se han utilizado para llevar a cabo el proyecto. Si se han estudiado diferentes alternativas de metodologías, herramientas, bibliotecas se puede hacer un resumen de los aspectos más destacados de cada alternativa, incluyendo comparativas entre las distintas opciones y una justificación de las elecciones realizadas. 
-No se pretende que este apartado se convierta en un capítulo de un libro dedicado a cada una de las alternativas, sino comentar los aspectos más destacados de cada opción, con un repaso somero a los fundamentos esenciales y referencias bibliográficas para que el lector pueda ampliar su conocimiento sobre el tema.
+\section{Dash}
+Librería en Python que permite crear sitios webs completos para representación de datos. Para ello hace uso de diversas tecnologías, \textit{Flask} para el servidor web, \textit{Plotly} para la representación y \textit{React} para los componentes y actualización.
+\subsection{Pros}
+\begin{itemize}
+	\item Gráficos interactivos
+	\item Fácil actualización del gráfico en la web mediante \verb|@app.callback|
+	\item Integración de elementos HTML para la actualización del gráfico
+	\item Uso de la librería \textit{cufflinks} para unir generar una figura directamente de un \textit{DataFrame}
+	\item Al ser de los creadores de \textit{Plotly} y usarlo internamente da la posibilidad de usar sus componentes
+	\item Al usar \textit{Flask} como servidor tiene acceso a todas sus ventajas
+\end{itemize}
+\subsection{Contras}
+\begin{itemize}
+	\item El código HTML hay que escribirlo desde el código de Python, esto hace que se complique el mantenimiento
+	\item No se pueden reutilizar las plantillas de \textit{Flask}
+\end{itemize}
 
+\section{Plotly}
+Plataforma para representación de datos, dispone de varias librerías para diferentes lenguajes de programación. Representación online y offline.
+\subsection{Pros}
+\begin{itemize}
+	\item Gráficos interactivos
+	\item Posibilidad de uso con \textit{Flask} y \textit{Jupyter}
+\end{itemize}
+\subsection{Contras}
+\begin{itemize}
+	\item Para representar en la web hay que hacer uso de dos versiones de la librería, para Python y para JavaScript
+	\item La representación online guarda los gráficos generados en una cuenta asociada de la plataforma
+	\item La representación offline devuelve el gráfico en Python, pero para representarlo es necesario convertirlo a JSON, enviarlo a la web y que la parte de JS lo represente
+	\item La actualización es necesaria hacerla desde el cliente con JS, donde no se dispone de los datos ni de las utilidades de minería de datos
+\end{itemize}
 
+\section{Jupyter Notebook}
+Aplicación web que permite la edición y ejecución de código, Python en este caso, en el navegador, donde también se muestran el resultado de la ejecución. Dispone de \textit{widgets} para interactuar con el programa. Se instala localmente.
+\subsection{Pros}
+\begin{itemize}
+	\item Fácil subir archivos al servidor en el menú principal
+	\item Al no tener que hacer una interfaz web permite centrarse en la programación del código de minería de datos
+	\item Los gráficos generados con \textit{Plotly} se representan directamente en el notebook
+	\item Posibilidad de usar \url{https://mybinder.org/} para el despliegue
+	\item Actualización del gráfico por medio de los \textit{widgets} e \verb|interact|
+\end{itemize}
+\subsection{Contras}
+\begin{itemize}
+	\item Menos usable e intuitivo
+	\item Al estar el código expuesto el cliente podría alterarlo sin querer
+	\item \href{http://jupyter-notebook.readthedocs.io/en/latest/public_server.html}{Solo se puede un usuario en servidor público}
+\end{itemize}
+
+\section{Flask}
+Microframework para aplicaciones web en Python. Aunque por si solo \textit{Flask} no sea muy completo, dispone de una gran cantidad de extensiones oficiales y de la comunidad para suplir todas las características de un framework web completo.
+\subsection{Pros}
+\begin{itemize}
+	\item Maneja bien la subida de ficheros
+	\item Al ser web hay más control sobre lo que puede hacer el usuario y sobre lo que se le presenta, con la finalidad de hacer más usable la aplicación
+	\item Reutilización de código HTML mediante plantillas y macros
+\end{itemize}
+\subsection{Contras}
+\begin{itemize}
+	\item Mucho más trabajo al tener que diseñar y programar la interfaz web
+\end{itemize}
