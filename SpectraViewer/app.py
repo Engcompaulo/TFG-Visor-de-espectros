@@ -9,14 +9,17 @@
     :copyright: (c) 2018 by Iván Iglesias
     :license: license_name, see LICENSE for more details
 """
+import os
+
 from flask import Flask, render_template, redirect
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired, FileAllowed
 from werkzeug.utils import secure_filename
-import os
+
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
+
 import pandas as pd
 import cufflinks as cf
 
