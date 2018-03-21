@@ -1,8 +1,10 @@
 \capitulo{4}{Técnicas y herramientas}
 
-\section{Dash}
+\section{Librerías de representación}
+
+\subsection{Dash}
 Librería en Python que permite crear sitios webs completos para representación de datos. Para ello hace uso de diversas tecnologías, \textit{Flask} para el servidor web, \textit{Plotly} para la representación y \textit{React} para los componentes y actualización.
-\subsection{Pros}
+\subsubsection{Pros}
 \begin{itemize}
 	\item Gráficos interactivos
 	\item Fácil actualización del gráfico en la web mediante \verb|@app.callback|
@@ -11,20 +13,20 @@ Librería en Python que permite crear sitios webs completos para representación
 	\item Al ser de los creadores de \textit{Plotly} y usarlo internamente da la posibilidad de usar sus componentes
 	\item Al usar \textit{Flask} como servidor tiene acceso a todas sus ventajas
 \end{itemize}
-\subsection{Contras}
+\subsubsection{Contras}
 \begin{itemize}
 	\item El código HTML hay que escribirlo desde el código de Python, esto hace que se complique el mantenimiento
 	\item No se pueden reutilizar las plantillas de \textit{Flask}
 \end{itemize}
 
-\section{Plotly}
+\subsection{Plotly}
 Plataforma para representación de datos, dispone de varias librerías para diferentes lenguajes de programación. Representación online y offline.
-\subsection{Pros}
+\subsubsection{Pros}
 \begin{itemize}
 	\item Gráficos interactivos
 	\item Posibilidad de uso con \textit{Flask} y \textit{Jupyter}
 \end{itemize}
-\subsection{Contras}
+\subsubsection{Contras}
 \begin{itemize}
 	\item Para representar en la web hay que hacer uso de dos versiones de la librería, para Python y para JavaScript
 	\item La representación online guarda los gráficos generados en una cuenta asociada de la plataforma
@@ -32,9 +34,10 @@ Plataforma para representación de datos, dispone de varias librerías para dife
 	\item La actualización es necesaria hacerla desde el cliente con JS, donde no se dispone de los datos ni de las utilidades de minería de datos
 \end{itemize}
 
-\section{Jupyter Notebook}
+\section{Infraestructura}
+\subsection{Jupyter Notebook}
 Aplicación web que permite la edición y ejecución de código, Python en este caso, en el navegador, donde también se muestran el resultado de la ejecución. Dispone de \textit{widgets} para interactuar con el programa. Se instala localmente.
-\subsection{Pros}
+\subsubsection{Pros}
 \begin{itemize}
 	\item Fácil subir archivos al servidor en el menú principal
 	\item Al no tener que hacer una interfaz web permite centrarse en la programación del código de minería de datos
@@ -42,22 +45,67 @@ Aplicación web que permite la edición y ejecución de código, Python en este 
 	\item Posibilidad de usar \url{https://mybinder.org/} para el despliegue
 	\item Actualización del gráfico por medio de los \textit{widgets} e \verb|interact|
 \end{itemize}
-\subsection{Contras}
+\subsubsection{Contras}
 \begin{itemize}
 	\item Menos usable e intuitivo
 	\item Al estar el código expuesto el cliente podría alterarlo sin querer
 	\item \href{http://jupyter-notebook.readthedocs.io/en/latest/public_server.html}{Solo se puede un usuario en servidor público}
 \end{itemize}
 
-\section{Flask}
+\subsection{Flask}
 Microframework para aplicaciones web en Python. Aunque por si solo \textit{Flask} no sea muy completo, dispone de una gran cantidad de extensiones oficiales y de la comunidad para suplir todas las características de un framework web completo.
-\subsection{Pros}
+\subsubsection{Pros}
 \begin{itemize}
 	\item Maneja bien la subida de ficheros
 	\item Al ser web hay más control sobre lo que puede hacer el usuario y sobre lo que se le presenta, con la finalidad de hacer más usable la aplicación
 	\item Reutilización de código HTML mediante plantillas y macros
 \end{itemize}
-\subsection{Contras}
+\subsubsection{Contras}
 \begin{itemize}
 	\item Mucho más trabajo al tener que diseñar y programar la interfaz web
 \end{itemize}
+
+\section{Despliegue}
+\url{https://www.youtube.com/watch?v=vGphzPLemZE}\\
+\url{https://gumroad.com/l/python-deployments}\\
+\url{https://www.fullstackpython.com/platform-as-a-service.html}\\
+\url{https://www.fullstackpython.com/servers.html}
+\subsection{Heroku}
+Plataforma como servicio, la forma más fácil de despliegue. Tan escalable como fondo tenga la cartera. \url{https://www.heroku.com/}
+\subsection{Ngrok}
+Túnel seguro desde Internet hasta un servidor local en tu máquina. Dirección aleatoria cada vez que se enciende. \url{https://ngrok.com/}
+\subsection{Digital Ocean}
+Solo de pago pero de momento está disponible por el pack educacional de GitHub. Tan escalable como fondo tenga la cartera. VPS.\\ \url{https://www.digitalocean.com/}\\ \url{https://pythonprogramming.net/basic-flask-website-tutorial/}
+\subsection{Google App Engine, Google Cloud Platform}
+Despliegue de Google como plataforma como servicio o VPS. Periodo de prueba gratis y luego tan escalable como fondo tenga la cartera. Funciona con Python 2.7\\
+\url{https://cloud.google.com/appengine/docs/standard/python/getting-started/python-standard-env}\\
+\url{https://cloud.google.com/appengine/docs/standard/python/tools/uploadinganapp}\\
+\url{https://cloud.google.com/python/getting-started/hello-world}\\
+\url{https://cloud.google.com/appengine/docs/flexible/python/quickstart}
+\subsection{Open Shitf}
+Plataforma como servicio. Plan básico gratis y plan profesional de pago, tan escalable como fondo tenga la cartera.\\
+\url{https://www.openshift.com/}\\
+\url{https://blog.openshift.com/beginners-guide-to-writing-flask-apps-on-openshift/}\\
+\url{https://blog.openshift.com/how-to-install-and-configure-a-python-flask-dev-environment-deploy-to-openshift/}
+\subsection{PythonAnywhere} 
+Plataforma como servicio especializada en Python. Varios planes, a mejor plan más caro. El plan más básico es gratis.\\
+\url{https://www.pythonanywhere.com/}
+\url{https://www.youtube.com/watch?v=M-QRwEEZ9-8}
+\subsection{AWS Elastic Beanstalk,  AWS CodeStar}
+Solución en la nube de Amazon. VPS. Tan escalable como fondo tenga la cartera.\\
+\url{https://aws.amazon.com/es/elasticbeanstalk/}
+\url{https://aws.amazon.com/es/codestar/}
+\subsection{AWS Lambda, Zappa}
+Zappa es un capa por encima de AWS Lambda para desplegar en modo \textit{serverless}. AWS Lambda se ocupa del escalado y Zappa del despliegue.\\
+\url{https://github.com/Miserlou/Zappa}
+\subsection{Docker}
+Despliegue en contenedores.\\
+\url{https://www.docker.com/}
+\subsection{Azure}
+Solución en la nube de Microsoft. VPS. Tan escalable como fondo tenga la cartera.\\
+\url{https://azure.microsoft.com/es-es/}\\
+\url{https://docs.microsoft.com/en-us/azure/app-service/app-service-web-get-started-python}
+\subsection{Nanobox}
+Solución interesante, combina los contenedores de Docker con despliegue en la nube y lo automatiza. De momento compatibilidad con Digital Ocean, Amazon y Linode, Google, Joyent y Azure en camino. Plan básico gratis, el resto de precios son flexibles. También en local.\\
+\url{https://nanobox.io/}\\
+\url{https://github.com/nanobox-io/nanobox}
