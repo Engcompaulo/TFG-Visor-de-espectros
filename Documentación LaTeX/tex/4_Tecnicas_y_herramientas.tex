@@ -71,41 +71,62 @@ Microframework para aplicaciones web en Python. Aunque por si solo \textit{Flask
 \url{https://www.fullstackpython.com/platform-as-a-service.html}\\
 \url{https://www.fullstackpython.com/servers.html}
 \subsection{Heroku}
-Plataforma como servicio, la forma más fácil de despliegue. Tan escalable como fondo tenga la cartera. \url{https://www.heroku.com/}
+Plataforma como servicio, la forma más fácil de despliegue. Tan escalable como fondo tenga la cartera. \url{https://www.heroku.com/}\\
+
+El almacenamiento no es permanente, hay que usar servicios de terceros y conectarlos mediante plugin.
 \subsection{Ngrok}
-Túnel seguro desde Internet hasta un servidor local en tu máquina. Dirección aleatoria cada vez que se enciende. \url{https://ngrok.com/}
+Túnel seguro desde Internet hasta un servidor local en tu máquina. Dirección aleatoria cada vez que se enciende. \url{https://ngrok.com/}\\
+
+El almacenamiento es permanente porque es el almacenamiento de la máquina.
 \subsection{Digital Ocean}
-Solo de pago pero de momento está disponible por el pack educacional de GitHub. Tan escalable como fondo tenga la cartera. VPS.\\ \url{https://www.digitalocean.com/}\\ \url{https://pythonprogramming.net/basic-flask-website-tutorial/}
+Solo de pago pero de momento está disponible por el pack educacional de GitHub. Tan escalable como fondo tenga la cartera. VPS.\\ \url{https://www.digitalocean.com/}\\ \url{https://pythonprogramming.net/basic-flask-website-tutorial/}\\
+
+Dispone del almacenamiento que ofrece la máquina virtual, es permanente. En caso de que ese espacio sea insuficiente se puede agregar más pagando.
 \subsection{Google App Engine, Google Cloud Platform}
 Despliegue de Google como plataforma como servicio o VPS. Periodo de prueba gratis y luego tan escalable como fondo tenga la cartera. Funciona con Python 2.7\\
 \url{https://cloud.google.com/appengine/docs/standard/python/getting-started/python-standard-env}\\
 \url{https://cloud.google.com/appengine/docs/standard/python/tools/uploadinganapp}\\
 \url{https://cloud.google.com/python/getting-started/hello-world}\\
-\url{https://cloud.google.com/appengine/docs/flexible/python/quickstart}
+\url{https://cloud.google.com/appengine/docs/flexible/python/quickstart}\\
+
+Ofrece formas de almacenamiento de Google como Cloud Storage para ficheros, caso que nos interesa, hay que pagar por ellas.
 \subsection{Open Shitf}
 Plataforma como servicio. Plan básico gratis y plan profesional de pago, tan escalable como fondo tenga la cartera.\\
 \url{https://www.openshift.com/}\\
 \url{https://blog.openshift.com/beginners-guide-to-writing-flask-apps-on-openshift/}\\
-\url{https://blog.openshift.com/how-to-install-and-configure-a-python-flask-dev-environment-deploy-to-openshift/}
+\url{https://blog.openshift.com/how-to-install-and-configure-a-python-flask-dev-environment-deploy-to-openshift/}\\
+
+No ofrece almacenamiento por defecto, lo ofrece por medio de lo que llaman ``PersistentVolume'', ofrecen una API para comunicarse con ello.
 \subsection{PythonAnywhere} 
 Plataforma como servicio especializada en Python. Varios planes, a mejor plan más caro. El plan más básico es gratis.\\
-\url{https://www.pythonanywhere.com/}
-\url{https://www.youtube.com/watch?v=M-QRwEEZ9-8}
+\url{https://www.pythonanywhere.com/}\\
+\url{https://www.youtube.com/watch?v=M-QRwEEZ9-8}\\
+Ofrecen almacenamiento de serie pero muy limitado y de pago.
 \subsection{AWS Elastic Beanstalk,  AWS CodeStar}
 Solución en la nube de Amazon. VPS. Tan escalable como fondo tenga la cartera.\\
-\url{https://aws.amazon.com/es/elasticbeanstalk/}
-\url{https://aws.amazon.com/es/codestar/}
+\url{https://aws.amazon.com/es/elasticbeanstalk/}\\
+\url{https://aws.amazon.com/es/codestar/}\\
+
+Al igual que en el caso de Google, ofrece almacenamiento persistente con sus servicios, Amazon S3, los cuales hay que pagar.
 \subsection{AWS Lambda, Zappa}
 Zappa es un capa por encima de AWS Lambda para desplegar en modo \textit{serverless}. AWS Lambda se ocupa del escalado y Zappa del despliegue.\\
-\url{https://github.com/Miserlou/Zappa}
+\url{https://github.com/Miserlou/Zappa}\\
+
+Solo almacenamiento temporal.
 \subsection{Docker}
 Despliegue en contenedores.\\
-\url{https://www.docker.com/}
+\url{https://www.docker.com/}\\
+
+De serie no tiene almacenamiento persistente pero es capaz de ofrecerlo mediante ``storage drivers''. Requiere bastante configuración.
 \subsection{Azure}
 Solución en la nube de Microsoft. VPS. Tan escalable como fondo tenga la cartera.\\
 \url{https://azure.microsoft.com/es-es/}\\
-\url{https://docs.microsoft.com/en-us/azure/app-service/app-service-web-get-started-python}
+\url{https://docs.microsoft.com/en-us/azure/app-service/app-service-web-get-started-python}\\
+
+Sí ofrece almacenamiento persistente.
 \subsection{Nanobox}
 Solución interesante, combina los contenedores de Docker con despliegue en la nube y lo automatiza. De momento compatibilidad con Digital Ocean, Amazon y Linode, Google, Joyent y Azure en camino. Plan básico gratis, el resto de precios son flexibles. También en local.\\
 \url{https://nanobox.io/}\\
-\url{https://github.com/nanobox-io/nanobox}
+\url{https://github.com/nanobox-io/nanobox}\\
+
+Ofrece almacenamiento persistente, hay que configurar las rutas que van a ser persistentes en el fichero de configuración. Cada despliegue el almacenamiento que se haya usado so borra. Depende del almacenamiento que esté disponible en el servicio escogido para almacenar.
