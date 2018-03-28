@@ -1,0 +1,9 @@
+.git/
+.idea/
+.gitignore
+Procfile
+README.md
+Otros/
+Prototipos/
+Documentación LaTeX/
+instace/

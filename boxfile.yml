@@ -1,0 +1,18 @@
+run.config:
+  engine: python
+  engine.config:
+    runtime: python-3.6
+  extra_packages:
+    - nginx
+
+web.main:
+  start:
+    nginx: nginx -c /app/etc/nginx.conf
+    flask: gunicorn -c /app/etc/gunicorn.py start:server
+  network_dirs:
+    data.uploads:
+      - instance
+
+data.uploads:
+  image: nanobox/unfs:0.9
+
