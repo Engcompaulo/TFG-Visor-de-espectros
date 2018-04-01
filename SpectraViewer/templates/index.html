@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Página principal{% endblock %}
+
+{% block page_content %}
+    <div class="page-header">
+        <h2>Bienvenido a este Visor de espectros en línea</h2>
+    </div>
+    <div>
+        Pulsa <a href="{{ url_for('upload') }}">aquí</a> para acceder la subida
+        de un espectro.
+    </div>
+{% endblock %}

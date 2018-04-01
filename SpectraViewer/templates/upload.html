@@ -1,15 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Prototipo de aplicación con Dash</title>
-</head>
-<body>
-<h1>Este es el prototipo para el TFG - Visor de espectros usando las tecnologías Flask y Dash</h1>
-<form method="POST" enctype="multipart/form-data">
-    {{ form.hidden_tag() }}
-    {{ form.file }}
-    <input type="submit" value="Subir">
-</form>
-<p>Al pulsar en "Subir" se representa el gŕafico</a></p>
-</body>
-</html>
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block title %}Subir espectro{% endblock %}
+
+{% block page_content %}
+    <div class="page-header">
+        <h2>En esta página puede subir un espectro para su representación</h2>
+    </div>
+    <div>
+        {{ wtf.quick_form(form) }}
+    </div>
+{% endblock %}
