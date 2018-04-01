@@ -10,6 +10,7 @@
 import os
 
 from flask import render_template, redirect, url_for
+from flask_dance.contrib.google import google
 from werkzeug.utils import secure_filename
 
 import dash_core_components as dcc
@@ -31,7 +32,12 @@ def index():
 
     Welcome or index page of this web app.
     """
-    return render_template('index.html')
+    email = None
+    if google.authorized:
+        resp = google.get("/oauth2/v2/userinfo")
+        assert resp.ok, resp.text
+        email = resp.json()["email"]
+    return render_template('index.html', email=email)
 
 
 @server.route('/upload', methods=['GET', 'POST'])
