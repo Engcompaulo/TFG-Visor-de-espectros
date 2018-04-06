@@ -1,7 +1,10 @@
+asn1crypto==0.24.0
 certifi==2018.1.18
+cffi==1.11.5
 chardet==3.0.4
 click==6.7
 colorlover==0.2.1
+cryptography==2.2.2
 cufflinks==0.12.1
 dash==0.21.0
 dash-core-components==0.21.0
@@ -37,7 +40,9 @@ pickleshare==0.7.4
 plotly==2.5.0
 prompt-toolkit==1.0.15
 ptyprocess==0.5.2
+pycparser==2.18
 Pygments==2.2.0
+pyOpenSSL==17.5.0
 python-dateutil==2.7.0
 pytz==2018.3
 requests==2.18.4

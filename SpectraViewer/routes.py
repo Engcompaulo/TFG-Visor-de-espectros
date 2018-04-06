@@ -9,12 +9,13 @@
 """
 import os
 
-from flask import render_template, redirect, url_for
-from flask_dance.contrib.google import google
+from flask import render_template, redirect, url_for, request, session
 from werkzeug.utils import secure_filename
 
 import dash_core_components as dcc
 import dash_html_components as html
+
+from flask_dance.contrib.google import google
 
 # Importing cufflinks is required to able to get the plotly figure from
 # a DataFrame, the import binds the DataFrame with the iplot method.
@@ -23,6 +24,23 @@ import cufflinks as cf
 
 from SpectraViewer.app import server, app
 from SpectraViewer.forms import CsvForm
+from SpectraViewer.decorators import google_required
+
+
+@server.before_request
+def before_request():
+    """Force the use of https.
+
+    Before every request change the http url to https. If already in
+    https this does nothing, just check.
+    Returns
+    -------
+        Redirect to the secure url.
+    """
+    if request.url.startswith('http://'):
+        url = request.url.replace('http://', 'https://', 1)
+        code = 301
+        return redirect(url, code=code)
 
 
 @server.route('/')
@@ -34,13 +52,12 @@ def index():
     """
     email = None
     if google.authorized:
-        resp = google.get("/oauth2/v2/userinfo")
-        assert resp.ok, resp.text
-        email = resp.json()["email"]
+        email = session['email']
     return render_template('index.html', email=email)
 
 
 @server.route('/upload', methods=['GET', 'POST'])
+@google_required
 def upload():
     """Render for the upload view.
 
@@ -53,28 +70,39 @@ def upload():
         f = form.file.data
         filename = secure_filename(f.filename)
         directory = os.path.join(server.instance_path,
-                                 server.config['UPLOAD_FOLDER'])
+                                 server.config['UPLOAD_FOLDER'],
+                                 session['email'])
         if not os.path.exists(directory):
             os.makedirs(directory)
         f.save(os.path.join(directory, filename))
-
         data = pd.read_csv(f'{directory}/{filename}', sep=';', header=None)
         data.columns = ['Raman shift', 'Intensity']
         figure = data.iplot(x='Raman shift', y='Intensity', asFigure=True,
                             xTitle='Raman shift', yTitle='Intensity'
                             )
+        add_external_resources()
         app.layout = get_dash_layout(figure)
         return redirect(url_for('dash'))
-    return render_template('upload.html', form=form)
+    return render_template('upload.html', form=form, email=session['email'])
 
 
 @server.route('/dash')
+@google_required
 def dash():
     """Redirect to the dash application.
 
     This route allows the use of url_for() for the dash application.
     """
     return redirect('/plot')
+
+
+def add_external_resources():
+    app.css.append_css({
+        'external_url': 'http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'})
+
+    app.scripts.append_script({'external_url': [
+        'http://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js',
+        'http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js']})
 
 
 def get_dash_layout(figure):
