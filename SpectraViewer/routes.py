@@ -99,11 +99,11 @@ def dash():
 
 def add_external_resources():
     app.css.append_css({
-        'external_url': 'http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'})
+        'external_url': '//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'})
 
     app.scripts.append_script({'external_url': [
-        'http://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js',
-        'http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js']})
+        '//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js',
+        '//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js']})
 
 
 def get_dash_layout(figure):
