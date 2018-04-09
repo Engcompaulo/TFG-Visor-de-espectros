@@ -1,6 +1,6 @@
 """
-    SpectraViewer.decorators
-    ~~~~~~~~~~~~~~~~~~~~~~~~
+    SpectraViewer.utils.decorators
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     This module contains function decorators useful for the application.
 

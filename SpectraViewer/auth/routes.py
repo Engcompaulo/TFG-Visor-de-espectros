@@ -1,6 +1,6 @@
 from flask import session, redirect, url_for, flash
 from flask_dance.contrib.google import google
-from SpectraViewer.decorators import google_required
+from SpectraViewer.utils.decorators import google_required
 from . import google_bp
 
 
@@ -21,4 +21,4 @@ def after_in():
     assert resp.ok, resp.text
     email = resp.json()['email']
     session['email'] = email
-    return redirect(url_for('index', email=session['email']))
+    return redirect(url_for('index'))

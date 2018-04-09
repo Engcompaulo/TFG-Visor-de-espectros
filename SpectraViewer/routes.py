@@ -24,7 +24,7 @@ import cufflinks as cf
 
 from SpectraViewer.app import server, app
 from SpectraViewer.forms import CsvForm
-from SpectraViewer.decorators import google_required
+from SpectraViewer.utils.decorators import google_required
 
 
 @server.before_request
@@ -66,12 +66,13 @@ def upload():
     the Dash layout gets defined. The redirect to the Dash route.
     """
     form = CsvForm()
+    email = session['email']
     if form.validate_on_submit():
         f = form.file.data
         filename = secure_filename(f.filename)
         directory = os.path.join(server.instance_path,
                                  server.config['UPLOAD_FOLDER'],
-                                 session['email'])
+                                 email)
         if not os.path.exists(directory):
             os.makedirs(directory)
         f.save(os.path.join(directory, filename))
@@ -83,7 +84,7 @@ def upload():
         add_external_resources()
         app.layout = get_dash_layout(figure)
         return redirect(url_for('dash'))
-    return render_template('upload.html', form=form, email=session['email'])
+    return render_template('upload.html', form=form, email=email)
 
 
 @server.route('/dash')
