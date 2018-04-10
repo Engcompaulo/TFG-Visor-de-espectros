@@ -1,6 +1,6 @@
 """
-    SpectraViewer.config
-    ~~~~~~~~~~~~~~~~~~~~
+    config
+    ~~~~~~
 
     This file contains classes to be used as the configuration for the
     app.

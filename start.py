@@ -7,7 +7,9 @@
     :copyright: (c) 2018 by Iván Iglesias
     :license: license_name, see LICENSE for more details
 """
-from SpectraViewer.app import server
+from SpectraViewer import create_app
+
+app = create_app()
 
 if __name__ == '__main__':
-    server.run(debug=True, ssl_context='adhoc')
+    app.run(debug=True, ssl_context='adhoc')

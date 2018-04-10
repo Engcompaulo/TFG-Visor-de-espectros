@@ -2,7 +2,8 @@
     SpectraViewer.auth
     ~~~~~~~~~~~~~~~~~~
 
-    This module
+    This module provides the application of all it needs to use OAuth2
+    with Google.
 
     :copyright: (c) 2018 by Iván Iglesias
     :license: license_name, see LICENSE for more details

@@ -17,7 +17,7 @@ def google_required(controller):
     def decorated_function(*args, **kwargs):
         if not google.authorized:
             flash('Necesita iniciar sesión para acceder a la página')
-            return redirect(url_for('index'))
+            return redirect(url_for('main.index'))
         else:
             return controller(*args, **kwargs)
     return decorated_function
