@@ -8,7 +8,7 @@ run.config:
 web.main:
   start:
     nginx: nginx -c /app/etc/nginx.conf
-    flask: gunicorn -c /app/etc/gunicorn.py start:server
+    flask: gunicorn -c /app/etc/gunicorn.py start:app
   network_dirs:
     data.uploads:
       - instance
