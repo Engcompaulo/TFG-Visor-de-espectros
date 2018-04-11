@@ -27,7 +27,7 @@ def logout():
     keys = list(session)
     for key in keys:
         del(session[key])
-    flash('Has cerrado la sesión')
+    flash('Se ha cerrado correctamente la sesión', 'success')
     return redirect(url_for('main.index'))
 
 
