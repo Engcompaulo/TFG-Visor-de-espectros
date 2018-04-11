@@ -63,7 +63,6 @@ def index():
 
 
 @main.route('/upload', methods=['GET', 'POST'])
-@google_required
 def upload():
     """Render for the upload view.
 
@@ -83,7 +82,7 @@ def upload():
         filename = secure_filename(f.filename)
         directory = os.path.join(current_app.instance_path,
                                  current_app.config['UPLOAD_FOLDER'],
-                                 email)
+                                 'temp')
         if not os.path.exists(directory):
             os.makedirs(directory)
         f.save(os.path.join(directory, filename))
@@ -95,6 +94,36 @@ def upload():
         set_dash_layout(figure, 'Visualización del espectro')
         return redirect(url_for('main.dash'))
     return render_template('upload.html', form=form, email=email)
+
+
+@main.route('/datasets')
+@google_required
+def datasets():
+    return 'Not yet implemented'
+
+
+@main.route('/datasets/upload')
+@google_required
+def upload_dataset():
+    return 'Not yet implemented'
+
+
+@main.route('/datasets/edit/<dataset>')
+@google_required
+def edit_dataset(dataset):
+    return 'Not yet implemented'
+
+
+@main.route('/datasets/delete/<dataset>')
+@google_required
+def delete_dataset(dataset):
+    return 'Not yet implemented'
+
+
+@main.route('/datasets/plot/<dataset>')
+@google_required
+def plot_dataset(dataset):
+    return 'Not yet implemented'
 
 
 @main.route('/dash')
