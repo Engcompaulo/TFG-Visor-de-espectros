@@ -4,10 +4,15 @@
 
 {% block page_content %}
     <div class="page-header">
-        <h2>Bienvenido a este Visor de espectros en línea</h2>
+        {% if not session['name'] %}
+            <h2>Bienvenido desconocido.</h2>
+        {% else %}
+            <h2>Bienvenido {{ session['name']|safe }}.</h2>
+        {% endif %}
     </div>
-    <div>
-        Pulsa <a href="{{ url_for('main.upload') }}">aquí</a> para acceder la subida
-        de un espectro.
-    </div>
+    {% if not session['name'] %}
+        <p>Por favor, inicie sesión para tener disponibles todas las funcionalidades.</p>
+    {% else %}
+        <p>Ya puede acceder a todas las funcionalidades.</p>
+    {% endif %}
 {% endblock %}

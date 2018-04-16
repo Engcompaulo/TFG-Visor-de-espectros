@@ -22,13 +22,13 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    {% if not email %}
+                    {% if not session['email'] %}
                         <li><a href="{{ url_for('google.login') }}">Iniciar
                             sesión con Google</a></li>
                     {% else %}
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle"
-                               data-toggle="dropdown">{{ email }}<b class="caret"></b>
+                               data-toggle="dropdown">{{ session['email']|safe }}<b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
@@ -49,7 +49,7 @@
         {% for category, message in get_flashed_messages(with_categories=true) %}
             <div class="alert {{ 'alert-'+category }}">
                 <button type="button" class="close" data-dismiss="alert">
-                    &times;
+                    <span class="glyphicon glyphicon-remove-circle"></span>
                 </button>
                 {{ message }}
             </div>

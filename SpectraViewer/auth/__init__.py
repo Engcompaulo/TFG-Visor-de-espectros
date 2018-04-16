@@ -10,7 +10,8 @@
 """
 from flask_dance.contrib.google import make_google_blueprint
 
-google_bp = make_google_blueprint(scope=["email"], reprompt_consent=True,
+google_bp = make_google_blueprint(scope=['email', 'profile'],
+                                  reprompt_consent=True,
                                   redirect_to='google.after_in')
 
 from . import routes

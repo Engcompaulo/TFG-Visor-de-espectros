@@ -7,8 +7,6 @@
     :copyright: (c) 2018 by Iván Iglesias
     :license: license_name, see LICENSE for more details
 """
-import os
-
 from flask import render_template, redirect, url_for, request, session, \
     current_app
 from werkzeug.utils import secure_filename
@@ -24,6 +22,8 @@ from SpectraViewer.main import main
 from SpectraViewer.main.forms import CsvForm
 from SpectraViewer.representation import set_dash_layout
 from SpectraViewer.utils.decorators import google_required
+from SpectraViewer.utils.directories import get_temp_directory, \
+    create_if_not_exists, get_file_path, get_user_directory, get_user_datasets
 
 
 @main.before_request
@@ -56,10 +56,7 @@ def index():
     Rendered index view.
 
     """
-    email = None
-    if google.authorized:
-        email = session['email']
-    return render_template('index.html', email=email)
+    return render_template('index.html')
 
 
 @main.route('/upload', methods=['GET', 'POST'])
@@ -76,30 +73,29 @@ def upload():
 
     """
     form = CsvForm()
-    email = session['email']
     if form.validate_on_submit():
         f = form.file.data
         filename = secure_filename(f.filename)
-        directory = os.path.join(current_app.instance_path,
-                                 current_app.config['UPLOAD_FOLDER'],
-                                 'temp')
-        if not os.path.exists(directory):
-            os.makedirs(directory)
-        f.save(os.path.join(directory, filename))
-        data = pd.read_csv(f'{directory}/{filename}', sep=';', header=None)
+        directory = get_temp_directory()
+        create_if_not_exists(directory)
+        file_path = get_file_path(directory, filename)
+        f.save(file_path)
+        data = pd.read_csv(file_path, sep=';', header=None)
         data.columns = ['Raman shift', 'Intensity']
         figure = data.iplot(x='Raman shift', y='Intensity', asFigure=True,
-                            xTitle='Raman shift', yTitle='Intensity'
-                            )
+                            xTitle='Raman shift', yTitle='Intensity')
         set_dash_layout(figure, 'Visualización del espectro')
         return redirect(url_for('main.dash'))
-    return render_template('upload.html', form=form, email=email)
+    return render_template('upload.html', form=form)
 
 
 @main.route('/datasets')
 @google_required
 def datasets():
-    return 'Not yet implemented'
+    user_id = session['user_id']
+    user_directory = get_user_directory(user_id)
+    user_datasets = get_user_datasets(user_directory)
+    return render_template('datasets.html', datasets=user_datasets)
 
 
 @main.route('/datasets/upload')
@@ -127,7 +123,6 @@ def plot_dataset(dataset):
 
 
 @main.route('/dash')
-@google_required
 def dash():
     """Redirect to the Dash application.
 

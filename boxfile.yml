@@ -16,3 +16,9 @@ web.main:
 data.uploads:
   image: nanobox/unfs:0.9
 
+worker.jobs:
+  start: sleep 365d
+  cron:
+    - id: clear-temp
+      schedule: '0 0 * * *'
+      command: 'rm -rf instance/uploads/temp/'

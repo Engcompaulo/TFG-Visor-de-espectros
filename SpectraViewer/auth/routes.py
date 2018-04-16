@@ -45,5 +45,9 @@ def after_in():
     resp = google.get('/oauth2/v2/userinfo')
     assert resp.ok, resp.text
     email = resp.json()['email']
+    user_id = resp.json()['id']
+    name = resp.json()['name']
     session['email'] = email
+    session['user_id'] = user_id
+    session['name'] = name
     return redirect(url_for('main.index'))

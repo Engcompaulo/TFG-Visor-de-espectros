@@ -28,5 +28,5 @@ class CsvForm(FlaskForm):
         FileRequired('Es obligatorio seleccionar un fichero'),
         FileAllowed(['csv'], 'Solo ficheros .csv')
     ]
-    file = FileField(label='Fichero csv', validators=_validators)
+    file = FileField(label='Seleccione un espectro', validators=_validators)
     submit = SubmitField('Subir')
