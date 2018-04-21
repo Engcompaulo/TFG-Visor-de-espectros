@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Gestión de datasets{% endblock %}
+
+{% block page_content %}
+    <div class="page-header">
+        <h2>Mis ficheros guardados</h2>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <p>Para subir un dataset pulse <a
+                    href="{{ url_for('main.upload_dataset') }}">aquí</a></p>
+            {% if datasets %}
+                <p>A continuación se muestran los datasets que has subido.</p>
+                <ul class="list-group"></ul>
+                {% for dataset in datasets %}
+                    <li class="list-group-item">
+                        <h4 class="list-group-item-heading">{{ dataset }}</h4>
+                        <div class="btn-group" role="group">
+                            <a href="{{ url_for('main.plot_dataset',dataset=dataset) }}"
+                               class="btn btn-primary">Representar</a>
+                            <a href="{{ url_for('main.edit_dataset',dataset=dataset) }}"
+                               class="btn btn-default">Editar</a>
+                            <a href="{{ url_for('main.delete_dataset',dataset=dataset) }}"
+                               class="btn btn-danger">Eliminar</a>
+                        </div>
+                    </li>
+                {% endfor %}
+            {% else %}
+                <p>Todavía no has subido ningún dataset.</p>
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            <p>Para subir un espectro pulse <a
+                    href="{{ url_for('main.upload') }}">aquí</a></p>
+            {% if spectra %}
+                <p>A continuación se muestran los espectros que has subido.</p>
+                <div class="list-group"></div>
+                {% for spectrum in spectra %}
+                    <li class="list-group-item">
+{#                        <h4 class="list-group-item-heading">{{ spectrum }}</h4>#}
+{#                        <div class="btn-group" role="group">#}
+{#                            <a href="{{ url_for('main.plot_spectrum',spectrum=spectrum) }}"#}
+{#                               class="btn btn-primary">Representar</a>#}
+{#                            <a href="{{ url_for('main.edit_spectrum',spectrum=spectrum) }}"#}
+{#                               class="btn btn-default">Editar</a>#}
+{#                            <a href="{{ url_for('main.delete_spectrum',spectrum=spectrum) }}"#}
+{#                               class="btn btn-danger">Eliminar</a>#}
+{#                        </div>#}
+{#                    </li>#}
+                    <a class="list-group-item">{{ spectrum }}</a>
+                {% endfor %}
+            {% else %}
+                <p>Todavía no has subido ningún espectro.</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

@@ -11,18 +11,18 @@
         comas (.csv).</p>
     <p>Los ficheros que subas en esta página no se almacenarán, para almacenar
         permanentemente un espectro pulse <a
-                href="{{ url_for('main.datasets') }}">aquí</a> y suba el
+                href="{{ url_for('main.manage') }}">aquí</a> y suba el
         espectro.</p>
     <div class="row">
         <div class="col-md-6">
-            <u><h5>Formato del fichero</h5></u>
+            {{ wtf.quick_form(form) }}
+        </div>
+        <div class="col-md-6">
+            <h5>Formato del fichero:</h5>
             <ul>
                 <li>Los valores deben estar separados con punto y coma (;)</li>
                 <li>El fichero debe tener dos columnas</li>
             </ul>
-        </div>
-        <div class="col-md-6">
-            {{ wtf.quick_form(form) }}
         </div>
     </div>
 {% endblock %}

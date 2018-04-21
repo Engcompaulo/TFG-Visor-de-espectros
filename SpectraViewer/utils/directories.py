@@ -9,7 +9,7 @@
     :license: license_name, see LICENSE for more details
 """
 import os
-from flask import current_app
+from flask import current_app, session
 
 
 def get_temp_directory():
@@ -26,7 +26,7 @@ def get_temp_directory():
                         current_app.config['UPLOAD_FOLDER'], 'temp')
 
 
-def create_if_not_exists(directory):
+def _create_if_not_exists(directory):
     """
     Create the given directory and subdirectories in case none of them
     exist.
@@ -41,34 +41,29 @@ def create_if_not_exists(directory):
         os.makedirs(directory)
 
 
-def get_file_path(directory, filename):
+def get_path(directory, name):
     """
-    Get the full path of a file contained inside a directory.
+    Get the full path of a file or folder contained inside a directory.
 
     Parameters
     ----------
     directory : str
         Directory.
-    filename : str
-        Filename.
+    name : str
+        Name of the folder of file.
 
     Returns
     -------
     str
-        Path of the file in the directory.
+        Path inside the directory.
 
     """
-    return os.path.join(directory, filename)
+    return os.path.join(directory, name)
 
 
-def get_user_directory(user_id):
+def get_user_directory():
     """
-    Get the directory which belongs the user with the given id.
-
-    Parameters
-    ----------
-    user_id : int
-        Id of the user.
+    Get the directory which belongs the current user,
 
     Returns
     -------
@@ -76,18 +71,16 @@ def get_user_directory(user_id):
         Path of the directory.
 
     """
-    return os.path.join(current_app.instance_path,
-                        current_app.config['UPLOAD_FOLDER'], str(user_id))
+    user_directory = os.path.join(current_app.instance_path,
+                                  current_app.config['UPLOAD_FOLDER'],
+                                  str(session['user_id']))
+    _create_if_not_exists(user_directory)
+    return user_directory
 
 
-def get_user_datasets(user_directory):
+def get_user_datasets():
     """
-    Get a list containing the name of the datasets in the given directory.
-
-    Parameters
-    ----------
-    user_directory : str
-        Directory of a user.
+    Get a list containing the name of the datasets for the current user.
 
     Returns
     -------
@@ -95,6 +88,7 @@ def get_user_datasets(user_directory):
         List of strings.
 
     """
+    user_directory = get_user_directory()
     user_contents = list(map(lambda content:
                              os.path.join(user_directory, content),
                              os.listdir(user_directory)))
@@ -102,3 +96,40 @@ def get_user_datasets(user_directory):
                                 os.path.isdir(content),
                                 user_contents))
     return list(map(lambda dataset: os.path.split(dataset)[-1], user_datasets))
+
+
+def get_dataset_data(dataset):
+    user_directory = get_user_directory()
+    dataset_directory = os.path.join(user_directory, dataset)
+    classes = list(map(lambda content: os.path.join(dataset_directory, content),
+                       os.listdir(dataset_directory)))
+    dataset_data = {}
+    for class_path in classes:
+        class_name = os.path.split(class_path)[-1]
+        class_data = list(map(lambda spectrum:
+                              os.path.join(class_path, spectrum),
+                              os.listdir(class_path)))
+        dataset_data[class_name] = list(map(lambda spectrum:
+                                            os.path.split(spectrum)[-1],
+                                            class_data))
+    return dataset_data
+
+
+def get_user_spectra():
+    """
+    Get a list containing the name of the spectra in the given directory.
+
+    Returns
+    -------
+    list
+        List of strings.
+
+    """
+    user_directory = get_user_directory()
+    user_contents = list(map(lambda content:
+                             os.path.join(user_directory, content),
+                             os.listdir(user_directory)))
+    user_spectra = list(filter(lambda content:
+                               os.path.isfile(content),
+                               user_contents))
+    return list(map(lambda dataset: os.path.split(dataset)[-1], user_spectra))

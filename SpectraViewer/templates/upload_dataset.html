@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block title %}Subir dataset{% endblock %}
+
+{% block page_content %}
+    <div class="page-header">
+        <h2>Subida de dataset</h2>
+    </div>
+    <p>En esta página puede subir un dataset comprimido como un fichero zip</p>
+    <p>El fichero tiene que contener varias carpetas, cada una representando una
+        clase. Dentro cada carpeta deben estar los ejemplos de espectros de esa
+        clase.</p>
+    <div class="row">
+        <div class="col-md-4">
+            {{ wtf.quick_form(form) }}
+        </div>
+    </div>
+{% endblock %}

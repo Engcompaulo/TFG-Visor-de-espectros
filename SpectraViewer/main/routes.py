@@ -7,11 +7,9 @@
     :copyright: (c) 2018 by Iván Iglesias
     :license: license_name, see LICENSE for more details
 """
-from flask import render_template, redirect, url_for, request, session, \
-    current_app
+from flask import render_template, redirect, url_for, request, session, flash
 from werkzeug.utils import secure_filename
-
-from flask_dance.contrib.google import google
+from zipfile import ZipFile
 
 # Importing cufflinks is required to able to get the plotly figure from
 # a DataFrame, the import binds the DataFrame with the iplot method.
@@ -19,11 +17,11 @@ import pandas as pd
 import cufflinks
 
 from SpectraViewer.main import main
-from SpectraViewer.main.forms import CsvForm
-from SpectraViewer.representation import set_dash_layout
+from SpectraViewer.main.forms import SpectrumForm, DatasetForm
+from SpectraViewer.visualization.app import set_dash_layout, get_dash_app
 from SpectraViewer.utils.decorators import google_required
-from SpectraViewer.utils.directories import get_temp_directory, \
-    create_if_not_exists, get_file_path, get_user_directory, get_user_datasets
+from SpectraViewer.utils.directories import get_temp_directory, get_path, \
+    get_user_datasets, get_user_spectra, get_user_directory
 
 
 @main.before_request
@@ -72,13 +70,12 @@ def upload():
     Rendered upload view if GET, redirect to Dash if POST
 
     """
-    form = CsvForm()
+    form = SpectrumForm()
     if form.validate_on_submit():
         f = form.file.data
         filename = secure_filename(f.filename)
         directory = get_temp_directory()
-        create_if_not_exists(directory)
-        file_path = get_file_path(directory, filename)
+        file_path = get_path(directory, filename)
         f.save(file_path)
         data = pd.read_csv(file_path, sep=';', header=None)
         data.columns = ['Raman shift', 'Intensity']
@@ -89,19 +86,54 @@ def upload():
     return render_template('upload.html', form=form)
 
 
-@main.route('/datasets')
+@main.route('/manage')
 @google_required
-def datasets():
-    user_id = session['user_id']
-    user_directory = get_user_directory(user_id)
-    user_datasets = get_user_datasets(user_directory)
-    return render_template('datasets.html', datasets=user_datasets)
+def manage():
+    """Render for the manage view.
+
+    This view contains two lists, one with the uploadet datasets and
+    the other with the uploaded spectra. In addition, provides the
+    links for the upload dataset veiw and upload spectrum view.
+
+    Returns
+    -------
+    Rendered manage view.
+
+    """
+    user_datasets = get_user_datasets()
+    user_spectra = get_user_spectra()
+    return render_template('manage.html', datasets=user_datasets,
+                           spectra=user_spectra)
 
 
-@main.route('/datasets/upload')
+@main.route('/datasets/upload', methods=['GET', 'POST'])
 @google_required
 def upload_dataset():
-    return 'Not yet implemented'
+    """Render the upload dataset view.
+
+    This page contains a form for uploading datasets, contains
+    instructions on how the zip should be composed. If POST, uploads the
+    file and extracts it to the user directory with the name provided in
+    the form.
+
+    Returns
+    -------
+    Rendered upload dataset view if GET, redirect to manage view if POST.
+
+    """
+    form = DatasetForm()
+    if form.validate_on_submit():
+        f = form.file.data
+        filename = secure_filename(f.filename)
+        temp_directory = get_temp_directory()
+        user_directory = get_user_directory()
+        file_path = get_path(temp_directory, filename)
+        f.save(file_path)
+        with ZipFile(file_path, 'r') as zip_file:
+            zip_file.extractall(get_path(user_directory, form.name.data))
+        flash('Se ha subido el dataset correctamente', 'success')
+        return redirect(url_for('main.manage'))
+    return render_template('upload_dataset.html', form=form)
 
 
 @main.route('/datasets/edit/<dataset>')
@@ -113,13 +145,17 @@ def edit_dataset(dataset):
 @main.route('/datasets/delete/<dataset>')
 @google_required
 def delete_dataset(dataset):
-    return 'Not yet implemented'
+    flash('Se ha borrado correctamente el dataset')
+    return redirect(url_for('main.manage'))
 
 
 @main.route('/datasets/plot/<dataset>')
 @google_required
 def plot_dataset(dataset):
-    return 'Not yet implemented'
+    dash_app = get_dash_app()
+    dash_app.title = 'Visualización del dataset'
+    session['current_dataset'] = dataset
+    return redirect('/plot/dataset')
 
 
 @main.route('/dash')

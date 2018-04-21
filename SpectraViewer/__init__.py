@@ -2,7 +2,7 @@
     SpectraViewer
     ~~~~~~~~~~~~~
 
-    Web application to help people deal with representation and
+    Web application to help people deal with visualization and
     processing of spectra.
 
     :copyright: (c) 2018 by Iván Iglesias
@@ -12,7 +12,7 @@ from flask import Flask
 from flask_bootstrap import Bootstrap
 
 from config import Config
-from SpectraViewer.representation import create_dash_app
+from SpectraViewer.visualization.app import create_dash_app
 
 bootstrap = Bootstrap()
 
