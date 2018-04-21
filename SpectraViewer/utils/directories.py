@@ -22,8 +22,10 @@ def get_temp_directory():
         Temporary directory.
 
     """
-    return os.path.join(current_app.instance_path,
-                        current_app.config['UPLOAD_FOLDER'], 'temp')
+    temp_directory = os.path.join(current_app.instance_path,
+                                  current_app.config['UPLOAD_FOLDER'], 'temp')
+    _create_if_not_exists(temp_directory)
+    return temp_directory
 
 
 def _create_if_not_exists(directory):
