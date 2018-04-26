@@ -9,6 +9,7 @@
     :license: license_name, see LICENSE for more details
 """
 import os
+from shutil import rmtree
 from flask import current_app, session
 
 
@@ -115,6 +116,12 @@ def get_dataset_data(dataset):
                                             os.path.split(spectrum)[-1],
                                             class_data))
     return dataset_data
+
+
+def delete_user_dataset(dataset):
+    user_directory = get_user_directory()
+    dataset_directory = get_path(user_directory, dataset)
+    rmtree(dataset_directory, ignore_errors=True)
 
 
 def get_user_spectra():

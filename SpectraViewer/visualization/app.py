@@ -50,8 +50,8 @@ def create_dash_app(server):
     app = dash.Dash(__name__, server=server, url_base_pathname='/plot/')
     app.config.suppress_callback_exceptions = True
     app.layout = html.Div(children=[
-        html.A(className='btn btn-default', href='/',
-               children=['Volver a la página principal']),
+        html.A(className='btn btn-default', href='/manage',
+               children=['Volver a mis archivos']),
         html.Div(className='container', children=[
             dcc.Location(id='url', refresh=False),
             html.Div(id='page-content'),
@@ -75,7 +75,6 @@ def _add_callbacks(app):
     def display_page(pathname):
         if pathname == '/plot/dataset':
             from SpectraViewer.visualization import dataset
-            app.title = 'Visualización del dataset'
             return dataset.compose_layout()
 
     @app.callback(
@@ -83,8 +82,14 @@ def _add_callbacks(app):
         [Input('class_dropdown', 'value')])
     def change_data(value):
         dataset_data = get_dataset_data(session['current_dataset'])
-        return [{'label': spectrum, 'value': spectrum} for spectrum in
-                dataset_data[value]]
+        try:
+            spectra = dataset_data[value]
+            return [{'label': spectrum, 'value': spectrum} for spectrum in
+                    spectra]
+        except KeyError:
+            # This happens the first time the page is loaded, no value
+            # is selected so KeyError is raised, jus ignore it
+            return None
 
     @app.callback(
         Output('spectrum', 'figure'),

@@ -4,11 +4,8 @@ from flask import session
 
 from SpectraViewer.utils.directories import get_dataset_data
 
-from .app import get_dash_app
-
 
 def compose_layout():
-    app = get_dash_app()
     dataset = session['current_dataset']
     dataset_data = get_dataset_data(dataset)
     layout = html.Div(children=[

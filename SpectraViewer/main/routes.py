@@ -21,7 +21,7 @@ from SpectraViewer.main.forms import SpectrumForm, DatasetForm
 from SpectraViewer.visualization.app import set_dash_layout, get_dash_app
 from SpectraViewer.utils.decorators import google_required
 from SpectraViewer.utils.directories import get_temp_directory, get_path, \
-    get_user_datasets, get_user_spectra, get_user_directory
+    get_user_datasets, get_user_spectra, get_user_directory, delete_user_dataset
 
 
 @main.before_request
@@ -145,7 +145,8 @@ def edit_dataset(dataset):
 @main.route('/datasets/delete/<dataset>')
 @google_required
 def delete_dataset(dataset):
-    flash('Se ha borrado correctamente el dataset')
+    delete_user_dataset(dataset)
+    flash('Se ha borrado correctamente el dataset', 'success')
     return redirect(url_for('main.manage'))
 
 
