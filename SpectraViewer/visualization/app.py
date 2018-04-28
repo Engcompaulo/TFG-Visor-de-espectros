@@ -8,7 +8,7 @@
     :copyright: (c) 2018 by Iván Iglesias
     :license: license_name, see LICENSE for more details
 """
-from flask import url_for, session
+from flask import session
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
@@ -17,23 +17,12 @@ from dash.dependencies import Input, Output, State
 from SpectraViewer.utils.directories import get_dataset_data, \
     get_user_directory, get_path
 
+# Importing cufflinks is required to able to get the plotly figure from
+# a DataFrame, the import binds the DataFrame with the iplot method.
 import pandas as pd
 import cufflinks
 
 _instance = None
-
-
-def get_dash_app():
-    """
-    Get the Dash app instance.
-
-    Returns
-    -------
-    Dash
-        An instance if exists, None otherwise.
-
-    """
-    return _instance
 
 
 def create_dash_app(server):
@@ -50,8 +39,6 @@ def create_dash_app(server):
     app = dash.Dash(__name__, server=server, url_base_pathname='/plot/')
     app.config.suppress_callback_exceptions = True
     app.layout = html.Div(children=[
-        html.A(className='btn btn-default', href='/manage',
-               children=['Volver a mis archivos']),
         html.Div(className='container', children=[
             dcc.Location(id='url', refresh=False),
             html.Div(id='page-content'),
@@ -69,6 +56,10 @@ def create_dash_app(server):
     _instance = app
 
 
+def set_title(title):
+    _instance.title = title
+
+
 def _add_callbacks(app):
     @app.callback(Output('page-content', 'children'),
                   [Input('url', 'pathname')])
@@ -76,6 +67,12 @@ def _add_callbacks(app):
         if pathname == '/plot/dataset':
             from SpectraViewer.visualization import dataset
             return dataset.compose_layout()
+        elif pathname == '/plot/spectrum/temp':
+            data = pd.read_csv(session['temp_file'], sep=';', header=None)
+            data.columns = ['Raman shift', 'Intensity']
+            figure = data.iplot(x='Raman shift', y='Intensity', asFigure=True,
+                                xTitle='Raman shift', yTitle='Intensity')
+            return temp_spectrum_layout(figure)
 
     @app.callback(
         Output('class_data', 'options'),
@@ -107,7 +104,7 @@ def _add_callbacks(app):
         return figure
 
 
-def set_dash_layout(figure, title):
+def temp_spectrum_layout(figure):
     """
     Build and set the layout for the Dash application.
 
@@ -122,22 +119,15 @@ def set_dash_layout(figure, title):
         Title of the web page.
 
     """
-    app = get_dash_app()
-    app.title = title
-    back = html.A(className='btn btn-default', href=url_for('main.index'),
-                  children=[
-                      'Volver a la página principal'
-                  ])
-    content = html.Div(className='container', children=[
+    layout = html.Div(children=[
+        html.A(className='btn btn-default', href='/',
+               children=['Volver a la página principal']),
         html.Div(className='page-header', children=[
-            html.H2('Representación del espectro')
-        ])
-    ])
-    app.layout = html.Div([
-        back,
-        content,
+            html.H2('Visualización del espectro')
+        ]),
         dcc.Graph(
-            id='graph',
+            id='spectrum',
             figure=figure
         )
     ])
+    return layout

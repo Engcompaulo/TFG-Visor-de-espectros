@@ -11,14 +11,9 @@ from flask import render_template, redirect, url_for, request, session, flash
 from werkzeug.utils import secure_filename
 from zipfile import ZipFile
 
-# Importing cufflinks is required to able to get the plotly figure from
-# a DataFrame, the import binds the DataFrame with the iplot method.
-import pandas as pd
-import cufflinks
-
 from SpectraViewer.main import main
 from SpectraViewer.main.forms import SpectrumForm, DatasetForm
-from SpectraViewer.visualization.app import set_dash_layout, get_dash_app
+from SpectraViewer.visualization.app import set_title
 from SpectraViewer.utils.decorators import google_required
 from SpectraViewer.utils.directories import get_temp_directory, get_path, \
     get_user_datasets, get_user_spectra, get_user_directory, delete_user_dataset
@@ -77,12 +72,9 @@ def upload():
         directory = get_temp_directory()
         file_path = get_path(directory, filename)
         f.save(file_path)
-        data = pd.read_csv(file_path, sep=';', header=None)
-        data.columns = ['Raman shift', 'Intensity']
-        figure = data.iplot(x='Raman shift', y='Intensity', asFigure=True,
-                            xTitle='Raman shift', yTitle='Intensity')
-        set_dash_layout(figure, 'Visualización del espectro')
-        return redirect(url_for('main.dash'))
+        session['temp_file'] = file_path
+        set_title('Visualización del espectro')
+        return redirect('/plot/spectrum/temp')
     return render_template('upload.html', form=form)
 
 
@@ -153,17 +145,6 @@ def delete_dataset(dataset):
 @main.route('/datasets/plot/<dataset>')
 @google_required
 def plot_dataset(dataset):
-    dash_app = get_dash_app()
-    dash_app.title = 'Visualización del dataset'
+    set_title('Visualización del dataset')
     session['current_dataset'] = dataset
     return redirect('/plot/dataset')
-
-
-@main.route('/dash')
-def dash():
-    """Redirect to the Dash application.
-
-    This route helps the use of url_for so it can be used everywhere in
-    the app to get the url for Dash.
-    """
-    return redirect('/plot')
