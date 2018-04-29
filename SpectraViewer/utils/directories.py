@@ -95,9 +95,7 @@ def get_user_datasets():
     user_contents = list(map(lambda content:
                              os.path.join(user_directory, content),
                              os.listdir(user_directory)))
-    user_datasets = list(filter(lambda content:
-                                os.path.isdir(content),
-                                user_contents))
+    user_datasets = list(filter(os.path.isdir, user_contents))
     return list(map(lambda dataset: os.path.split(dataset)[-1], user_datasets))
 
 
@@ -138,7 +136,5 @@ def get_user_spectra():
     user_contents = list(map(lambda content:
                              os.path.join(user_directory, content),
                              os.listdir(user_directory)))
-    user_spectra = list(filter(lambda content:
-                               os.path.isfile(content),
-                               user_contents))
+    user_spectra = list(filter(os.path.isfile, user_contents))
     return list(map(lambda dataset: os.path.split(dataset)[-1], user_spectra))

@@ -43,7 +43,6 @@ def after_in():
 
     """
     resp = google.get('/oauth2/v2/userinfo')
-    assert resp.ok, resp.text
     if not resp.ok and not resp.text:
         flash('Ha habido un problema de conexión con Google', 'danger')
         abort(500)
