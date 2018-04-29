@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Página no encontrada{% endblock %}
+
+{% block page_content %}
+    <div class="page-header">
+        <h2>Página no encontrada</h2>
+    </div>
+    <img src="{{ url_for('static', filename='not-found.gif') }}"
+         class="img-responsive center-block">
+{% endblock %}

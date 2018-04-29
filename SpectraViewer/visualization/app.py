@@ -8,7 +8,7 @@
     :copyright: (c) 2018 by Iván Iglesias
     :license: license_name, see LICENSE for more details
 """
-from flask import session
+from flask import session, abort
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
@@ -73,6 +73,8 @@ def _add_callbacks(app):
             figure = data.iplot(x='Raman shift', y='Intensity', asFigure=True,
                                 xTitle='Raman shift', yTitle='Intensity')
             return temp_spectrum_layout(figure)
+        else:
+            abort(404)
 
     @app.callback(
         Output('class_data', 'options'),

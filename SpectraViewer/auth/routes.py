@@ -7,7 +7,7 @@
     :copyright: (c) 2018 by Iván Iglesias
     :license: license_name, see LICENSE for more details
 """
-from flask import session, redirect, url_for, flash
+from flask import session, redirect, url_for, flash, abort
 from flask_dance.contrib.google import google
 from SpectraViewer.utils.decorators import google_required
 from . import google_bp
@@ -44,6 +44,9 @@ def after_in():
     """
     resp = google.get('/oauth2/v2/userinfo')
     assert resp.ok, resp.text
+    if not resp.ok and not resp.text:
+        flash('Ha habido un problema de conexión con Google', 'danger')
+        abort(500)
     email = resp.json()['email']
     user_id = resp.json()['id']
     name = resp.json()['name']
