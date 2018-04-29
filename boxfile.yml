@@ -21,3 +21,5 @@ data.uploads:
   image: nanobox/unfs:0.9
 
 
+data.mongodb:
+  image: nanobox/mongodb:3.4
