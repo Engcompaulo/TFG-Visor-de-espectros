@@ -8,18 +8,23 @@
     :copyright: (c) 2018 by Iván Iglesias
     :license: license_name, see LICENSE for more details
 """
+import os
+
 from flask import Flask
 from flask_bootstrap import Bootstrap
+from flask_pymongo import PyMongo
 
-from config import Config
+import config
 from SpectraViewer.visualization.app import create_dash_app
 
 bootstrap = Bootstrap()
+mongo = PyMongo()
 
 
 def create_app():
     app = Flask(__name__)
-    app.config.from_object(Config)
+    config_name = os.environ.get('ENVIRONMENT') or 'default'
+    app.config.from_object(config.config[config_name])
 
     create_dash_app(app)
 
@@ -29,5 +34,10 @@ def create_app():
     from SpectraViewer.main import main as main_bp
     app.register_blueprint(main_bp)
 
-    bootstrap.init_app(app)
+    _init_extensions(app)
     return app
+
+
+def _init_extensions(app):
+    bootstrap.init_app(app)
+    mongo.init_app(app)
