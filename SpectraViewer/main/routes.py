@@ -15,11 +15,12 @@ from SpectraViewer.main import main
 from SpectraViewer.main.forms import SpectrumForm, DatasetForm
 from SpectraViewer.visualization.app import set_title
 from SpectraViewer.utils.decorators import google_required
+from SpectraViewer.utils.mongo_facade import save_dataset_to_mongo
 from SpectraViewer.utils.directories import get_temp_directory, get_path, \
     get_user_datasets, get_user_spectra, get_user_directory, delete_user_dataset
 
 
-@main.before_request
+@main.before_app_request
 def before_request():
     """Force the use of https.
 
@@ -121,8 +122,11 @@ def upload_dataset():
         user_directory = get_user_directory()
         file_path = get_path(temp_directory, filename)
         f.save(file_path)
+        dataset_name = form.name.data
+        dataset_path = get_path(user_directory, dataset_name)
         with ZipFile(file_path, 'r') as zip_file:
-            zip_file.extractall(get_path(user_directory, form.name.data))
+            zip_file.extractall(dataset_path)
+        save_dataset_to_mongo(dataset_path, dataset_name, session['user_id'])
         flash('Se ha subido el dataset correctamente', 'success')
         return redirect(url_for('main.manage'))
     return render_template('upload_dataset.html', form=form)
