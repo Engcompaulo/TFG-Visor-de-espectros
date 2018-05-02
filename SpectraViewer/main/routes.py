@@ -15,7 +15,7 @@ from SpectraViewer.main import main
 from SpectraViewer.main.forms import SpectrumForm, DatasetForm
 from SpectraViewer.visualization.app import set_title
 from SpectraViewer.utils.decorators import google_required
-from SpectraViewer.utils.mongo_facade import save_dataset_to_mongo
+from SpectraViewer.utils.mongo_facade import save_dataset, remove_dataset
 from SpectraViewer.utils.directories import get_temp_directory, get_path, \
     get_user_datasets, get_user_spectra, get_user_directory, delete_user_dataset
 
@@ -126,7 +126,7 @@ def upload_dataset():
         dataset_path = get_path(user_directory, dataset_name)
         with ZipFile(file_path, 'r') as zip_file:
             zip_file.extractall(dataset_path)
-        save_dataset_to_mongo(dataset_path, dataset_name, session['user_id'])
+        save_dataset(dataset_path, dataset_name, session['user_id'])
         flash('Se ha subido el dataset correctamente', 'success')
         return redirect(url_for('main.manage'))
     return render_template('upload_dataset.html', form=form)
@@ -142,6 +142,7 @@ def edit_dataset(dataset):
 @google_required
 def delete_dataset(dataset):
     delete_user_dataset(dataset)
+    remove_dataset(dataset, session['user_id'])
     flash('Se ha borrado correctamente el dataset', 'success')
     return redirect(url_for('main.manage'))
 
