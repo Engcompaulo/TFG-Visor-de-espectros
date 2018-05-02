@@ -15,9 +15,10 @@ from SpectraViewer.main import main
 from SpectraViewer.main.forms import SpectrumForm, DatasetForm
 from SpectraViewer.visualization.app import set_title
 from SpectraViewer.utils.decorators import google_required
-from SpectraViewer.utils.mongo_facade import save_dataset, remove_dataset
+from SpectraViewer.utils.mongo_facade import save_dataset, remove_dataset, \
+    get_datasets
 from SpectraViewer.utils.directories import get_temp_directory, get_path, \
-    get_user_datasets, get_user_spectra, get_user_directory, delete_user_dataset
+    get_user_spectra, get_user_directory, delete_user_dataset
 
 
 @main.before_app_request
@@ -93,7 +94,8 @@ def manage():
     Rendered manage view.
 
     """
-    user_datasets = get_user_datasets()
+    user_datasets = [dataset['dataset_name'] for dataset in
+                     get_datasets(session['user_id'])]
     user_spectra = get_user_spectra()
     return render_template('manage.html', datasets=user_datasets,
                            spectra=user_spectra)

@@ -38,6 +38,11 @@ def save_dataset(dataset_path, dataset_name, user_id):
     mongo.db.datasets.insert_one(dataset)
 
 
+def get_datasets(user_id):
+    datasets = mongo.db.datasets.find({'user_id': user_id})
+    return datasets
+
+
 def remove_dataset(dataset_name, user_id):
     mongo.db.datasets.delete_one({'dataset_name': dataset_name,
                                   'user_id': user_id})
