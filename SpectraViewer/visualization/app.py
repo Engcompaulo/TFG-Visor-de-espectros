@@ -14,9 +14,6 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output, State
 
-from SpectraViewer.utils.directories import get_dataset_data, \
-    get_user_directory, get_path
-
 # Importing cufflinks is required to able to get the plotly figure from
 # a DataFrame, the import binds the DataFrame with the iplot method.
 import pandas as pd
@@ -80,11 +77,14 @@ def _add_callbacks(app):
         Output('class_data', 'options'),
         [Input('class_dropdown', 'value')])
     def change_data(value):
-        dataset_data = get_dataset_data(session['current_dataset'])
+        from SpectraViewer.utils.mongo_facade import get_user_dataset
+        dataset = session['current_dataset']
+        user_id = session['user_id']
+        dataset_data = get_user_dataset(dataset, user_id)
         try:
             spectra = dataset_data[value]
             return [{'label': spectrum, 'value': spectrum} for spectrum in
-                    spectra]
+                    spectra.keys()]
         except KeyError:
             # This happens the first time the page is loaded, no value
             # is selected so KeyError is raised, jus ignore it
@@ -95,12 +95,12 @@ def _add_callbacks(app):
         [Input('class_data', 'value')],
         [State('class_dropdown', 'value')])
     def plot_spectrum(value, class_name):
-        user_directory = get_user_directory()
-        spectrum_path = get_path(user_directory, session['current_dataset'])
-        spectrum_path = get_path(spectrum_path, class_name)
-        spectrum_path = get_path(spectrum_path, value)
-        df = pd.read_csv(spectrum_path, delimiter=';', header=None)
-        df.columns = ['Raman shift', 'Intensity']
+        from SpectraViewer.utils.mongo_facade import get_user_dataset
+        dataset = session['current_dataset']
+        user_id = session['user_id']
+        dataset_data = get_user_dataset(dataset, user_id)
+        spectrum = dataset_data[class_name][value]
+        df = pd.read_json(spectrum, orient='split')
         figure = df.iplot(x='Raman shift', y='Intensity', asFigure=True,
                           xTitle='Raman shift', yTitle='Intensity')
         return figure

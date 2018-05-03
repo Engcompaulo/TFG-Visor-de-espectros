@@ -20,7 +20,7 @@ def _filter_dirs(dir_contents):
 
 def _filter_files(dir_contents, extension):
     files = [content for content in dir_contents
-             if content.is_file() and content.name.endswith(extension)]
+             if content.is_file() and content.name.lower().endswith(extension)]
     return files
 
 
@@ -33,7 +33,7 @@ def save_dataset(dataset_path, dataset_name, user_id):
             df = pd.read_csv(spectrum.path, delimiter=';', header=None)
             df.columns = ['Raman shift', 'Intensity']
             name = spectrum.name.split('.')[0]
-            data[directory.name][name] = df.to_json()
+            data[directory.name][name] = df.to_json(orient='split')
     dataset['data'] = data
     mongo.db.datasets.insert_one(dataset)
 
@@ -41,6 +41,13 @@ def save_dataset(dataset_path, dataset_name, user_id):
 def get_datasets(user_id):
     datasets = mongo.db.datasets.find({'user_id': user_id})
     return datasets
+
+
+def get_user_dataset(dataset_name, user_id):
+    dataset = mongo.db.datasets.find_one({'dataset_name': dataset_name,
+                                          'user_id': user_id})
+    data = dataset['data']
+    return data
 
 
 def remove_dataset(dataset_name, user_id):

@@ -2,12 +2,12 @@ import dash_core_components as dcc
 import dash_html_components as html
 from flask import session
 
-from SpectraViewer.utils.directories import get_dataset_data
-
 
 def compose_layout():
+    from SpectraViewer.utils.mongo_facade import get_user_dataset
     dataset = session['current_dataset']
-    dataset_data = get_dataset_data(dataset)
+    user_id = session['user_id']
+    dataset_data = get_user_dataset(dataset, user_id)
     layout = html.Div(children=[
         html.A(className='btn btn-default', href='/manage',
                children=['Volver a mis archivos']),
@@ -20,7 +20,7 @@ def compose_layout():
                     id='class_dropdown',
                     placeholder='Selecciona una clase',
                     options=[{'label': class_name, 'value': class_name} for
-                             class_name in dataset_data],
+                             class_name in dataset_data.keys()],
                     clearable=False
                 )
             ]),
