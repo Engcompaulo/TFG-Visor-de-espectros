@@ -9,10 +9,12 @@
     :license: license_name, see LICENSE for more details
 """
 import os
+import numpy as np
 import pandas as pd
 from pymongo.errors import DuplicateKeyError
 
 from SpectraViewer import mongo
+from SpectraViewer.utils.directories import get_path
 
 
 def _filter_dirs(dir_contents):
@@ -26,18 +28,39 @@ def _filter_files(dir_contents, extension):
     return files
 
 
+def _load_dataset_from_path(path):
+    metadatos = pd.read_excel(get_path(path, "metadatos.xlsx"))
+    dataset = pd.DataFrame()
+    feature_names = np.arange(50, 2801)
+
+    for label in metadatos['Id']:
+        for spectrum in _filter_files(os.scandir(os.path.join(path, label)),
+                                      '.csv'):
+            data = pd.read_csv(spectrum.path, sep=";", header=None)
+            values = data[1].values
+            # some spectra start with 0
+            if values[0] == 0:
+                values[0] = values[1]
+
+            oldx = data[0].values
+            values = np.interp(feature_names, oldx, values)
+
+            df = pd.DataFrame(columns=feature_names)
+            df.loc[f'{label}/{spectrum.name}'] = values
+            df['Label'] = label
+            df['Name'] = spectrum.name
+            dataset = dataset.append(df)
+
+    dataset = dataset.merge(metadatos, left_on='Label', right_on='Id')
+    dataset = dataset.drop(columns=['Id'])
+    return dataset
+
+
 def save_dataset(dataset_path, dataset_name, dataset_notes, user_id):
     dataset = {'dataset_name': dataset_name, 'dataset_notes': dataset_notes,
                'user_id': user_id}
-    data = dict()
-    for directory in _filter_dirs(os.scandir(dataset_path)):
-        data[directory.name] = dict()
-        for spectrum in _filter_files(os.scandir(directory.path), '.csv'):
-            df = pd.read_csv(spectrum.path, delimiter=';', header=None)
-            df.columns = ['Raman shift', 'Intensity']
-            name = spectrum.name.split('.')[0]
-            data[directory.name][name] = df.to_json(orient='split')
-    dataset['data'] = data
+    data = _load_dataset_from_path(dataset_path)
+    dataset['data'] = data.to_json(orient='split')
     try:
         mongo.db.datasets.insert_one(dataset)
         return True
