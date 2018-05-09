@@ -12,6 +12,7 @@ import os
 
 from flask import Flask
 from flask_bootstrap import Bootstrap
+import pymongo
 from flask_pymongo import PyMongo
 
 import config
@@ -41,3 +42,7 @@ def create_app():
 def _init_extensions(app):
     bootstrap.init_app(app)
     mongo.init_app(app)
+
+    with app.app_context():
+        mongo.db.datasets.create_index([('dataset_name', pymongo.ASCENDING)],
+                                       unique=True)

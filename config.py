@@ -20,6 +20,8 @@ class Config(object):
 
 class DevelopmentConfig(Config):
     DATA_MONGODB_HOST = 'localhost'
+    DEBUG = True
+    ENV = 'development'
     MONGO_URI = f'mongodb://{DATA_MONGODB_HOST}:27017/'
 
 

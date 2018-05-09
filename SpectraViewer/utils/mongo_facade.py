@@ -10,6 +10,8 @@
 """
 import os
 import pandas as pd
+from pymongo.errors import DuplicateKeyError
+
 from SpectraViewer import mongo
 
 
@@ -24,8 +26,9 @@ def _filter_files(dir_contents, extension):
     return files
 
 
-def save_dataset(dataset_path, dataset_name, user_id):
-    dataset = {'dataset_name': dataset_name, 'user_id': user_id}
+def save_dataset(dataset_path, dataset_name, dataset_notes, user_id):
+    dataset = {'dataset_name': dataset_name, 'dataset_notes': dataset_notes,
+               'user_id': user_id}
     data = dict()
     for directory in _filter_dirs(os.scandir(dataset_path)):
         data[directory.name] = dict()
@@ -35,7 +38,11 @@ def save_dataset(dataset_path, dataset_name, user_id):
             name = spectrum.name.split('.')[0]
             data[directory.name][name] = df.to_json(orient='split')
     dataset['data'] = data
-    mongo.db.datasets.insert_one(dataset)
+    try:
+        mongo.db.datasets.insert_one(dataset)
+        return True
+    except DuplicateKeyError:
+        return False
 
 
 def get_datasets(user_id):

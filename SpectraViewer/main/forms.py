@@ -9,7 +9,7 @@
 """
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired, FileAllowed
-from wtforms import SubmitField, StringField
+from wtforms import SubmitField, StringField, TextAreaField
 from wtforms.validators import DataRequired
 
 
@@ -40,5 +40,7 @@ class DatasetForm(FlaskForm):
         FileAllowed(['zip'], 'Solo se admiten ficheros zip')
     ]
     name = StringField(label='Nombre del dataset', validators=_name_validators)
+    notes = TextAreaField(label='Comentarios sobre el dataset')
     file = FileField(label='Seleccione un dataset', validators=_file_validators)
     submit = SubmitField('Subir')
+

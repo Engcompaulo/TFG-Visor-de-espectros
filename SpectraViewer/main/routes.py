@@ -94,7 +94,8 @@ def manage():
     Rendered manage view.
 
     """
-    user_datasets = [dataset['dataset_name'] for dataset in
+    user_datasets = [{'name': dataset['dataset_name'],
+                      'notes': dataset['dataset_notes']} for dataset in
                      get_datasets(session['user_id'])]
     user_spectra = get_user_spectra()
     return render_template('manage.html', datasets=user_datasets,
@@ -125,12 +126,18 @@ def upload_dataset():
         file_path = get_path(temp_directory, filename)
         f.save(file_path)
         dataset_name = form.name.data
+        dataset_notes = form.notes.data
         dataset_path = get_path(user_directory, dataset_name)
         with ZipFile(file_path, 'r') as zip_file:
             zip_file.extractall(dataset_path)
-        save_dataset(dataset_path, dataset_name, session['user_id'])
-        flash('Se ha subido el dataset correctamente', 'success')
-        return redirect(url_for('main.manage'))
+        if save_dataset(dataset_path, dataset_name, dataset_notes,
+                        session['user_id']):
+            flash('Se ha subido el dataset correctamente', 'success')
+            return redirect(url_for('main.manage'))
+        else:
+            flash('Ya se ha subido un dataset con ese nombre'
+                  ', use un nombre diferente', 'danger')
+            return redirect(url_for('main.upload_dataset'))
     return render_template('upload_dataset.html', form=form)
 
 
