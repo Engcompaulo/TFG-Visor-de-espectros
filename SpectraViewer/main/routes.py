@@ -7,7 +7,8 @@
     :copyright: (c) 2018 by Iván Iglesias
     :license: license_name, see LICENSE for more details
 """
-from flask import render_template, redirect, url_for, request, session, flash
+from flask import render_template, redirect, url_for, request, session, flash, \
+    send_from_directory, current_app
 from werkzeug.utils import secure_filename
 from zipfile import ZipFile
 
@@ -100,6 +101,13 @@ def manage():
     user_spectra = get_user_spectra()
     return render_template('manage.html', datasets=user_datasets,
                            spectra=user_spectra)
+
+
+@main.route('/download-template', methods=['GET', 'POST'])
+@google_required
+def download_template():
+    return send_from_directory(current_app.root_path, 'metadatos.xlsx',
+                               as_attachment=True)
 
 
 @main.route('/datasets/upload', methods=['GET', 'POST'])
