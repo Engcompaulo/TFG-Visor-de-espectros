@@ -18,9 +18,9 @@ def compose_layout():
             html.Div(className='col-md-6', children=[
                 dcc.Dropdown(
                     id='class_dropdown',
-                    placeholder='Selecciona una clase',
-                    options=[{'label': class_name, 'value': class_name} for
-                             class_name in dataset_data.keys()],
+                    placeholder='Selecciona un conjunto de espectros',
+                    options=[{'label': label, 'value': label} for label in
+                             dataset_data['Label'].unique().tolist()],
                     clearable=False
                 )
             ]),
@@ -28,7 +28,7 @@ def compose_layout():
                 dcc.Dropdown(
                     id='class_data',
                     options=[],
-                    placeholder='Selecciona un espectro',
+                    placeholder='Selecciona un ejemplo del conjunto',
                     clearable=False
                 )
             ])

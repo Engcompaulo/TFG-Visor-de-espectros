@@ -12,12 +12,9 @@ from flask import session, abort
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
-from dash.dependencies import Input, Output, State
+from dash.dependencies import Input, Output
 
-# Importing cufflinks is required to able to get the plotly figure from
-# a DataFrame, the import binds the DataFrame with the iplot method.
 import pandas as pd
-import cufflinks
 
 _instance = None
 
@@ -82,27 +79,38 @@ def _add_callbacks(app):
         user_id = session['user_id']
         dataset_data = get_user_dataset(dataset, user_id)
         try:
-            spectra = dataset_data[value]
+            spectra = dataset_data[dataset_data['Label'] == value]['Name']
             return [{'label': spectrum, 'value': spectrum} for spectrum in
-                    spectra.keys()]
+                    spectra.unique().tolist()]
         except KeyError:
             # This happens the first time the page is loaded, no value
-            # is selected so KeyError is raised, jus ignore it
+            # is selected so KeyError is raised, just ignore it
             return None
 
     @app.callback(
         Output('spectrum', 'figure'),
-        [Input('class_data', 'value')],
-        [State('class_dropdown', 'value')])
-    def plot_spectrum(value, class_name):
+        [Input('class_data', 'value')])
+    def plot_spectrum(value):
         from SpectraViewer.utils.mongo_facade import get_user_dataset
         dataset = session['current_dataset']
         user_id = session['user_id']
         dataset_data = get_user_dataset(dataset, user_id)
-        spectrum = dataset_data[class_name][value]
-        df = pd.read_json(spectrum, orient='split')
-        figure = df.iplot(x='Raman shift', y='Intensity', asFigure=True,
-                          xTitle='Raman shift', yTitle='Intensity')
+        spectrum = dataset_data[dataset_data['Name'] == value]
+        spectrum = spectrum.drop(
+            columns=['Name', 'Label', 'Mina', 'Profundidad', 'Profundidad_num'])
+        figure = {
+            'data': [
+                {'x': spectrum.columns.tolist(),
+                 'y': spectrum.values[0]}
+            ],
+            'layout': {
+                'title': f'Espctro {value}',
+                'xaxis': {'title': 'Raman shift'},
+                'yaxis': {'title': 'Intensity'}
+            }
+        }
+        # figure = df.iplot(x='Raman shift', y='Intensity', asFigure=True,
+        #                   xTitle='Raman shift', yTitle='Intensity')
         return figure
 
 

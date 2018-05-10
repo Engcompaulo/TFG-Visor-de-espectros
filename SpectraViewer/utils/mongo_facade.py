@@ -76,7 +76,7 @@ def get_datasets(user_id):
 def get_user_dataset(dataset_name, user_id):
     dataset = mongo.db.datasets.find_one({'dataset_name': dataset_name,
                                           'user_id': user_id})
-    data = dataset['data']
+    data = pd.read_json(dataset['data'], orient='split')
     return data
 
 
