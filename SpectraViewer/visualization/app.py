@@ -12,9 +12,13 @@ from flask import session, abort
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
+import dash_table_experiments as dt
 from dash.dependencies import Input, Output
 
 import pandas as pd
+# Importing cufflinks is required to able to get the plotly figure from
+# a DataFrame, the import binds the DataFrame with the iplot method.
+import cufflinks
 
 _instance = None
 
@@ -32,10 +36,14 @@ def create_dash_app(server):
     global _instance
     app = dash.Dash(__name__, server=server, url_base_pathname='/plot/')
     app.config.suppress_callback_exceptions = True
+
     app.layout = html.Div(children=[
         html.Div(className='container', children=[
             dcc.Location(id='url', refresh=False),
             html.Div(id='page-content'),
+            html.Div(dt.DataTable(rows=[{}]), style={'display': 'none'})
+            # This is because of how Dash works
+            # (see https://community.plot.ly/t/display-tables-in-dash/4707/40)
         ])
     ])
     app.css.append_css({
@@ -104,13 +112,11 @@ def _add_callbacks(app):
                  'y': spectrum.values[0]}
             ],
             'layout': {
-                'title': f'Espctro {value}',
+                'title': f'Espectro {value}',
                 'xaxis': {'title': 'Raman shift'},
                 'yaxis': {'title': 'Intensity'}
             }
         }
-        # figure = df.iplot(x='Raman shift', y='Intensity', asFigure=True,
-        #                   xTitle='Raman shift', yTitle='Intensity')
         return figure
 
 
