@@ -1,5 +1,6 @@
 *.csv
 .env
+Prototipos/
 
 # Created by https://www.gitignore.io/api/tex,latex,python,pycharm,pycharm+all,pycharm+iml,jupyternotebook,visualstudiocode
 
