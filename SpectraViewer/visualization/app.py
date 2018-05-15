@@ -38,7 +38,7 @@ def create_dash_app(server):
     app.config.suppress_callback_exceptions = True
 
     app.layout = html.Div(children=[
-        html.Div(className='container', children=[
+        html.Div(className='container-fluid', children=[
             dcc.Location(id='url', refresh=False),
             html.Div(id='page-content'),
             html.Div(dt.DataTable(rows=[{}]), style={'display': 'none'})
@@ -78,45 +78,32 @@ def _add_callbacks(app):
         else:
             abort(404)
 
-    @app.callback(
-        Output('class_data', 'options'),
-        [Input('class_dropdown', 'value')])
-    def change_data(value):
+    @app.callback(Output('spectrum-original', 'figure'),
+                  [Input('metadata', 'rows'),
+                   Input('metadata', 'selected_row_indices')])
+    def update_spectrum(rows, spectra_index):
         from SpectraViewer.utils.mongo_facade import get_user_dataset
         dataset = session['current_dataset']
         user_id = session['user_id']
         dataset_data = get_user_dataset(dataset, user_id)
-        try:
-            spectra = dataset_data[dataset_data['Label'] == value]['Name']
-            return [{'label': spectrum, 'value': spectrum} for spectrum in
-                    spectra.unique().tolist()]
-        except KeyError:
-            # This happens the first time the page is loaded, no value
-            # is selected so KeyError is raised, just ignore it
-            return None
-
-    @app.callback(
-        Output('spectrum', 'figure'),
-        [Input('class_data', 'value')])
-    def plot_spectrum(value):
-        from SpectraViewer.utils.mongo_facade import get_user_dataset
-        dataset = session['current_dataset']
-        user_id = session['user_id']
-        dataset_data = get_user_dataset(dataset, user_id)
-        spectrum = dataset_data[dataset_data['Name'] == value]
-        spectrum = spectrum.drop(
-            columns=['Name', 'Label', 'Mina', 'Profundidad', 'Profundidad_num'])
         figure = {
-            'data': [
-                {'x': spectrum.columns.tolist(),
-                 'y': spectrum.values[0]}
-            ],
             'layout': {
-                'title': f'Espectro {value}',
                 'xaxis': {'title': 'Raman shift'},
                 'yaxis': {'title': 'Intensity'}
-            }
+            },
+            'data': list()
         }
+        for i in spectra_index:
+            name = rows[i]['Nombre']
+            spectrum = dataset_data[dataset_data['Nombre'] == name]
+            spectrum = spectrum.drop(
+                columns=['Nombre', 'Etiqueta', 'Mina', 'Profundidad',
+                         'Profundidad_num'])
+            figure['data'].append({
+                'x': spectrum.columns.tolist(),
+                'y': spectrum.values[0],
+                'name': f'{name}'
+            })
         return figure
 
 

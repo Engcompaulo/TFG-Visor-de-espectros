@@ -47,11 +47,11 @@ def _load_dataset_from_path(path):
 
             df = pd.DataFrame(columns=feature_names)
             df.loc[f'{label}/{spectrum.name}'] = values
-            df['Label'] = label
-            df['Name'] = spectrum.name
+            df['Etiqueta'] = label
+            df['Nombre'] = spectrum.name
             dataset = dataset.append(df)
 
-    dataset = dataset.merge(metadatos, left_on='Label', right_on='Id')
+    dataset = dataset.merge(metadatos, left_on='Etiqueta', right_on='Id')
     dataset = dataset.drop(columns=['Id'])
     return dataset
 
