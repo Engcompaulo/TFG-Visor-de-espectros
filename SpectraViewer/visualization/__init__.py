@@ -122,6 +122,7 @@ def _add_callbacks(app):
         dataset_data = get_user_dataset(dataset, user_id)
         figure = {
             'layout': {
+                'title': 'Espectro original',
                 'xaxis': {'title': 'Raman shift'},
                 'yaxis': {'title': 'Intensity'}
             },
@@ -139,6 +140,22 @@ def _add_callbacks(app):
                 'name': f'{name}'
             })
         return figure
+
+    @app.callback(Output('spectrum-processed', 'figure'),
+                  [Input('spectrum-original', 'figure'),
+                   Input('order', 'value'),
+                   Input('crop-min', 'value'),
+                   Input('crop-max', 'value'),
+                   Input('baseline', 'value'),
+                   Input('normalize', 'value'),
+                   Input('squash', 'value'),
+                   Input('smooth-type', 'value'),
+                   Input('smooth-s', 'value')])
+    def process_spectrum(figure, order, crop_min, crop_max, baseline, normalize,
+                         squash, smooth_type, smooth_s):
+        processed_figure = figure
+        processed_figure['layout']['title'] = 'Espectro procesado'
+        return processed_figure
 
 
 def temp_spectrum_layout(figure):
