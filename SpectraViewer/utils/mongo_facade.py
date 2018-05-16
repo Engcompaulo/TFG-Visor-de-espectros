@@ -18,17 +18,60 @@ from SpectraViewer.utils.directories import get_path
 
 
 def _filter_dirs(dir_contents):
+    """
+    Return the subdirectories present in a directory.
+
+    Parameters
+    ----------
+    dir_contents : list
+        Directory contents.
+
+    Returns
+    -------
+    list
+        Subdirectories.
+    """
     dirs = [content for content in dir_contents if content.is_dir()]
     return dirs
 
 
 def _filter_files(dir_contents, extension):
+    """
+    Return the files with the specified extension in a directory.
+
+    Parameters
+    ----------
+    dir_contents : list
+        Directory contents.
+    extension : str
+        File extension with dot.
+
+    Returns
+    -------
+    list
+        Files with extension.
+    """
     files = [content for content in dir_contents
              if content.is_file() and content.name.lower().endswith(extension)]
     return files
 
 
 def _load_dataset_from_path(path):
+    """
+    Load the dataset in the given path and create a DataFrame with it
+    following the metadata file.
+
+    Parameters
+    ----------
+    path : str
+        Path where the dataset is located.
+
+    Returns
+    -------
+    dataset : DataFrame
+        DataFrame containing the whole dataset and its metadata.
+
+    """
     metadatos = pd.read_excel(get_path(path, "metadatos.xlsx"))
     dataset = pd.DataFrame()
     feature_names = np.arange(50, 2801)
@@ -57,10 +100,31 @@ def _load_dataset_from_path(path):
 
 
 def save_dataset(dataset_path, dataset_name, dataset_notes, user_id):
+    """
+    Save the dataset located in the given path in MongoDB.
+
+    Parameters
+    ----------
+    dataset_path : str
+        Dataset path.
+    dataset_name : str
+        Dataset name.
+    dataset_notes : str
+        Notes related the dataset.
+    user_id : str
+        Id of the user owning the dataset.
+
+    Returns
+    -------
+    bool
+        True if successfully saved, False if the user has a dataset with
+        the same name.
+
+    """
     dataset = {'dataset_name': dataset_name, 'dataset_notes': dataset_notes,
                'user_id': user_id}
     data = _load_dataset_from_path(dataset_path)
-    dataset['data'] = data.to_json(orient='split')
+    dataset['data'] = data.to_json(orient='split')  # Split to mantains order
     try:
         mongo.db.datasets.insert_one(dataset)
         return True
@@ -69,11 +133,41 @@ def save_dataset(dataset_path, dataset_name, dataset_notes, user_id):
 
 
 def get_datasets(user_id):
+    """
+    Return all datasets a given user owns.
+
+    Parameters
+    ----------
+    user_id : str
+        User id.
+
+    Returns
+    -------
+    list
+        User datasets.
+
+    """
     datasets = mongo.db.datasets.find({'user_id': user_id})
     return datasets
 
 
 def get_user_dataset(dataset_name, user_id):
+    """
+    Return the dataset with the given name belonging to the given user.
+
+    Parameters
+    ----------
+    dataset_name : str
+        Dataset name.
+    user_id : str
+        User id.
+
+    Returns
+    -------
+    DataFrame
+        DataFrame containing the dataset.
+
+    """
     dataset = mongo.db.datasets.find_one({'dataset_name': dataset_name,
                                           'user_id': user_id})
     data = pd.read_json(dataset['data'], orient='split')
@@ -81,5 +175,17 @@ def get_user_dataset(dataset_name, user_id):
 
 
 def remove_dataset(dataset_name, user_id):
+    """
+    Remove from Mongo the dataset with the given name belonging to the
+    given user. However, this does not remove it from disk storage.
+
+    Parameters
+    ----------
+    dataset_name : str
+        Dataset name.
+    user_id : str
+        User id.
+
+    """
     mongo.db.datasets.delete_one({'dataset_name': dataset_name,
                                   'user_id': user_id})

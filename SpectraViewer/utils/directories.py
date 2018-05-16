@@ -9,7 +9,6 @@
     :license: license_name, see LICENSE for more details
 """
 import os
-from shutil import rmtree
 from flask import current_app, session
 
 
@@ -79,47 +78,6 @@ def get_user_directory():
                                   str(session['user_id']))
     _create_if_not_exists(user_directory)
     return user_directory
-
-
-def get_user_datasets():
-    """
-    Get a list containing the name of the datasets for the current user.
-
-    Returns
-    -------
-    list
-        List of strings.
-
-    """
-    user_directory = get_user_directory()
-    user_contents = list(map(lambda content:
-                             os.path.join(user_directory, content),
-                             os.listdir(user_directory)))
-    user_datasets = list(filter(os.path.isdir, user_contents))
-    return list(map(lambda dataset: os.path.split(dataset)[-1], user_datasets))
-
-
-def get_dataset_data(dataset):
-    user_directory = get_user_directory()
-    dataset_directory = os.path.join(user_directory, dataset)
-    classes = list(map(lambda content: os.path.join(dataset_directory, content),
-                       os.listdir(dataset_directory)))
-    dataset_data = {}
-    for class_path in classes:
-        class_name = os.path.split(class_path)[-1]
-        class_data = list(map(lambda spectrum:
-                              os.path.join(class_path, spectrum),
-                              os.listdir(class_path)))
-        dataset_data[class_name] = list(map(lambda spectrum:
-                                            os.path.split(spectrum)[-1],
-                                            class_data))
-    return dataset_data
-
-
-def delete_user_dataset(dataset):
-    user_directory = get_user_directory()
-    dataset_directory = get_path(user_directory, dataset)
-    rmtree(dataset_directory, ignore_errors=True)
 
 
 def get_user_spectra():

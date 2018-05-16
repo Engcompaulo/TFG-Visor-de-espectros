@@ -14,7 +14,7 @@ from wtforms.validators import DataRequired
 
 
 class SpectrumForm(FlaskForm):
-    """Form for handling file upload.
+    """Form for handling spectrum upload.
 
     Attributes
     ----------
@@ -34,6 +34,20 @@ class SpectrumForm(FlaskForm):
 
 
 class DatasetForm(FlaskForm):
+    """Form for handling dataset upload.
+
+    Attributes
+    ----------
+    name : StringField
+        Field with the dataset name. Required.
+    notes : TextAreaField
+        Field with the dataset notes. Optional.
+    file : FileField
+        Field with the dataset file. Required, can only be a zip file.
+    submit : SubmitField
+        Input field of type submit to trigger the upload action.
+
+    """
     _name_validators = [DataRequired('Es obligatorio poner nombre al dataset')]
     _file_validators = [
         FileRequired('Es obligatorio seleccionar un fichero'),

@@ -14,12 +14,11 @@ from zipfile import ZipFile
 
 from SpectraViewer.main import main
 from SpectraViewer.main.forms import SpectrumForm, DatasetForm
-from SpectraViewer.visualization.app import set_title
 from SpectraViewer.utils.decorators import google_required
 from SpectraViewer.utils.mongo_facade import save_dataset, remove_dataset, \
     get_datasets
 from SpectraViewer.utils.directories import get_temp_directory, get_path, \
-    get_user_spectra, get_user_directory, delete_user_dataset
+    get_user_spectra, get_user_directory
 
 
 @main.before_app_request
@@ -76,7 +75,6 @@ def upload():
         file_path = get_path(directory, filename)
         f.save(file_path)
         session['temp_file'] = file_path
-        set_title('Visualización del espectro')
         return redirect('/plot/spectrum/temp')
     return render_template('upload.html', form=form)
 
@@ -106,6 +104,14 @@ def manage():
 @main.route('/download-template', methods=['GET', 'POST'])
 @google_required
 def download_template():
+    """
+    Download to the user the metadata template.
+
+    Returns
+    -------
+    file
+        Return the metadata template to the user.
+    """
     return send_from_directory(current_app.root_path, 'metadatos.xlsx',
                                as_attachment=True)
 
@@ -158,7 +164,19 @@ def edit_dataset(dataset):
 @main.route('/datasets/delete/<dataset>')
 @google_required
 def delete_dataset(dataset):
-    delete_user_dataset(dataset)
+    """
+    Remove the dataset with the given name from the database.
+
+    Parameters
+    ----------
+    dataset : str
+        Dataset name.
+
+    Returns
+    -------
+    Redirect to the manage view.
+
+    """
     remove_dataset(dataset, session['user_id'])
     flash('Se ha borrado correctamente el dataset', 'success')
     return redirect(url_for('main.manage'))
@@ -167,6 +185,18 @@ def delete_dataset(dataset):
 @main.route('/datasets/plot/<dataset>')
 @google_required
 def plot_dataset(dataset):
-    set_title('Visualización del dataset')
+    """
+    Redirect the user to the visualization page with the given dataset.
+
+    Parameters
+    ----------
+    dataset : str
+        Dataset name.
+
+    Returns
+    -------
+    Redirect to the Dash app.
+
+    """
     session['current_dataset'] = dataset
     return redirect('/plot/dataset')

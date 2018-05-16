@@ -16,13 +16,23 @@ import pymongo
 from flask_pymongo import PyMongo
 
 import config
-from SpectraViewer.visualization.app import create_dash_app
+from SpectraViewer.visualization import create_dash_app
 
 bootstrap = Bootstrap()
 mongo = PyMongo()
 
 
 def create_app():
+    """
+    Create the Flask instace of the web application, init the flask
+    extensions, register the blueprints and create the Dash application.
+
+    Returns
+    -------
+    Flask
+        Flask instance.
+
+    """
     app = Flask(__name__)
     config_name = os.environ.get('ENVIRONMENT') or 'default'
     app.config.from_object(config.config[config_name])
@@ -40,9 +50,19 @@ def create_app():
 
 
 def _init_extensions(app):
+    """
+    Init flask extensions.
+
+    Parameters
+    ----------
+    app : Flask
+        Flask app to be passed to the extensions.
+
+    """
     bootstrap.init_app(app)
     mongo.init_app(app)
 
     with app.app_context():
-        mongo.db.datasets.create_index([('dataset_name', pymongo.ASCENDING)],
+        mongo.db.datasets.create_index([('dataset_name', pymongo.ASCENDING),
+                                        ('user_id', pymongo.ASCENDING)],
                                        unique=True)

@@ -1,6 +1,6 @@
 """
     SpectraViewer.visualization
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     This module contains all necessary things to manipulate the
     visualization of the graphs.
@@ -58,14 +58,32 @@ def create_dash_app(server):
     _instance = app
 
 
-def set_title(title):
-    _instance.title = title
-
-
 def _add_callbacks(app):
+    """
+    Add the necessary callbacks to the Dash app.
+
+    Parameters
+    ----------
+    app : Dash
+        Dash app.
+
+    """
     @app.callback(Output('page-content', 'children'),
                   [Input('url', 'pathname')])
     def display_page(pathname):
+        """
+        Returns the layout for the current path of the Dash application.
+
+        Parameters
+        ----------
+        pathname : str
+            Current path of the app.
+
+        Returns
+        -------
+        layout
+
+        """
         if pathname == '/plot/dataset':
             from SpectraViewer.visualization import dataset
             return dataset.compose_layout()
@@ -82,6 +100,22 @@ def _add_callbacks(app):
                   [Input('metadata', 'rows'),
                    Input('metadata', 'selected_row_indices')])
     def update_spectrum(rows, spectra_index):
+        """
+        Updates the spectrum graph with the new selected rows.
+
+        Parameters
+        ----------
+        rows : list of dict
+            Current rows in the table.
+        spectra_index :  list
+            Rows currently selected.
+
+        Returns
+        -------
+        figure : dict
+            Updated figure.
+
+        """
         from SpectraViewer.utils.mongo_facade import get_user_dataset
         dataset = session['current_dataset']
         user_id = session['user_id']
@@ -109,7 +143,8 @@ def _add_callbacks(app):
 
 def temp_spectrum_layout(figure):
     """
-    Build and set the layout for the Dash application.
+    Build and set the layout for the Dash application when plotting a
+    temp spectrum.
 
     Receives the figure returned by the iplot() method and returns the
     layout of the Dash application with that figure.
@@ -118,8 +153,6 @@ def temp_spectrum_layout(figure):
     ----------
     figure : plotly Figure
         The figure which will be represented.
-    title : str
-        Title of the web page.
 
     """
     layout = html.Div(children=[

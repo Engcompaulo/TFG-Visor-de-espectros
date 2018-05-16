@@ -13,6 +13,21 @@ from flask_dance.contrib.google import google
 
 
 def google_required(controller):
+    """
+    Decorator that assures only logged in users can access some routes
+    in the applicaction.
+
+    Parameters
+    ----------
+    controller : function
+        Controller (route) to be decorated.
+
+    Returns
+    -------
+    function
+        Decorated function.
+
+    """
     @wraps(controller)
     def decorated_function(*args, **kwargs):
         if not google.authorized:
