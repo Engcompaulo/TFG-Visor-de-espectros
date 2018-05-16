@@ -1,8 +1,51 @@
 \apendice{Plan de Proyecto Software}
 
 \section{Introducción}
+Para que un proyecto se desarrolle con normalidad y con el menor número de imprevistos posibles es esencial que cuente con una fase de planificación. Aquí se estima el tiempo, trabajo y dinero que puede llegar a usarse durante la realización del proyecto. Para ello, se debe analizar en detalle cada parte del proyecto. De cara al futuro, el análisis del proyecto puede servir para predecir como de bien puede desarrollarse una continuación del mismo.
+
+La planificación del proyecto consta de dos partes:
+\begin{itemize}
+	\tightlist
+	\item \textbf{Planificación temporal}: en esta parte se analiza y planifica el tiempo que se va a dedicar a cada parte del proyecto, fecha de inicio y final aproximado, teniendo en cuenta el trabajo necesario para cada parte.
+	\item \textbf{Estudio de viabilidad}: en esta parte se analiza como de viable es la realización del proyecto, se divide a su vez en dos apartados:
+	
+	\begin{itemize}
+		\tightlist
+		\item \textbf{Económica}: en esta parte se estiman los costes y los beneficios que puede suponer el proyecto.
+		\item \textbf{Legal}: en esta parte se analizan los conceptos legales del proyecto, como podrían ser las licencias del proyecto o la política de protección de datos.
+	\end{itemize}
+\end{itemize}
 
 \section{Planificación temporal}
+La planificación temporal se organiza mediante \textit{sprints}. Cada \textit{sprint} dura una o dos semanas. Los \textit{sprints} empiezan en la reunión y acaban en la siguiente.\\
+
+\subsection{Sprints 0-2}
+Estos \textit{sprints} se centran en investigar las tecnologías que se van a usar en el proyecto, toma de contacto con las herramientas, construcción de prototipos en las tecnologías y desplegar la aplicación básica.\\
+
+Se comentó con los tutores que en proyectos webs anteriores el despliegue se solía dejar para las etapas finales del proyecto, haciendo que todos los problemas asociados surjan en esas finales, retrasando el despliegue y, a veces, no llegar a desplegar la aplicación. Por eso se ha desplegado la aplicación desde las etapas iniciales del proyecto.\\
+
+\subsection{Sprint 3}
+Este \textit{sprint} se centra en mejorar visualmente la aplicación y encabezar en desarrollo del proyecto hacia algo definitivo. Se mejora la estructura lógica del proyecto, la visualización de un espectro individual, se añade la subida y visualización de \textit{datasets} y soporte de usuarios mediante cuenta de Google.\\
+
+Hubo dos tareas que no se llegaron a completar, la subida y visualización y el manual de despliegue definitivo.\\
+
+\subsection{Sprint 4}
+En este \textit{sprint} se completan las tareas que no habían dado tiempo del \textit{sprint} anterior y se planteó usar una base de datos en lugar de almacenamiento para guardar los datos. También se añadió la opción de borrar un \textit{dataset} ya almacenado.\\
+
+En este \textit{sprint} se han completado todas las tareas.\\
+
+\subsection{Sprint 5}
+De la comparación del \textit{sprint} anterior se decidió usar MongoDB para el almacenamiento, por lo cual la mayoría de los esfuerzos se centraron en adaptar la aplicación para usar MongoDB en todos sus aspectos: guardar, borrar y coger los datos.\\
+
+En este \textit{sprint} se han completado todas las tareas.\\
+
+\subsection{Sprint 6}
+Para este \textit{sprint} se planteó cambiar la forma en la que se guardan los \textit{datasets} para que más adelante sea más sencillo de pasar los datos al sistema de aprendizaje automático (muchos dataframes a un dataframe). También se añadió soporte de comentarios en el \textit{dataset} y se añadió soporte para un fichero excel en la subida que contenga los metadatos del \textit{dataset}. Por último se empezó a añadir controles en la parte de visualización para el procesado de los espectros.\\
+
+Esta última tarea no se pudo completar.\\
+
+\subsection{Sprint 7}
+Este \textit{sprint} se centró en completar la tarea del \textit{sprint} anterior, mostrar en la parte de visualización una tabla con los ejemplos del \textit{dataset} y sus metadatos, documentar el código y avanzar en la memoria y anexos.\\
 
 \section{Estudio de viabilidad}
 

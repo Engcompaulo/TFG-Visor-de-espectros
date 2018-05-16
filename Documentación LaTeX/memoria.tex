@@ -315,6 +315,7 @@
 \makeatletter
 \usepackage{xcolor}
 \newcommand{\tutor}[1]{\def\@tutor{#1}}
+\newcommand{\cotutor}[1]{\def\@cotutor{#1}}
 \newcommand{\course}[1]{\def\@course{#1}}
 \definecolor{cpardoBox}{HTML}{E6E6FF}
 \def\maketitle{
@@ -346,6 +347,7 @@
     Presentado por \@author{}\\ 
     en Universidad de Burgos --- \@date{}\\
     Tutor: \@tutor{}\\
+    Cotutor: \@cotutor{}\\
   }%
   \end{center}%
   \null
@@ -353,12 +355,13 @@
   }
 \makeatother
 
-\newcommand{\nombre}{Nombre del alumno} %%% cambio de comando
+\newcommand{\nombre}{Iván Iglesias Cuesta} %%% cambio de comando
 
 % Datos de portada
-\title{título del TFG}
+\title{Visor de espectros}
 \author{\nombre}
-\tutor{nombre tutor}
+\tutor{Dr. José Francisco Díez Pastor}
+\cotutor{Dr. César Ignacio García Osorio}
 \date{\today}
 
 \begin{document}
