@@ -22,16 +22,16 @@ BL_CLASSES = dict(
 
 # add baseline methods that might fail to import
 try:
-  from .mario import Mario
+    from .mario import Mario
 except ImportError:
-  warnings.warn('Failed to import mario baseline: '
-                'install cvxopt or scipy >= 0.15')
+    warnings.warn('Failed to import mario baseline: '
+                  'install cvxopt or scipy >= 0.15')
 else:
-  BL_CLASSES['mario'] = Mario
+    BL_CLASSES['mario'] = Mario
 
 try:
-  from .wavelet import Wavelet
+    from .wavelet import Wavelet
 except ImportError as e:
-  warnings.warn('Failed to import wavelet baseline: %s' % e)
+    warnings.warn('Failed to import wavelet baseline: %s' % e)
 else:
-  BL_CLASSES['wavelet'] = Wavelet
+    BL_CLASSES['wavelet'] = Wavelet

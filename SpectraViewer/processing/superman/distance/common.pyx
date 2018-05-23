@@ -40,4 +40,3 @@ cdef inline float minimum(float[::1] buf, Py_ssize_t n) nogil:
     if x < minval:
       minval = x
   return minval
-

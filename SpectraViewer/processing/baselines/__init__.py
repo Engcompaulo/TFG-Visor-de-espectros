@@ -5,5 +5,4 @@ import warnings
 
 from .alsOld import ALS_old
 
-
 BL_CLASSES_2 = dict(ALS_old=ALS_old)

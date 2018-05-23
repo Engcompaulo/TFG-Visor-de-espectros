@@ -5,54 +5,56 @@ from six.moves import zip
 
 
 def convert_to_dana(mineral_names, mineral_ids=None,
-                    unk_dana=('0','0','0','0')):
-  name_to_number = load_dana_map()
-  dana = []
-  if mineral_ids is None:
-    dana_dtype = list(zip(['klass','type','group','species'], ['|S4']*4))
-    for name in mineral_names:
-      dana.append(name_to_number.get(name, unk_dana))
-  else:
-    dana_dtype = list(zip(['klass','type','group','species','ID'], ['|S4']*5))
-    for name, id_num in zip(mineral_names, mineral_ids):
-      dana.append(name_to_number.get(name, unk_dana) + (str(id_num),))
-  return np.array(dana, dtype=dana_dtype).view(np.recarray)
+                    unk_dana=('0', '0', '0', '0')):
+    name_to_number = load_dana_map()
+    dana = []
+    if mineral_ids is None:
+        dana_dtype = list(
+            zip(['klass', 'type', 'group', 'species'], ['|S4'] * 4))
+        for name in mineral_names:
+            dana.append(name_to_number.get(name, unk_dana))
+    else:
+        dana_dtype = list(
+            zip(['klass', 'type', 'group', 'species', 'ID'], ['|S4'] * 5))
+        for name, id_num in zip(mineral_names, mineral_ids):
+            dana.append(name_to_number.get(name, unk_dana) + (str(id_num),))
+    return np.array(dana, dtype=dana_dtype).view(np.recarray)
 
 
 def load_dana_map():
-  '''Returns a dict from name -> (class,type,group,species)'''
-  return dict(_gen_dana_tuples())
+    '''Returns a dict from name -> (class,type,group,species)'''
+    return dict(_gen_dana_tuples())
 
 
 def load_dana_tree():
-  '''Returns a nested dict from class -> type -> group -> species -> name'''
-  dana_tree = {}  # nested dict of class -> type -> group -> species -> name
-  for name, parts in _gen_dana_tuples():
-    _add_nested(dana_tree, parts, name)
-  return dana_tree
+    '''Returns a nested dict from class -> type -> group -> species -> name'''
+    dana_tree = {}  # nested dict of class -> type -> group -> species -> name
+    for name, parts in _gen_dana_tuples():
+        _add_nested(dana_tree, parts, name)
+    return dana_tree
 
 
 def _gen_dana_tuples():
-  file_path = os.path.join(os.path.dirname(__file__), 'dana_numbers.txt')
-  with open(file_path) as fh:
-    for line in fh:
-      try:
-        num,name = line.strip().split(' ', 1)
-      except ValueError as e:
-        print(line)
-        raise e
-      yield name, tuple(num.split('.'))
+    file_path = os.path.join(os.path.dirname(__file__), 'dana_numbers.txt')
+    with open(file_path) as fh:
+        for line in fh:
+            try:
+                num, name = line.strip().split(' ', 1)
+            except ValueError as e:
+                print(line)
+                raise e
+            yield name, tuple(num.split('.'))
 
 
 def _add_nested(tree, keys, value):
-  k = keys[0]
-  keys = keys[1:]
-  if not keys:
-    tree[k] = value
-  else:
-    if k not in tree:
-      tree[k] = {}
-    _add_nested(tree[k], keys, value)
+    k = keys[0]
+    keys = keys[1:]
+    if not keys:
+        tree[k] = value
+    else:
+        if k not in tree:
+            tree[k] = {}
+        _add_nested(tree[k], keys, value)
 
 
 dana_class_names = {
@@ -136,10 +138,9 @@ dana_class_names = {
     78: 'Unclassified Silicates'
 }
 
-
 dana_class_groups = {
     'Native Elements and Alloys': [1],
-    'Sulfides and Related Compounds': [2,3],
+    'Sulfides and Related Compounds': [2, 3],
     'Oxides': range(4, 9),
     'Halogenides': range(9, 13),
     'Carbonates': range(13, 18),
@@ -147,12 +148,12 @@ dana_class_groups = {
     'Iodates': range(21, 24),
     'Borates': range(24, 28),
     'Sulfates': range(28, 33),
-    'Selenates and Tellurates; Selenites and Tellurites': [33,34],
-    'Chromates': [35,36],
+    'Selenates and Tellurates; Selenites and Tellurites': [33, 34],
+    'Chromates': [35, 36],
     'Phosphates, Arsenates, and Vanadates': range(37, 44),
     'Antimonates, Antimonites, and Arsenites': range(44, 47),
     'Vanadium Oxysalts': [47],
-    'Molybdates and Tungstates': [48,49],
+    'Molybdates and Tungstates': [48, 49],
     'Organic Compounds': [50],
     'Nesosilicates: Insular SiO4': range(51, 55),
     'Sorosilicates: Isolated Tetrahedral Noncyclic Groups': range(55, 59),
