@@ -12,6 +12,8 @@ import dash_html_components as html
 import dash_table_experiments as dt
 from flask import session
 
+from SpectraViewer.processing.Preprocess import PreprocessOperator
+
 
 def compose_layout():
     """
@@ -28,6 +30,14 @@ def compose_layout():
     dataset_data = get_user_dataset(dataset, user_id)
     metadata = dataset_data.loc[:, ['Nombre', 'Etiqueta', 'Mina', 'Profundidad',
                                     'Profundidad_num']]
+    prep = PreprocessOperator('normalize', type='norm')
+    prep_options = prep.get_options()
+    norm_options = prep_options['normalize']['type']
+    squash_options = prep_options['squash']['type']
+    smooth_options = prep_options['smooth']['type']
+    crop_min = prep_options['crop']['orig'][0]
+    crop_max = prep_options['crop']['orig'][1]
+    baselines = ['ALS_old', 'airpls', 'als', 'fabc', 'median', 'mpls', 'tophat']
     layout = html.Div(children=[
         html.A(className='btn btn-default', href='/manage',
                children=['Volver a mis archivos']),
@@ -64,12 +74,12 @@ def compose_layout():
                     html.Div(className='form-group', children=[
                         html.Label(htmlFor='crop-min',
                                    className='col-md-4 control-label',
-                                   children='Recorte (min,max) (C)'),
+                                   children='Recorte (min, max) (C)'),
                         html.Div(className='col-md-4', children=[
                             dcc.Input(
                                 id='crop-min',
-                                min=50,
-                                max=2800,
+                                min=crop_min,
+                                max=crop_max,
                                 className='form-control',
                                 placeholder=50,
                                 type='number',
@@ -79,8 +89,8 @@ def compose_layout():
                         html.Div(className='col-md-4', children=[
                             dcc.Input(
                                 id='crop-max',
-                                min=50,
-                                max=2800,
+                                min=crop_min,
+                                max=crop_max,
                                 className='form-control',
                                 placeholder=2800,
                                 type='number',
@@ -95,7 +105,7 @@ def compose_layout():
                         html.Div(className='col-md-8', children=[
                             dcc.Dropdown(options=[
                                 {'label': baseline, 'value': baseline}
-                                for baseline in []
+                                for baseline in baselines
                             ], value='ALS_old', searchable=False,
                                 clearable=False, id='baseline')
                         ])
@@ -105,9 +115,12 @@ def compose_layout():
                                    className='col-md-4 control-label',
                                    children='Normalización (N)'),
                         html.Div(className='col-md-8', children=[
-                            dcc.Dropdown(options=[], value='norm',
-                                         searchable=False, clearable=False,
-                                         id='normalize')
+                            dcc.Dropdown(options=[
+                                {'label': norm_option, 'value': norm_option}
+                                for norm_option in norm_options
+                            ], value='norm',
+                                searchable=False, clearable=False,
+                                id='normalize')
                         ])
                     ]),
                     html.Div(className='form-group', children=[
@@ -115,9 +128,12 @@ def compose_layout():
                                    className='col-md-4 control-label',
                                    children='Aplastado (S)'),
                         html.Div(className='col-md-8', children=[
-                            dcc.Dropdown(options=[], value='sqrt',
-                                         searchable=False, clearable=False,
-                                         id='squash')
+                            dcc.Dropdown(options=[
+                                {'label': squash_option, 'value': squash_option}
+                                for squash_option in squash_options
+                            ], value='sqrt',
+                                searchable=False, clearable=False,
+                                id='squash')
                         ])
                     ]),
                     html.Div(className='form-group', children=[
@@ -125,9 +141,12 @@ def compose_layout():
                                    className='col-md-4 control-label',
                                    children='Tipo de suavizado (s)'),
                         html.Div(className='col-md-8', children=[
-                            dcc.Dropdown(options=[], value='sg',
-                                         searchable=False, clearable=False,
-                                         id='smooth-type')
+                            dcc.Dropdown(options=[
+                                {'label': smooth_option, 'value': smooth_option}
+                                for smooth_option in smooth_options
+                            ], value='sg',
+                                searchable=False, clearable=False,
+                                id='smooth-type')
                         ])
                     ]),
                     html.Div(className='form-group', children=[

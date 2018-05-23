@@ -15,10 +15,13 @@ import dash_html_components as html
 import dash_table_experiments as dt
 from dash.dependencies import Input, Output
 
+import numpy as np
 import pandas as pd
 # Importing cufflinks is required to able to get the plotly figure from
 # a DataFrame, the import binds the DataFrame with the iplot method.
 import cufflinks
+
+from SpectraViewer.processing.Preprocess import preprocess_pipeline
 
 _instance = None
 
@@ -68,6 +71,7 @@ def _add_callbacks(app):
         Dash app.
 
     """
+
     @app.callback(Output('page-content', 'children'),
                   [Input('url', 'pathname')])
     def display_page(pathname):
@@ -153,8 +157,54 @@ def _add_callbacks(app):
                    Input('smooth-s', 'value')])
     def process_spectrum(figure, order, crop_min, crop_max, baseline, normalize,
                          squash, smooth_type, smooth_s):
+        """
+        Process the original spectra and return it as a figure for the
+        processed spectrum graph.
+
+        Parameters
+        ----------
+        figure : dict
+            Figure of the original spectreum.
+        order : str
+            Processing order.
+        crop_min : int
+            Crop lower limit.
+        crop_max : int
+            Crop upper limit.
+        baseline : str
+            Baseline type.
+        normalize : str
+            Nomalization type.
+        squash : str
+            Squash type.
+        smooth_type : str
+            Smooth type.
+        smooth_s : int
+            Smooth size.
+
+        Returns
+        -------
+        dict
+            Processed figure.
+
+        """
         processed_figure = figure
         processed_figure['layout']['title'] = 'Espectro procesado'
+        old_data = figure['data']
+        new_data = list()
+        for spectrum in old_data:
+            values = spectrum['y']
+            size = len(values)
+            X, atts = preprocess_pipeline(np.array(values).reshape((1, size)),
+                                          spectrum['x'],
+                                          order, crop_min, crop_max, baseline,
+                                          normalize, squash, smooth_type,
+                                          smooth_s)
+            new_values = X[0].tolist()
+            new_data.append(
+                {'x': atts, 'y': new_values, 'name': spectrum['name']})
+
+        processed_figure['data'] = new_data
         return processed_figure
 
 
