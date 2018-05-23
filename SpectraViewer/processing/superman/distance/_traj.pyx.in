@@ -1,0 +1,115 @@
+# -*- cython -*-
+
+# cython: initializedcheck=False
+# cython: boundscheck=False
+# cython: wraparound=False
+# cython: nonecheck=False
+# cython: cdivision=True
+from libc.math cimport fmin, fabs, sqrt
+from common cimport optimal_band_eps, match_score, combo_score, minimum
+{{py:
+METRICS = ['match', 'combo']
+}}
+
+{{for mtype in METRICS}}
+
+# The basic kind: regular old trajectory matching
+cpdef float traj_{{mtype}}(float[:,::1] a, float[:,::1] b, float w) nogil:
+  cdef float band_eps = optimal_band_eps(a, b)
+  cdef Py_ssize_t na = a.shape[0], nb = b.shape[0]
+  cdef Py_ssize_t i, j, min_j = 1
+  cdef float dx, ax, ay, bx, by, lcs_diag = 0, ssa = 0, ssb = 0
+  # Abuse known second dimension (2) for speed
+  cdef float* aa = &a[0,0]
+  cdef float* bb = &b[0,0]
+  for i in range(na):
+    ax = aa[2*i]
+    for j in range(min_j, nb+1):
+      bx = bb[2*j-2]
+      dx = ax - bx
+      if fabs(dx) <= band_eps:
+        ay = aa[2*i+1]
+        by = bb[2*j-1]
+        lcs_diag += {{mtype}}_score(ay, by, w)
+        ssa += ay*ay
+        ssb += by*by
+      elif dx > 0:
+        # b is still behind a
+        min_j = j
+      else:
+        # b is past a, so no more matches, skip ahead
+        break
+  return lcs_diag / sqrt(ssa * ssb)
+
+
+# Uses a sliding minimum window to avoid baseline issues,
+# otherwise it's exactly the same as vanilla traj matching.
+cpdef float traj_{{mtype}}_min(
+    float[:,::1] a, float[:,::1] b, float w,
+    float[::1] a_window, float[::1] b_window) nogil:
+  cdef float band_eps = optimal_band_eps(a, b)
+  cdef Py_ssize_t na = a.shape[0], nb = b.shape[0]
+  cdef Py_ssize_t i, j, min_j = 1
+  cdef float dx, ax, ay, bx, by, lcs_diag = 0, ssa = 0, ssb = 0
+  # Abuse known second dimension (2) for speed
+  cdef float* aa = &a[0,0]
+  cdef float* bb = &b[0,0]
+
+  cdef Py_ssize_t awi = 0, bwi = 0, window_size = a_window.shape[0]
+  for i in range(window_size):
+    a_window[i] = a[i,1]
+    b_window[i] = b[i,1]
+
+  for i in range(na):
+    ax = aa[2*i]
+    ay = aa[2*i+1]
+    a_window[awi] = ay
+    awi = (awi+1) % window_size
+    ay -= minimum(a_window, window_size)
+    for j in range(min_j, nb):
+      bx = bb[2*j-2]
+      dx = ax - bx
+      if fabs(dx) <= band_eps:
+        by = bb[2*j-1]
+        b_window[bwi] = by
+        bwi = (bwi+1) % window_size
+        by -= minimum(b_window, window_size)
+        lcs_diag += {{mtype}}_score(ay, by, w)
+        ssa += ay*ay
+        ssb += by*by
+      elif dx > 0:
+        # b is still behind a
+        min_j = j
+      else:
+        # b is past a, so no more matches, skip ahead
+        break
+  return lcs_diag / sqrt(ssa * ssb)
+
+# Same as vanilla matching, but returns an array of scores the same length
+# as trajectory a, such that sum(scores) \propto the vanilla match score.
+cpdef void traj_{{mtype}}_full(float[:,::1] a, float[:,::1] b, float w, float[::1] scores) nogil:
+  cdef float band_eps = optimal_band_eps(a, b)
+  cdef Py_ssize_t na = a.shape[0], nb = b.shape[0]
+  cdef Py_ssize_t i, j, min_j = 1
+  cdef float dx, ax, ay, bx, by
+  # Abuse known second dimension (2) for speed
+  cdef float* aa = &a[0,0]
+  cdef float* bb = &b[0,0]
+  for i in range(na):
+    ax = aa[2*i]
+    scores[i] = 0
+    for j in range(min_j, nb+1):
+      bx = bb[2*j-2]
+      dx = ax - bx
+      if fabs(dx) <= band_eps:
+        ay = aa[2*i+1]
+        by = bb[2*j-1]
+        scores[i] += {{mtype}}_score(ay, by, w)
+      elif dx > 0:
+        # b is still behind a
+        min_j = j
+      else:
+        # b is past a, so no more matches, skip ahead
+        break
+
+{{endfor}}
