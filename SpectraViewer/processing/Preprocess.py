@@ -82,7 +82,7 @@ class PreprocessOperator(BaseEstimator, TransformerMixin):
             'crop': {'feature_names': None,
                      'orig': (50, 2000),
                      'end': (50, 2000)}
-            }
+        }
 
     def preprocess(self, data):
 

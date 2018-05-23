@@ -260,11 +260,11 @@ def _get_peak_function(fit_kind, loc, loc_fixed):
         if loc_fixed:
             def peak(x, A, w):
                 return A * np.exp(-c * (x - loc) ** 2 / w ** 2) / (
-                            w * np.sqrt(np.pi / c))
+                        w * np.sqrt(np.pi / c))
         else:
             def peak(x, x0, A, w):
                 return A * np.exp(-c * (x - x0) ** 2 / w ** 2) / (
-                            w * np.sqrt(np.pi / c))
+                        w * np.sqrt(np.pi / c))
     else:
         raise ValueError('Unsupported fit_kind: %s' % fit_kind)
     return peak

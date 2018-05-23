@@ -28,6 +28,7 @@ def google_required(controller):
         Decorated function.
 
     """
+
     @wraps(controller)
     def decorated_function(*args, **kwargs):
         if not google.authorized:
@@ -36,4 +37,5 @@ def google_required(controller):
             return redirect(url_for('main.index'))
         else:
             return controller(*args, **kwargs)
+
     return decorated_function

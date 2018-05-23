@@ -57,4 +57,3 @@ class DatasetForm(FlaskForm):
     notes = TextAreaField(label='Comentarios sobre el dataset')
     file = FileField(label='Seleccione un dataset', validators=_file_validators)
     submit = SubmitField('Subir')
-

@@ -107,7 +107,7 @@ def _print_dana_results(Ytest, label_map, Ntest, result, rank, opts):
             print('\t%d' % score, end='')
         else:
             print(' (%s) %d/%d (%.2f%%) at %d' % (
-            col, score, num_test, ratio, rank))
+                col, score, num_test, ratio, rank))
         if opts.show_errors:
             for i, eidx in bucket:
                 nameT = Ntest[eidx]

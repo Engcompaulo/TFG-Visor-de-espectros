@@ -17,15 +17,19 @@
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li {% if active_page == 'index' %}class="active"{% endif %}><a href="{{ url_for('main.index') }}">Inicio</a></li>
+                    <li {% if active_page == 'index' %}class="active"{% endif %}>
+                        <a href="{{ url_for('main.index') }}">Inicio</a></li>
                     {% if session['email'] %}
-                        <li {% if active_page == 'manage' %}class="active"{% endif %}><a href="{{ url_for('main.manage') }}">Mis
-                            ficheros</a></li>
-                        <li {% if active_page == 'upload-dataset' %}class="active"{% endif %}><a href="{{ url_for('main.upload_dataset') }}">Subir
-                            dataset</a></li>
+                        <li {% if active_page == 'manage' %}class="active"{% endif %}>
+                            <a href="{{ url_for('main.manage') }}">Mis
+                                ficheros</a></li>
+                        <li {% if active_page == 'upload-dataset' %}class="active"{% endif %}>
+                            <a href="{{ url_for('main.upload_dataset') }}">Subir
+                                dataset</a></li>
                     {% endif %}
-                    <li {% if active_page == 'upload-spectrum' %}class="active"{% endif %}><a href="{{ url_for('main.upload') }}">Subir
-                        espectro</a></li>
+                    <li {% if active_page == 'upload-spectrum' %}class="active"{% endif %}>
+                        <a href="{{ url_for('main.upload') }}">Subir
+                            espectro</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {% if not session['email'] %}
