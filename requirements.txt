@@ -15,5 +15,8 @@ numpy==1.14.3
 pandas==0.22.0
 plotly==2.5.1
 pymongo==3.6.1
+PyWavelets==0.5.2
+scikit-learn==0.19.1
+scipy==1.1.0
 Werkzeug==0.14.1
 WTForms==2.1
