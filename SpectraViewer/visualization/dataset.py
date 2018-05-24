@@ -39,8 +39,85 @@ def compose_layout():
     crop_max = prep_options['crop']['orig'][1]
     baselines = ['ALS_old', 'airpls', 'als', 'fabc', 'median', 'mpls', 'tophat']
     layout = html.Div(children=[
+
         html.A(className='btn btn-default', href='/manage',
                children=['Volver a mis archivos']),
+        html.Details(children=[
+            html.Summary(className='btn btn-default', children='Ayuda'),
+            html.Div(className='row', children=[
+                html.Div(className='col-md-4', children=[
+                    html.Div(className='panel panel-default', children=[
+                        html.Div(className='panel-heading',
+                                 children=html.H4('Tabla de datos')),
+                        html.Div(className='panel-body', children=[
+                            html.Ul(children=[
+                                html.Li(
+                                    'Seleccione en la tabla los ejemplos que quiera representar'),
+                                html.Li(
+                                    'Se pueden seleccionar varios ejemplos a la vez'),
+                                html.Li(
+                                    'Pulsando el botón "Filter Rows" aparcen unas cajas de texto en cada columna para filtrar las filas por ese valor'),
+                                html.Li(
+                                    'Pulsando en el nombre de la columna, se ordena de forma ascendente o descendente')
+                            ])
+                        ])
+                    ])
+                ]),
+                html.Div(className='col-md-4', children=[
+                    html.Div(className='panel panel-default', children=[
+                        html.Div(className='panel-heading',
+                                 children=html.H4(
+                                     'Controles de procesamiento')),
+                        html.Div(className='panel-body', children=[
+                            html.P(
+                                'Cada etiqueta asociada a un control tiene entre paréntesis la letra que lo representa'),
+                            html.P(
+                                'En el cuadro "Orden de procesado" hay que introducir '
+                                'las letras de los controles en el orden que se quiera realizar el procesado'),
+                            html.Dl(className='dl-horizontal', children=[
+                                html.Dt('Recorte'), html.Dd(
+                                    'Muestra los valores entre el rango definido'),
+                                html.Dt('Línea base'),
+                                html.Dd('Elimina la línea base del gráfico'),
+                                html.Dt('Normalización'),
+                                html.Dd('Normaliza los valores de los datos'),
+                                html.Dt('Aplastado'),
+                                html.Dd('Aplasta los valores de los datos'),
+                                html.Dt('Suavizado'),
+                                html.Dd('Elimina pequeños picos en los datos, '
+                                        'se requiere escoger un tipo y un tamaño, '
+                                        'cuanto mayor sea el tamaño menos picos quedan'),
+
+                            ])
+                        ])
+                    ])
+                ]),
+                html.Div(className='col-md-4', children=[
+                    html.Div(className='panel panel-default', children=[
+                        html.Div(className='panel-heading',
+                                 children=html.H4('Opciones de los gráficos')),
+                        html.Div(className='panel-body', children=[
+                            html.Ul(children=[
+                                html.Li(
+                                    'Seleccionando una zona sobre el gráfico se hace zoom en esa parte'),
+                                html.Li(
+                                    'Haciendo doble click después de hacer zoom se vuelve a la vista general'),
+                                html.P('Con varios ejemplos seleccionados:'),
+                                html.Ul(children=[
+                                    html.Li(
+                                        'Haciendo click en el nombre de uno se oculta del gŕafico'),
+                                    html.Li(
+                                        'Haciendo doble click en el nombre de uno se ocultan el resto'),
+                                ]),
+                                html.Li(
+                                    'El propio gráfico tiene que varias cuya función se muestra al pasar el ratón por encima de su icono')
+                            ])
+                        ])
+                    ])
+                ])
+            ])
+        ])
+        ,
         html.H3(f'Dataset {dataset}'),
         html.Div(className='row', children=[
             html.Div(className='col-md-8', children=[
@@ -158,6 +235,7 @@ def compose_layout():
                                 id='smooth-s',
                                 min=3,
                                 max=35,
+                                step=2,
                                 marks={i: i for i in range(3, 36, 2)},
                                 value=25,
                             ),
