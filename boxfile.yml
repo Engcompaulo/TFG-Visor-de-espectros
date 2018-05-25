@@ -4,6 +4,9 @@ run.config:
     runtime: python-3.6
   extra_packages:
     - nginx
+  extra_steps:
+    - bash install_dependencies.sh requirements.txt
+    - bash install_dependencies.sh requirements-r.txt
 
 web.main:
   start:
