@@ -1,3 +1,4 @@
+# Configuración de la ejecución
 run.config:
   engine: python
   engine.config:
@@ -6,8 +7,8 @@ run.config:
     - nginx
   extra_steps:
     - bash install_dependencies.sh requirements.txt
-    - bash install_dependencies.sh requirements-r.txt
 
+# Configuración del contenedor de la web
 web.main:
   start:
     nginx: nginx -c /app/etc/nginx.conf
@@ -20,9 +21,10 @@ web.main:
       schedule: '0 0 * * *'
       command: 'rm -rf /app/instance/uploads/temp/'
 
+# Configuración del contenedor del almacenamiento
 data.uploads:
   image: nanobox/unfs:0.9
 
-
+# Configuración del contenedor de MongoDB
 data.mongodb:
   image: nanobox/mongodb:3.4

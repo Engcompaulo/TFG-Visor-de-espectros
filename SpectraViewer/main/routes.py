@@ -21,22 +21,22 @@ from SpectraViewer.utils.directories import get_temp_directory, get_path, \
     get_user_spectra, get_user_directory
 
 
-# @main.before_app_request
-# def before_request():
-#     """Force the use of https.
-#
-#     Before every request change the http url to https. If already in
-#     https this does nothing, just check.
-#
-#     Returns
-#     -------
-#         Redirect to the secure url.
-#
-#     """
-#     if request.url.startswith('http://'):
-#         url = request.url.replace('http://', 'https://', 1)
-#         code = 301
-#         return redirect(url, code=code)
+@main.before_app_request
+def before_request():
+    """Force the use of https.
+
+    Before every request change the http url to https. If already in
+    https this does nothing, just check.
+
+    Returns
+    -------
+        Redirect to the secure url.
+
+    """
+    if request.url.startswith('http://'):
+        url = request.url.replace('http://', 'https://', 1)
+        code = 301
+        return redirect(url, code=code)
 
 
 @main.route('/')
