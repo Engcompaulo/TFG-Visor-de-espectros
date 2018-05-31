@@ -39,7 +39,6 @@ def compose_layout():
     crop_max = prep_options['crop']['orig'][1]
     baselines = ['ALS_old', 'airpls', 'als', 'fabc', 'median', 'mpls', 'tophat']
     layout = html.Div(children=[
-
         html.A(className='btn btn-default', href='/manage',
                children=['Volver a mis archivos']),
         html.Details(children=[

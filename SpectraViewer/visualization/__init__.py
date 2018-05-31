@@ -91,12 +91,9 @@ def _add_callbacks(app):
         if pathname == '/plot/dataset':
             from SpectraViewer.visualization import dataset
             return dataset.compose_layout()
-        elif pathname == '/plot/spectrum/temp':
-            data = pd.read_csv(session['temp_file'], sep=';', header=None)
-            data.columns = ['Raman shift', 'Intensity']
-            figure = data.iplot(x='Raman shift', y='Intensity', asFigure=True,
-                                xTitle='Raman shift', yTitle='Intensity')
-            return temp_spectrum_layout(figure)
+        elif pathname == '/plot/spectrum':
+            from SpectraViewer.visualization import spectrum
+            return spectrum.compose_layout()
         else:
             abort(404)
 
@@ -206,31 +203,3 @@ def _add_callbacks(app):
 
         processed_figure['data'] = new_data
         return processed_figure
-
-
-def temp_spectrum_layout(figure):
-    """
-    Build and set the layout for the Dash application when plotting a
-    temp spectrum.
-
-    Receives the figure returned by the iplot() method and returns the
-    layout of the Dash application with that figure.
-
-    Parameters
-    ----------
-    figure : plotly Figure
-        The figure which will be represented.
-
-    """
-    layout = html.Div(children=[
-        html.A(className='btn btn-default', href='/',
-               children=['Volver a la página principal']),
-        html.Div(className='page-header', children=[
-            html.H2('Visualización del espectro')
-        ]),
-        dcc.Graph(
-            id='spectrum',
-            figure=figure
-        )
-    ])
-    return layout

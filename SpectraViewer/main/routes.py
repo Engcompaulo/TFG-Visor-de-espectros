@@ -235,3 +235,23 @@ def plot_dataset(dataset):
     """
     session['current_dataset'] = dataset
     return redirect('/plot/dataset')
+
+
+@main.route('/spectrum/plot/<spectrum>')
+@google_required
+def plot_spectrum(spectrum):
+    """
+    Redirect the user to the visualization page with the given spectrum.
+
+    Parameters
+    ----------
+    spectrum : str
+        Spectrum name.
+
+    Returns
+    -------
+    Redirect to the Dash app.
+
+    """
+    session['current_spectrum'] = spectrum
+    return redirect('/plot/spectrum')

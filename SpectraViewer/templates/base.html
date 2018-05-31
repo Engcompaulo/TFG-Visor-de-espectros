@@ -26,10 +26,10 @@
                         <li {% if active_page == 'upload-dataset' %}class="active"{% endif %}>
                             <a href="{{ url_for('main.upload_dataset') }}">Subir
                                 dataset</a></li>
+                        <li {% if active_page == 'upload-spectrum' %}class="active"{% endif %}>
+                            <a href="{{ url_for('main.upload_spectrum') }}">Subir
+                                espectro</a></li>
                     {% endif %}
-                    <li {% if active_page == 'upload-spectrum' %}class="active"{% endif %}>
-                        <a href="{{ url_for('main.upload_spectrum') }}">Subir
-                            espectro</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {% if not session['email'] %}

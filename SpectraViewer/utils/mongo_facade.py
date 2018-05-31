@@ -257,6 +257,29 @@ def get_user_dataset(dataset_name, user_id):
     return data
 
 
+def get_user_spectrum(spectrum_name, user_id):
+    """
+    Return the dataset with the given name belonging to the given user.
+
+    Parameters
+    ----------
+    spectrum_name : str
+        Spectrum name.
+    user_id : str
+        User id.
+
+    Returns
+    -------
+    DataFrame
+        DataFrame containing the spectrum.
+
+    """
+    spectrum = mongo.db.spectra.find_one({'spectrum_name': spectrum_name,
+                                         'user_id': user_id})
+    data = pd.read_json(spectrum['data'], orient='split')
+    return data
+
+
 def remove_dataset(dataset_name, user_id):
     """
     Remove from Mongo the dataset with the given name belonging to the

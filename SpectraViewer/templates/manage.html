@@ -47,7 +47,7 @@
                             <div class="list-group-item-heading clearfix">
                                 <h4 class="pull-left">{{ spectrum['name'] }}</h4>
                                 <div class="btn-group pull-right" role="group">
-                                    <a href=""
+                                    <a href="{{ url_for('main.plot_spectrum', spectrum=spectrum['name']) }}"
                                        class="btn btn-primary">Representar</a>
                                     <a href=""
                                        class="btn btn-default">Editar</a>
