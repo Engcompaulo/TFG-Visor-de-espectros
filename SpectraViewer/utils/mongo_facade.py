@@ -99,6 +99,36 @@ def _load_dataset_from_path(path):
     return dataset
 
 
+def _load_spectrum_from_path(path):
+    """
+    Load the spectrum in the given path and create a DataFrame with it.
+
+    Parameters
+    ----------
+    path : str
+        Path where the spectrum is located.
+
+    Returns
+    -------
+    df : DataFrame
+        DataFrame containing the spectrum.
+
+    """
+    feature_names = np.arange(50, 2801)
+    spectrum = pd.read_csv(path, sep=';', header=None)
+    oldx = spectrum[0].values
+    values = spectrum[1].values
+
+    # some spectra start with 0
+    if values[0] == 0:
+        values[0] = values[1]
+
+    values = np.interp(feature_names, oldx, values)
+    df = pd.DataFrame(columns=feature_names)
+    df.loc['0'] = values
+    return df
+
+
 def save_dataset(dataset_path, dataset_name, dataset_notes, user_id):
     """
     Save the dataset located in the given path in MongoDB.
@@ -127,6 +157,39 @@ def save_dataset(dataset_path, dataset_name, dataset_notes, user_id):
     dataset['data'] = data.to_json(orient='split')  # Split to mantains order
     try:
         mongo.db.datasets.insert_one(dataset)
+        return True
+    except DuplicateKeyError:
+        return False
+
+
+def save_spectrum(spectrum_path, spectrum_name, spectrum_notes, user_id):
+    """
+    Save the dataset located in the given path in MongoDB.
+
+    Parameters
+    ----------
+    spectrum_path : str
+        Spectrum path.
+    spectrum_name : str
+        Spectrum name.
+    spectrum_notes : str
+        Notes related the Spectrum.
+    user_id : str
+        Id of the user owning the Spectrum.
+
+    Returns
+    -------
+    bool
+        True if successfully saved, False if the user has a spectrum
+        with the same name.
+
+    """
+    spectrum = {'spectrum_name': spectrum_name, 'dataset_notes': spectrum_notes,
+                'user_id': user_id}
+    data = _load_spectrum_from_path(spectrum_path)
+    spectrum['data'] = data.to_json(orient='split')  # Split to mantain order
+    try:
+        mongo.db.spectra.insert_one(spectrum)
         return True
     except DuplicateKeyError:
         return False
