@@ -18,6 +18,10 @@ class SpectrumForm(FlaskForm):
 
     Attributes
     ----------
+    name : StringField
+        Field with the spectrum name. Required.
+    notes : TextAreaField
+        Field with the dataset notes. Optional.
     file : FileField
         Allows the user to upload a file to the server. Only .csv
         files are allowed, can't be empty.
@@ -25,11 +29,16 @@ class SpectrumForm(FlaskForm):
         Input field of type submit to trigger the upload action.
 
     """
-    _validators = [
+    _name_validators = [DataRequired('Es obligatorio poner nombre al espectro')]
+    _file_validators = [
         FileRequired('Es obligatorio seleccionar un fichero'),
         FileAllowed(['csv'], 'Solo se admiten ficheros csv')
     ]
-    file = FileField(label='Seleccione un espectro', validators=_validators)
+    name = StringField('Nombre del espectro', validators=_name_validators)
+    notes = TextAreaField(label='Comentarios sobre el espectro')
+    file = FileField(label='Seleccione un espectro',
+                     validators=_file_validators,
+                     render_kw={'onchange': 'setFileName()'})
     submit = SubmitField('Subir')
 
 
@@ -55,5 +64,6 @@ class DatasetForm(FlaskForm):
     ]
     name = StringField(label='Nombre del dataset', validators=_name_validators)
     notes = TextAreaField(label='Comentarios sobre el dataset')
-    file = FileField(label='Seleccione un dataset', validators=_file_validators)
+    file = FileField(label='Seleccione un dataset', validators=_file_validators,
+                     render_kw={'onchange': 'setFileName()'})
     submit = SubmitField('Subir')
