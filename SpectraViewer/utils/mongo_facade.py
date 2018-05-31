@@ -272,3 +272,20 @@ def remove_dataset(dataset_name, user_id):
     """
     mongo.db.datasets.delete_one({'dataset_name': dataset_name,
                                   'user_id': user_id})
+
+
+def remove_spectrum(spectrum_name, user_id):
+    """
+    Remove from Mongo the spectrum with the given name belonging to the
+    given user. However, this does not remove it from disk storage.
+
+    Parameters
+    ----------
+    spectrum_name : str
+        Spectrum name.
+    user_id : str
+        User id.
+
+    """
+    mongo.db.spectra.delete_one({'spectrum_name': spectrum_name,
+                                 'user_id': user_id})

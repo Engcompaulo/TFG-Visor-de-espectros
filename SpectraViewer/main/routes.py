@@ -16,7 +16,7 @@ from SpectraViewer.main import main
 from SpectraViewer.main.forms import SpectrumForm, DatasetForm
 from SpectraViewer.utils.decorators import google_required
 from SpectraViewer.utils.mongo_facade import save_dataset, remove_dataset, \
-    get_datasets, save_spectrum, get_spectra
+    get_datasets, save_spectrum, get_spectra, remove_spectrum
 from SpectraViewer.utils.directories import get_temp_directory, get_path, \
     get_user_directory
 
@@ -193,6 +193,27 @@ def delete_dataset(dataset):
     """
     remove_dataset(dataset, session['user_id'])
     flash('Se ha borrado correctamente el dataset', 'success')
+    return redirect(url_for('main.manage'))
+
+
+@main.route('/spectrum/delete/<spectrum>')
+@google_required
+def delete_spectrum(spectrum):
+    """
+    Remove the spectrum with the given name from the database.
+
+    Parameters
+    ----------
+    spectrum : str
+        Spectrum name.
+
+    Returns
+    -------
+    Redirect to the manage view.
+
+    """
+    remove_spectrum(spectrum, session['user_id'])
+    flash('Se ha borrado correctamente el espectro', 'success')
     return redirect(url_for('main.manage'))
 
 
