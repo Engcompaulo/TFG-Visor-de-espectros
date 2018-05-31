@@ -1,77 +1,163 @@
 \apendice{Plan de Proyecto Software}
 
 \section{Introducción}
-Para que un proyecto se desarrolle con normalidad y con el menor número de imprevistos posibles es esencial que cuente con una fase de planificación. Aquí se estima el tiempo, trabajo y dinero que puede llegar a usarse durante la realización del proyecto. Para ello, se debe analizar en detalle cada parte del proyecto. De cara al futuro, el análisis del proyecto puede servir para predecir como de bien puede desarrollarse una continuación del mismo.
+Para que un proyecto se desarrolle con normalidad y con el menor número de
+imprevistos posibles es esencial que cuente con una fase de planificación. Aquí
+se estima el tiempo, trabajo y dinero que puede llegar a usarse durante la
+realización del proyecto. Para ello, se debe analizar en detalle cada parte del
+proyecto. De cara al futuro, el análisis del proyecto puede servir para predecir
+como de bien puede desarrollarse una continuación del mismo.
 
 La planificación del proyecto consta de dos partes:
 \begin{itemize}
 	\tightlist
-	\item \textbf{Planificación temporal}: en esta parte se analiza y planifica el tiempo que se va a dedicar a cada parte del proyecto, fecha de inicio y final aproximado, teniendo en cuenta el trabajo necesario para cada parte.
-	\item \textbf{Estudio de viabilidad}: en esta parte se analiza como de viable es la realización del proyecto, se divide a su vez en dos apartados:
+	\item \textbf{Planificación temporal}: en esta parte se analiza y planifica el
+	tiempo que se va a dedicar a cada parte del proyecto, fecha de inicio y final
+	aproximado, teniendo en cuenta el trabajo necesario para cada parte.
+	\item \textbf{Estudio de viabilidad}: en esta parte se analiza como de viable
+	es la realización del proyecto, se divide a su vez en dos apartados:
 	
 	\begin{itemize}
 		\tightlist
-		\item \textbf{Económica}: en esta parte se estiman los costes y los beneficios que puede suponer el proyecto.
-		\item \textbf{Legal}: en esta parte se analizan los conceptos legales del proyecto, como podrían ser las licencias del proyecto o la política de protección de datos.
+		\item \textbf{Económica}: en esta parte se estiman los costes y los beneficios
+		que puede suponer el proyecto.
+		\item \textbf{Legal}: en esta parte se analizan los conceptos legales del
+		proyecto, como podrían ser las licencias del proyecto o la política de
+		protección de datos.
 	\end{itemize}
 \end{itemize}
 
 \section{Planificación temporal}
-La planificación temporal se organiza mediante \textit{sprints}. Cada \textit{sprint} dura una o dos semanas. Al terminar cada \textit{sprint} se realiza una reunión con los tutores para dar por terminado
+La planificación temporal se organiza mediante \textit{sprints}. Cada
+\textit{sprint} dura una o dos semanas. Al terminar cada \textit{sprint} se
+realiza una reunión con los tutores para dar por terminado
 
 \subsection{Sprint 0}
-En este \textit{sprint} marcó el inicio del proyecto. La lista de tareas está disponible en \href{https://github.com/IvanBeke/TFG-Visor-de-espectros/milestone/1?closed=1}{Sprint 0}\footnote{\url{https://github.com/IvanBeke/TFG-Visor-de-espectros/milestone/1?closed=1}}. En reuniones previas se habló con los tutores en que iba a consistir en proyecto, pero no estaba claro con que tecnologías desarrollarlo. Se decidió hacer una evaluación de las tecnologías posibles y crear unos prototipos básicos. Todas las tareas se completaron a tiempo.\\
+En este \textit{sprint} marcó el inicio del proyecto. La lista de tareas está
+disponible en
+\href{https://github.com/IvanBeke/TFG-Visor-de-espectros/milestone/1?closed=1}{Sprint
+	0}\footnote{\url{https://github.com/IvanBeke/TFG-Visor-de-espectros/milestone/1?closed=1}}.
+En reuniones previas se habló con los tutores en que iba a consistir en
+proyecto, pero no estaba claro con que tecnologías desarrollarlo. Se decidió
+hacer una evaluación de las tecnologías posibles y crear unos prototipos
+básicos. Todas las tareas se completaron a tiempo.\\
 
 \subsection{Sprint 1}
-En este \textit{sprint} se habló sobre el despliegue de la aplicación. Los tutores comentaron que en proyectos webs anteriores el despliegue se solía dejar para las etapas finales del proyecto, haciendo que todos los problemas asociados surjan en esas finales, retrasando el despliegue y, a veces, no llegar a desplegar la aplicación.\\
+En este \textit{sprint} se habló sobre el despliegue de la aplicación. Los
+tutores comentaron que en proyectos webs anteriores el despliegue se solía dejar
+para las etapas finales del proyecto, haciendo que todos los problemas asociados
+surjan en esas finales, retrasando el despliegue y, a veces, no llegar a
+desplegar la aplicación.\\
 
-Se conocía la plataforma Heroku para ello y se probó a usarla, adicionalmente se buscaron otras alternativas. También se usó el prototipo escogido para crear el proyecto definitivo y se trabajó en la memoria. La última parte fue estudiar las guías de estilo de Python, aplicarlas en los prototipos y documentar su código.\\
+Se conocía la plataforma Heroku para ello y se probó a usarla, adicionalmente se
+buscaron otras alternativas. También se usó el prototipo escogido para crear el
+proyecto definitivo y se trabajó en la memoria. La última parte fue estudiar las
+guías de estilo de Python, aplicarlas en los prototipos y documentar su
+código.\\
 
-La lista de tareas está disponible en \href{https://github.com/IvanBeke/TFG-Visor-de-espectros/milestone/2?closed=1}{Sprint 1}\footnote{\url{https://github.com/IvanBeke/TFG-Visor-de-espectros/milestone/2?closed=1}}. Todas las tareas se completaron a tiempo.\\
+La lista de tareas está disponible en
+\href{https://github.com/IvanBeke/TFG-Visor-de-espectros/milestone/2?closed=1}{Sprint
+	1}\footnote{\url{https://github.com/IvanBeke/TFG-Visor-de-espectros/milestone/2?closed=1}}.
+Todas las tareas se completaron a tiempo.\\
 
 \subsection{Sprint 2}
-Dado que en la aplicación se necesita que los usuarios suban contenido, se necesita control de usuarios, en este \textit{sprint} se investigaron formas de ofrecerlo. También debido a la necesidad de disponer almacenamiento persistente se tuvo que mirar otras formas de despliegue y buscar como Heroku lo ofrece, que de serie no lo hace. Al final se decidió cambiar a Nanobox.\\
+Dado que en la aplicación se necesita que los usuarios suban contenido, se
+necesita control de usuarios, en este \textit{sprint} se investigaron formas de
+ofrecerlo. También debido a la necesidad de disponer almacenamiento persistente
+se tuvo que mirar otras formas de despliegue y buscar como Heroku lo ofrece, que
+de serie no lo hace. Al final se decidió cambiar a Nanobox.\\
 
-La lista de tareas está disponible en \href{https://github.com/IvanBeke/TFG-Visor-de-espectros/milestone/3?closed=1}{Sprint 2}\footnote{\url{https://github.com/IvanBeke/TFG-Visor-de-espectros/milestone/3?closed=1}}. Todas las tareas se completaron a tiempo.\\
+La lista de tareas está disponible en
+\href{https://github.com/IvanBeke/TFG-Visor-de-espectros/milestone/3?closed=1}{Sprint
+	2}\footnote{\url{https://github.com/IvanBeke/TFG-Visor-de-espectros/milestone/3?closed=1}}.
+Todas las tareas se completaron a tiempo.\\
 
 \subsection{Sprint 3}
-En este \textit{sprint} se podría decir que comienza el desarrollo del proyecto, basado en el prototipo. Como tal se mejoró el aspecto visual de la aplicación, se cambio la estructura para tener partes diferenciadas y mantenibles, añadir control de usuarios y mejorar la subida de ficheros.\\
+En este \textit{sprint} se podría decir que comienza el desarrollo del proyecto,
+basado en el prototipo. Como tal se mejoró el aspecto visual de la aplicación,
+se cambio la estructura para tener partes diferenciadas y mantenibles, añadir
+control de usuarios y mejorar la subida de ficheros.\\
 
-También se planteó añadir subir y visualizar un \textit{dataset} completo, escribir el manual de despliegue y los casos de uso.\\
+También se planteó añadir subir y visualizar un \textit{dataset} completo,
+escribir el manual de despliegue y los casos de uso.\\
 
-La lista de tareas está disponible en \href{https://github.com/IvanBeke/TFG-Visor-de-espectros/milestone/4?closed=1}{Sprint 3}\footnote{\url{https://github.com/IvanBeke/TFG-Visor-de-espectros/milestone/4?closed=1}}. El manual de despliegue y la subida de \textit{datasets} no se pudieron completar. El gráfico \textit{burndown} del \textit{sprint} se ve en la figura~\ref{fig:burndown-sprint3}.\\
+La lista de tareas está disponible en
+\href{https://github.com/IvanBeke/TFG-Visor-de-espectros/milestone/4?closed=1}{Sprint
+	3}\footnote{\url{https://github.com/IvanBeke/TFG-Visor-de-espectros/milestone/4?closed=1}}.
+El manual de despliegue y la subida de \textit{datasets} no se pudieron
+completar. El gráfico \textit{burndown} del \textit{sprint} se ve en la
+figura~\ref{fig:burndown-sprint3}.\\
 
 \imagen{burndown-sprint3}{Burndown del \textit{sprint} 3}
 
 \subsection{Sprint 4}
-En este \textit{sprint} se completan las tareas que no habían dado tiempo del \textit{sprint} anterior y se planteó usar una base de datos en lugar de almacenamiento para guardar los datos, por lo que se realizó una comparación entre formas de almacenar los datos. También se añadió la opción de borrar un \textit{dataset} ya almacenado.\\
+En este \textit{sprint} se completan las tareas que no habían dado tiempo del
+\textit{sprint} anterior y se planteó usar una base de datos en lugar de
+almacenamiento para guardar los datos, por lo que se realizó una comparación
+entre formas de almacenar los datos. También se añadió la opción de borrar un
+\textit{dataset} ya almacenado.\\
 
-Al igual que en el \textit{sprint} anterior se estructuró la aplicación como conjunto, en este \textit{sprint} se estructura la parte de visualización. También se arreglaron dos \textit{bugs} que se introdujeron en el \textit{sprint} anterior en la aplicación desplegada.\\
+Al igual que en el \textit{sprint} anterior se estructuró la aplicación como
+conjunto, en este \textit{sprint} se estructura la parte de visualización.
+También se arreglaron dos \textit{bugs} que se introdujeron en el
+\textit{sprint} anterior en la aplicación desplegada.\\
 
-La lista de tareas está disponible en \href{https://github.com/IvanBeke/TFG-Visor-de-espectros/milestone/5?closed=1}{Sprint 4}\footnote{\url{https://github.com/IvanBeke/TFG-Visor-de-espectros/milestone/5?closed=1}}. Todas las tareas se completaron a tiempo. El gráfico \textit{burndown} del \textit{sprint} se ve en la figura~\ref{fig:burndown-sprint4}.\\
+La lista de tareas está disponible en
+\href{https://github.com/IvanBeke/TFG-Visor-de-espectros/milestone/5?closed=1}{Sprint
+	4}\footnote{\url{https://github.com/IvanBeke/TFG-Visor-de-espectros/milestone/5?closed=1}}.
+Todas las tareas se completaron a tiempo. El gráfico \textit{burndown} del
+\textit{sprint} se ve en la figura~\ref{fig:burndown-sprint4}.\\
 
 \imagen{burndown-sprint4}{Burndown del \textit{sprint} 4}
 
 \subsection{Sprint 5}
-De la comparación del \textit{sprint} anterior se decidió usar MongoDB para el almacenamiento, por lo cual la mayoría de los esfuerzos se centraron en adaptar la aplicación para usar MongoDB en todos sus aspectos: guardar, borrar y coger los datos. También se solucionó un \textit{bug} en la parte de visualización.\\
+De la comparación del \textit{sprint} anterior se decidió usar MongoDB para el
+almacenamiento, por lo cual la mayoría de los esfuerzos se centraron en adaptar
+la aplicación para usar MongoDB en todos sus aspectos: guardar, borrar y coger
+los datos. También se solucionó un \textit{bug} en la parte de visualización.\\
 
-La lista de tareas está disponible en \href{https://github.com/IvanBeke/TFG-Visor-de-espectros/milestone/6?closed=1}{Sprint 5}\footnote{\url{https://github.com/IvanBeke/TFG-Visor-de-espectros/milestone/6?closed=1}}. Todas las tareas se completaron a tiempo. El gráfico \textit{burndown} del \textit{sprint} se ve en la figura~\ref{fig:burndown-sprint5}.\\
+La lista de tareas está disponible en
+\href{https://github.com/IvanBeke/TFG-Visor-de-espectros/milestone/6?closed=1}{Sprint
+	5}\footnote{\url{https://github.com/IvanBeke/TFG-Visor-de-espectros/milestone/6?closed=1}}.
+Todas las tareas se completaron a tiempo. El gráfico \textit{burndown} del
+\textit{sprint} se ve en la figura~\ref{fig:burndown-sprint5}.\\
 
 \imagen{burndown-sprint5}{Burndown del \textit{sprint} 5}
 
 \subsection{Sprint 6}
-Para este \textit{sprint} se planteó cambiar la forma en la que se guardan los \textit{datasets}, de forma que cuando el sistema de aprendizaje automático esté implementado sea más sencillo pasar los datos para el entrenamiento. También se añadió soporte de comentarios en el \textit{dataset}. Debido a un cambio en como la geóloga organizaba sus datos, se tuvo de adaptar la subida de \textit{datasets} a este cambio. Por último se empezó a añadir controles en la parte de visualización para el procesado de los espectros.\\
+Para este \textit{sprint} se planteó cambiar la forma en la que se guardan los
+\textit{datasets}, de forma que cuando el sistema de aprendizaje automático esté
+implementado sea más sencillo pasar los datos para el entrenamiento. También se
+añadió soporte de comentarios en el \textit{dataset}. Debido a un cambio en como
+la geóloga organizaba sus datos, se tuvo de adaptar la subida de
+\textit{datasets} a este cambio. Por último se empezó a añadir controles en la
+parte de visualización para el procesado de los espectros.\\
 
-La lista de tareas está disponible en \href{https://github.com/IvanBeke/TFG-Visor-de-espectros/milestone/7?closed=1}{Sprint 6}\footnote{\url{https://github.com/IvanBeke/TFG-Visor-de-espectros/milestone/7?closed=1}}. La tarea de los controles no se completó a tiempo. El gráfico \textit{burndown} del \textit{sprint} se ve en la figura~\ref{fig:burndown-sprint6}.\\
+La lista de tareas está disponible en
+\href{https://github.com/IvanBeke/TFG-Visor-de-espectros/milestone/7?closed=1}{Sprint
+	6}\footnote{\url{https://github.com/IvanBeke/TFG-Visor-de-espectros/milestone/7?closed=1}}.
+La tarea de los controles no se completó a tiempo. El gráfico \textit{burndown}
+del \textit{sprint} se ve en la figura~\ref{fig:burndown-sprint6}.\\
 
 \imagen{burndown-sprint6}{Burndown del \textit{sprint} 6}
 
 \subsection{Sprint 7}
-Este \textit{sprint} se centró en completar la tarea del \textit{sprint} anterior, cambiar la parte de visualización para que se muestre en un tabla los ejemplos subidos y sus metadatos, documentar el código y avanzar en la memoria y anexos.\\
+Este \textit{sprint} se centró en completar la tarea del \textit{sprint}
+anterior, cambiar la parte de visualización para que se muestre en un tabla los
+ejemplos subidos y sus metadatos, documentar el código y avanzar en la memoria y
+anexos.\\
 
-Durante el \textit{sprint}, se vio que la tarea sobre procesamiento de datos era demasiado extensa, dividiéndola en dos partes, la primera que sería añadir los controles para el procesamiento en la interfaz, y una segunda para añadir el código de procesamiento de datos, para realizar en el siguiente \textit{sprint}.
+Durante el \textit{sprint}, se vio que la tarea sobre procesamiento de datos era
+demasiado extensa, dividiéndola en dos partes, la primera que sería añadir los
+controles para el procesamiento en la interfaz, y una segunda para añadir el
+código de procesamiento de datos, para realizar en el siguiente \textit{sprint}.
 
-La lista de tareas está disponible en \href{https://github.com/IvanBeke/TFG-Visor-de-espectros/milestone/8?closed=1}{Sprint 7}\footnote{\url{https://github.com/IvanBeke/TFG-Visor-de-espectros/milestone/8?closed=1}}. No dio tiempo a escribir la introducción de la memoria. El gráfico \textit{burndown} del \textit{sprint} se ve en la figura~\ref{fig:burndown-sprint7}.\\
+La lista de tareas está disponible en
+\href{https://github.com/IvanBeke/TFG-Visor-de-espectros/milestone/8?closed=1}{Sprint
+	7}\footnote{\url{https://github.com/IvanBeke/TFG-Visor-de-espectros/milestone/8?closed=1}}.
+No dio tiempo a escribir la introducción de la memoria. El gráfico
+\textit{burndown} del \textit{sprint} se ve en la
+figura~\ref{fig:burndown-sprint7}.\\
 
 \imagen{burndown-sprint7}{Burndown del \textit{sprint} 7}
 
@@ -80,5 +166,6 @@ La lista de tareas está disponible en \href{https://github.com/IvanBeke/TFG-Vis
 \subsection{Viabilidad económica}
 
 \subsection{Viabilidad legal}
+
 
 
