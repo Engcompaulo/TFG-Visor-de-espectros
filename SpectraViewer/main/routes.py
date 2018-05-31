@@ -16,9 +16,9 @@ from SpectraViewer.main import main
 from SpectraViewer.main.forms import SpectrumForm, DatasetForm
 from SpectraViewer.utils.decorators import google_required
 from SpectraViewer.utils.mongo_facade import save_dataset, remove_dataset, \
-    get_datasets
+    get_datasets, save_spectrum, get_spectra
 from SpectraViewer.utils.directories import get_temp_directory, get_path, \
-    get_user_spectra, get_user_directory
+    get_user_directory
 
 
 @main.before_app_request
@@ -54,31 +54,6 @@ def index():
     return render_template('index.html')
 
 
-@main.route('/upload', methods=['GET', 'POST'])
-def upload():
-    """Render for the upload view.
-
-    This view contains a form for file uploading. If POST request,
-    validates the selected file and saves it. Then pandas reads it and
-    the Dash layout gets defined. Then redirect to the Dash route.
-
-    Returns
-    -------
-    Rendered upload view if GET, redirect to Dash if POST
-
-    """
-    form = SpectrumForm()
-    if form.validate_on_submit():
-        f = form.file.data
-        filename = secure_filename(f.filename)
-        directory = get_temp_directory()
-        file_path = get_path(directory, filename)
-        f.save(file_path)
-        session['temp_file'] = file_path
-        return redirect('/plot/spectrum/temp')
-    return render_template('upload.html', form=form)
-
-
 @main.route('/manage')
 @google_required
 def manage():
@@ -93,10 +68,13 @@ def manage():
     Rendered manage view.
 
     """
+    user_id = session['user_id']
     user_datasets = [{'name': dataset['dataset_name'],
                       'notes': dataset['dataset_notes']} for dataset in
-                     get_datasets(session['user_id'])]
-    user_spectra = get_user_spectra()
+                     get_datasets(user_id)]
+    user_spectra = [{'name': spectrum['spectrum_name'],
+                     'notes': spectrum['spectrum_notes']} for spectrum in
+                    get_spectra(user_id)]
     return render_template('manage.html', datasets=user_datasets,
                            spectra=user_spectra)
 
@@ -111,6 +89,7 @@ def download_template():
     -------
     file
         Return the metadata template to the user.
+
     """
     return send_from_directory(current_app.root_path, 'metadatos.xlsx',
                                as_attachment=True)
@@ -124,7 +103,7 @@ def upload_dataset():
     This page contains a form for uploading datasets, contains
     instructions on how the zip should be composed. If POST, uploads the
     file and extracts it to the user directory with the name provided in
-    the form.
+    the form, then it's saved in Mongo.
 
     Returns
     -------
@@ -153,6 +132,41 @@ def upload_dataset():
                   ', use un nombre diferente', 'danger')
             return redirect(url_for('main.upload_dataset'))
     return render_template('upload_dataset.html', form=form)
+
+
+@main.route('/spectrum/upload', methods=['GET', 'POST'])
+@google_required
+def upload_spectrum():
+    """Render the upload spectrum view.
+
+    This page contains a form for uploading spectum. If POST, uploads
+    the file and saves it to the user directory with the name
+    provided in the form.
+
+    Returns
+    -------
+    Rendered upload spectrum view if GET, redirect to manage view if
+    POST.
+
+    """
+    form = SpectrumForm()
+    if form.validate_on_submit():
+        f = form.file.data
+        filename = secure_filename(f.filename)
+        user_directory = get_user_directory()
+        file_path = get_path(user_directory, filename)
+        f.save(file_path)
+        spectrum_notes = form.notes.data
+        spectrum_name = form.name.data
+        if save_spectrum(file_path, spectrum_name, spectrum_notes,
+                         session['user_id']):
+            flash('Se ha subido el espectro correctamente', 'success')
+            return redirect(url_for('main.manage'))
+        else:
+            flash('Ya se ha subido un espectro con ese nombre'
+                  ', use un nombre diferente', 'danger')
+            return redirect(url_for('main.upload_spectrum'))
+    return render_template('upload_spectrum.html', form=form)
 
 
 @main.route('/datasets/edit/<dataset>')

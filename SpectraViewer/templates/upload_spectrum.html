@@ -7,23 +7,20 @@
 
 {% block page_content %}
     <div class="page-header">
-        <h2>Visualización de especto</h2>
+        <h2>Subida de especto</h2>
     </div>
     <p>En esta página puede subir un espectro como un fichero separado por
         comas (.csv).</p>
-    <p>Los ficheros que subas en esta página no se almacenarán, para almacenar
-        permanentemente un espectro pulse <a
-                href="{{ url_for('main.manage') }}">aquí</a> y suba el
-        espectro.</p>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             {{ wtf.quick_form(form) }}
         </div>
-        <div class="col-md-6">
+        <div class="col-md-8">
             <h5>Formato del fichero:</h5>
             <ul>
                 <li>Los valores deben estar separados con punto y coma (;)</li>
                 <li>El fichero debe tener dos columnas</li>
+                <li>Por defecto el nombre del dataset será el nombre del fichero</li>
             </ul>
         </div>
     </div>

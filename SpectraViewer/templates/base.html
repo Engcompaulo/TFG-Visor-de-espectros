@@ -28,7 +28,7 @@
                                 dataset</a></li>
                     {% endif %}
                     <li {% if active_page == 'upload-spectrum' %}class="active"{% endif %}>
-                        <a href="{{ url_for('main.upload') }}">Subir
+                        <a href="{{ url_for('main.upload_spectrum') }}">Subir
                             espectro</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -65,5 +65,9 @@
         {% endfor %}
 
         {% block page_content %}{% endblock %}
+        {% block scripts %}
+            <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+            {{ super() }}
+        {% endblock %}
     </div>
 {% endblock %}

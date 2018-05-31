@@ -184,7 +184,8 @@ def save_spectrum(spectrum_path, spectrum_name, spectrum_notes, user_id):
         with the same name.
 
     """
-    spectrum = {'spectrum_name': spectrum_name, 'dataset_notes': spectrum_notes,
+    spectrum = {'spectrum_name': spectrum_name,
+                'spectrum_notes': spectrum_notes,
                 'user_id': user_id}
     data = _load_spectrum_from_path(spectrum_path)
     spectrum['data'] = data.to_json(orient='split')  # Split to mantain order
@@ -212,6 +213,25 @@ def get_datasets(user_id):
     """
     datasets = mongo.db.datasets.find({'user_id': user_id})
     return datasets
+
+
+def get_spectra(user_id):
+    """
+    Return all spectra a given user owns.
+
+    Parameters
+    ----------
+    user_id : str
+        User id.
+
+    Returns
+    -------
+    list
+        User spectra.
+
+    """
+    spectra = mongo.db.spectra.find({'user_id': user_id})
+    return spectra
 
 
 def get_user_dataset(dataset_name, user_id):

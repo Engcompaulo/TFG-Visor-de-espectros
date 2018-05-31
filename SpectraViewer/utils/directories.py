@@ -78,21 +78,3 @@ def get_user_directory():
                                   str(session['user_id']))
     _create_if_not_exists(user_directory)
     return user_directory
-
-
-def get_user_spectra():
-    """
-    Get a list containing the name of the spectra in the given directory.
-
-    Returns
-    -------
-    list
-        List of strings.
-
-    """
-    user_directory = get_user_directory()
-    user_contents = list(map(lambda content:
-                             os.path.join(user_directory, content),
-                             os.listdir(user_directory)))
-    user_spectra = list(filter(os.path.isfile, user_contents))
-    return list(map(lambda dataset: os.path.split(dataset)[-1], user_spectra))
