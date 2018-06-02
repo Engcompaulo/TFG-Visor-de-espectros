@@ -2,6 +2,12 @@
 
 {% block title %}Visor de espectros{% endblock %}
 
+{% block styles %}
+    <link rel="stylesheet" type="text/css"
+          href="{{ url_for('static', filename='css/styles.css') }}">
+    {{ super() }}
+{% endblock %}
+
 {% block navbar %}
     <nav class="navbar navbar-inverse">
         <div class="container">
@@ -68,6 +74,6 @@
     </div>
 {% endblock %}
 {% block scripts %}
-    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
     {{ super() }}
 {% endblock %}

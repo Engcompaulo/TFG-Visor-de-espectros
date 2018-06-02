@@ -39,7 +39,10 @@ class SpectrumForm(FlaskForm):
     file = FileField(label='Seleccione un espectro',
                      validators=_file_validators,
                      render_kw={'onchange': 'setFileName()'})
-    submit = SubmitField('Subir')
+    submit = SubmitField('Subir', render_kw={'data-toggle': 'modal',
+                                             'data-target': '#waiting-modal',
+                                             'data-backdrop': 'static',
+                                             'data-keyboard': 'false'})
 
 
 class DatasetForm(FlaskForm):
@@ -57,13 +60,19 @@ class DatasetForm(FlaskForm):
         Input field of type submit to trigger the upload action.
 
     """
-    _name_validators = [DataRequired('Es obligatorio poner nombre al dataset')]
+    _name_validators = [
+        DataRequired('Es obligatorio poner nombre al dataset')]
     _file_validators = [
         FileRequired('Es obligatorio seleccionar un fichero'),
         FileAllowed(['zip'], 'Solo se admiten ficheros zip')
     ]
-    name = StringField(label='Nombre del dataset', validators=_name_validators)
+    name = StringField(label='Nombre del dataset',
+                       validators=_name_validators)
     notes = TextAreaField(label='Comentarios sobre el dataset')
-    file = FileField(label='Seleccione un dataset', validators=_file_validators,
+    file = FileField(label='Seleccione un dataset',
+                     validators=_file_validators,
                      render_kw={'onchange': 'setFileName()'})
-    submit = SubmitField('Subir')
+    submit = SubmitField('Subir', render_kw={'data-toggle': 'modal',
+                                             'data-target': '#waiting-modal',
+                                             'data-backdrop': 'static',
+                                             'data-keyboard': 'false'})

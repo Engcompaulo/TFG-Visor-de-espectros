@@ -5,6 +5,21 @@
 {% block title %}Subir dataset{% endblock %}
 
 {% block page_content %}
+    <div id="waiting-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content panel panel-default">
+                <div class="modal-header panel-heading">
+                    <p>Espera</p>
+                </div>
+                <div class="modal-body panel-body">
+                    <p>Su dataset se está subiendo y guardando. El proceso puede
+                        tardar unos minutos, cuando termine será redirigido a
+                        sus archivos.</p>
+                    <div class="loader"></div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="page-header">
         <h2>Subida de dataset</h2>
     </div>
