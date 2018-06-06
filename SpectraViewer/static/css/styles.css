@@ -1,3 +1,7 @@
+body {
+    font-size: 17px;
+}
+
 .loader {
     margin-left: auto;
     margin-right: auto;
