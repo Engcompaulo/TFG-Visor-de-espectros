@@ -169,12 +169,6 @@ def upload_spectrum():
     return render_template('upload_spectrum.html', form=form)
 
 
-@main.route('/datasets/edit/<dataset>')
-@google_required
-def edit_dataset(dataset):
-    return 'Not yet implemented'
-
-
 @main.route('/datasets/delete/<dataset>')
 @google_required
 def delete_dataset(dataset):
