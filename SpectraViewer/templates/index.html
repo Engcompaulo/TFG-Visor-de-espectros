@@ -5,17 +5,65 @@
 {% block title %}Página principal{% endblock %}
 
 {% block page_content %}
-    <div class="page-header">
-        {% if not session['name'] %}
-            <h2>Bienvenido desconocido.</h2>
+    {% set message = session.get('name', '') %}
+    <div class="jumbotron">
+        <h1>Bienvenido {{ message }}</h1>
+        {% if not message %}
+            <h2 class="text-info">Inicie sesión para acceder a la
+                aplicación</h2>
         {% else %}
-            <h2>Bienvenido {{ session['name']|safe }}.</h2>
+            <h2 class="text-info">Ya puede acceder a todas las funciones</h2>
         {% endif %}
+        <a href="https://github.com/IvanBeke/TFG-Visor-de-espectros">Repositorio
+            en GitHub</a> -
+        <a href="https://github.com/IvanBeke/TFG-Visor-de-espectros/raw/master/Documentaci%C3%B3n%20LaTeX/memoria.pdf">Memoria</a>
+        -
+        <a href="https://github.com/IvanBeke/TFG-Visor-de-espectros/raw/master/Documentaci%C3%B3n%20LaTeX/anexos.pdf">Anexos</a>
     </div>
-    {% if not session['name'] %}
-        <p>Por favor, inicie sesión para tener disponibles todas las
-            funcionalidades.</p>
-    {% else %}
-        <p>Ya puede acceder a todas las funcionalidades.</p>
+    {% if message %}
+        <div class="row">
+            <div class="col-md-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Gestión de ficheros</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p>Desde aquí puede gestionar los datasets y espectros
+                            que ha subido.</p>
+                        <a class="btn btn-primary"
+                           href="{{ url_for('main.manage') }}">Mis ficheros</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Subir dataset</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p>Desde aquí puede gestionar subir un nuevo
+                            dataset.</p>
+                        <a class="btn btn-primary"
+                           href="{{ url_for('main.upload_dataset') }}">Subir
+                            dataset</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Subir espectro</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p>Desde aquí puede gestionar subir un nuevo
+                            espectro.</p>
+                        <a class="btn btn-primary"
+                           href="{{ url_for('main.upload_spectrum') }}">Subir
+                            espectro</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     {% endif %}
+
 {% endblock %}

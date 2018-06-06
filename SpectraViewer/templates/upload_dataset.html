@@ -23,16 +23,34 @@
     <div class="page-header">
         <h2>Subida de dataset</h2>
     </div>
-    <p>Lo primero que debe hacer es hacer click <a
-            href="{{ url_for('main.download_template') }}">aquí</a> para
-        descargar la plantilla de metadatos para el dataset.</p>
-    <p>En esta página puede subir un dataset comprimido como un fichero zip</p>
-    <p>El fichero tiene que contener varias carpetas, cada una representando una
-        clase. Dentro cada carpeta deben estar los ejemplos de espectros de esa
-        clase.</p>
-    <p>Por defecto el nombre del dataset será el nombre del fichero</p>
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
+            <p><strong>Instrucciones</strong></p>
+            <ol>
+                <li>Pulse <a
+                        href="{{ url_for('main.download_template') }}">aquí</a>
+                    para descargar la plantilla de metadatos.
+                </li>
+                <li>Rellene la plantilla sus los datos, en la columna "Id"
+                    escriba el nombre de la carpeta con los ejemplos.
+                </li>
+                <li>Haga un fichero .zip que contenga las carpetas y la
+                    plantilla.
+                </li>
+                <li>Seleccione el fichero y complete el resto de datos.
+                </li>
+                <li>Presione el botón para subir el dataset.</li>
+            </ol>
+            <p><strong>Notas</strong></p>
+            <ul>
+                <li>El nombre de fichero es obligatorio.</li>
+                <li>El nombre no puede estar repetido.</li>
+                <li>En caso de haber escrito un nombre al seleccionar fichero se
+                    usará el nombre del fichero.
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-6">
             {{ wtf.quick_form(form) }}
         </div>
     </div>

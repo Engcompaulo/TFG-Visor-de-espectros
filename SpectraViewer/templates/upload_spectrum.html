@@ -12,32 +12,36 @@
                     <p>Espera</p>
                 </div>
                 <div class="modal-body panel-body">
-                    <p>Su espectro se está subiendo y guardando. El proceso puede
-                        tardar unos minutos, cuando termine será redirigido a
-                        sus archivos.</p>
+                    <p>Su espectro se está subiendo y guardando. El proceso
+                        puede tardar unos minutos, cuando termine será
+                        redirigido a sus archivos.</p>
                     <div class="loader"></div>
                 </div>
             </div>
         </div>
     </div>
     <div class="page-header">
-        <h2>Subida de especto</h2>
+        <h2>Subida de espectro</h2>
     </div>
-    <p>En esta página puede subir un espectro como un fichero separado por
-        comas (.csv).</p>
     <div class="row">
-        <div class="col-md-4">
-            {{ wtf.quick_form(form) }}
-        </div>
-        <div class="col-md-8">
-            <h5>Formato del fichero:</h5>
+        <div class="col-md-6">
+            <p><strong>Formato requerido</strong></p>
             <ul>
-                <li>Los valores deben estar separados con punto y coma (;)</li>
-                <li>El fichero debe tener dos columnas</li>
-                <li>Por defecto el nombre del dataset será el nombre del
-                    fichero
+                <li>El fichero debe ser del tipo CSV.</li>
+                <li>El separador de las columnas tiene que ser punto y coma (;).
+                </li>
+                <li>Debe haber dos columnas de datos, la primera con el valor X
+                    y la segunda con el valor Y.
+                </li>
+                <li>El nombre de fichero es obligatorio.</li>
+                <li>El nombre no puede estar repetido.</li>
+                <li>En caso de haber escrito un nombre al seleccionar fichero se
+                    usará el nombre del fichero.
                 </li>
             </ul>
+        </div>
+        <div class="col-md-6">
+            {{ wtf.quick_form(form) }}
         </div>
     </div>
 {% endblock %}

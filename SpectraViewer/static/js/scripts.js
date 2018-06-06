@@ -1,5 +1,8 @@
 function setFileName() {
-    var selectedFile = document.getElementById("file").files.item(0).name;
     var fileName = document.getElementById("name");
-    fileName.value = selectedFile;
+    if (fileName.value == null || fileName.value === "") {
+        var selectedFile = document.getElementById("file").files.item(0).name;
+        var extensionIndex = selectedFile.lastIndexOf(".");
+        fileName.value = selectedFile.substring(0, extensionIndex);
+    }
 }
