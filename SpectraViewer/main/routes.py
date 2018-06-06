@@ -69,11 +69,11 @@ def manage():
 
     """
     user_id = session['user_id']
-    user_datasets = [{'name': dataset['dataset_name'],
-                      'notes': dataset['dataset_notes']} for dataset in
+    user_datasets = [{'name': dataset.name,
+                      'notes': dataset.notes} for dataset in
                      get_datasets(user_id)]
-    user_spectra = [{'name': spectrum['spectrum_name'],
-                     'notes': spectrum['spectrum_notes']} for spectrum in
+    user_spectra = [{'name': spectrum.name,
+                     'notes': spectrum.notes} for spectrum in
                     get_spectra(user_id)]
     return render_template('manage.html', datasets=user_datasets,
                            spectra=user_spectra)

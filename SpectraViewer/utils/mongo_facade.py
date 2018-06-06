@@ -14,6 +14,7 @@ import pandas as pd
 from pymongo.errors import DuplicateKeyError
 
 from SpectraViewer import mongo
+from SpectraViewer.models import Spectrum, Dataset
 from SpectraViewer.utils.directories import get_path
 
 
@@ -211,7 +212,11 @@ def get_datasets(user_id):
         User datasets.
 
     """
-    datasets = mongo.db.datasets.find({'user_id': user_id})
+    datasets_temp = mongo.db.datasets.find({'user_id': user_id})
+    datasets = []
+    for d in datasets_temp:
+        datasets.append(Dataset(d['dataset_name'], d['user_id'], d['data'],
+                                d['dataset_notes']))
     return datasets
 
 
@@ -230,7 +235,11 @@ def get_spectra(user_id):
         User spectra.
 
     """
-    spectra = mongo.db.spectra.find({'user_id': user_id})
+    spectra_temp = mongo.db.spectra.find({'user_id': user_id})
+    spectra = []
+    for s in spectra_temp:
+        spectra.append(Spectrum(s['spectrum_name'], s['user_id'], s['data'],
+                                s['spectrum_notes']))
     return spectra
 
 
@@ -275,7 +284,7 @@ def get_user_spectrum(spectrum_name, user_id):
 
     """
     spectrum = mongo.db.spectra.find_one({'spectrum_name': spectrum_name,
-                                         'user_id': user_id})
+                                          'user_id': user_id})
     data = pd.read_json(spectrum['data'], orient='split')
     return data
 

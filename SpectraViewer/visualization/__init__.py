@@ -16,10 +16,6 @@ import dash_table_experiments as dt
 from dash.dependencies import Input, Output
 
 import numpy as np
-import pandas as pd
-# Importing cufflinks is required to able to get the plotly figure from
-# a DataFrame, the import binds the DataFrame with the iplot method.
-import cufflinks
 
 from SpectraViewer.processing.Preprocess import preprocess_pipeline
 
