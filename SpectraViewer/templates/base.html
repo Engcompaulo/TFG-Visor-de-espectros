@@ -69,17 +69,14 @@
                 {{ message }}
             </div>
         {% endfor %}
-
         {% block page_content %}{% endblock %}
     </div>
-    <footer class="container-fluid footer">
-        <div class="row">
-            <div class="col-md-6 text-center">
-                <span class="text-muted">Autor: <span class="text-info">Iván Iglesias Cuesta</span></span>
-            </div>
-            <div class="col-md-6 text-center">
-                <span class="text-muted">Tutores: <span class="text-info">José Francisco Díez Pastor y César Ignacio García-Osorio</span></span>
-            </div>
+    <footer class="footer">
+        <div class="container">
+            <span class="text-muted pull-left">Autor: <span
+                    class="text-info">Iván Iglesias Cuesta</span></span>
+            <span class="text-muted pull-right">Tutores: <span
+                    class="text-info">José Francisco Díez Pastor y César Ignacio García-Osorio</span></span>
         </div>
     </footer>
 {% endblock %}
