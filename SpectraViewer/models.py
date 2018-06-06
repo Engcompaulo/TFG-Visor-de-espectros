@@ -12,7 +12,20 @@
 
 
 class Dataset(object):
+    """Class that represents a dataset.
 
+    Attributes
+    ----------
+    name : str
+        Name of the dataset.
+    user : str
+        Id of the user who owns the dataset.
+    data : DataFrame
+        Pandas DataFrame which contains the dataset.
+    notes : str
+        Notes related to the dataset.
+
+    """
     def __init__(self, name, user, data, notes):
         self.name = name
         self.user = user
@@ -21,7 +34,20 @@ class Dataset(object):
 
 
 class Spectrum(object):
+    """Class that represents a spectrum.
 
+    Attributes
+    ----------
+    name : str
+        Name of the spectrum.
+    user : str
+        Id of the user who owns the spectrum.
+    data : DataFrame
+        Pandas DataFrame which contains the spectrum.
+    notes : str
+        Notes related to the spectrum.
+
+    """
     def __init__(self, name, user, data, notes):
         self.name = name
         self.user = user
