@@ -23,7 +23,8 @@
                                     <a href="{{ url_for('main.plot_dataset', dataset=dataset['name']) }}"
                                        class="btn btn-primary">Representar</a>
                                     <a href="{{ url_for('main.delete_dataset', dataset=dataset['name']) }}"
-                                       class="btn btn-danger">Eliminar</a>
+                                       class="btn btn-danger"
+                                       onclick="return confirmDeletion()">Eliminar</a>
                                 </div>
                             </div>
                             <p class="list-group-item-text">{{ dataset['notes'] }}</p>
@@ -48,7 +49,8 @@
                                     <a href="{{ url_for('main.plot_spectrum', spectrum=spectrum['name']) }}"
                                        class="btn btn-primary">Representar</a>
                                     <a href="{{ url_for('main.delete_spectrum', spectrum=spectrum['name']) }}"
-                                       class="btn btn-danger">Eliminar</a>
+                                       class="btn btn-danger"
+                                       onclick="return confirmDeletion()">Eliminar</a>
                                 </div>
                             </div>
                             <p class="list-group-item-text">{{ spectrum['notes'] }}</p>

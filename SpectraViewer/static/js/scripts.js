@@ -6,3 +6,7 @@ function setFileName() {
         fileName.value = selectedFile.substring(0, extensionIndex);
     }
 }
+
+function confirmDeletion() {
+    return confirm("¿Estás seguro de que quieres eliminar ese elemento?");
+}
