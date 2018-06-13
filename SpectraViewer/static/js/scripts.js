@@ -10,3 +10,10 @@ function setFileName() {
 function confirmDeletion() {
     return confirm("¿Estás seguro de que quieres eliminar ese elemento?");
 }
+
+function getModelParameters() {
+    var selected = document.getElementById("select-model").selectedIndex;
+    var model = document.getElementById("select-model").options[selected].value;
+    var url = "/model-parameters/" + model;
+    $("#parameters-form").load(url);
+}

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Crear modelo{% endblock %}
+
+{% block page_content %}
+    <div id="waiting-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content panel panel-default">
+                <div class="modal-header panel-heading">
+                    <p>Espera</p>
+                </div>
+                <div class="modal-body panel-body">
+                    <p>El modelo se está entrenando. El proceso
+                        puede tardar unos minutos, cuando termine será
+                        redirigido a la página de resultados</p>
+                    <div class="loader"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-header">
+        <h2>Creación de modelo</h2>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="select-model">Modelo elegido</label>
+                <select id="select-model" class="form-control" onchange="getModelParameters()">
+                    <option value="" disabled selected>Selecciona el modelo
+                    </option>
+                    {% for model_id, model_name in models.items() %}
+                        <option value="{{ model_id }}">{{ model_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <p><strong>Introducza los parámetros del modelo</strong></p>
+            <p>Los parámtros no introducidos usarán los valores por defecto.
+                Dentro de la caja de texto se indica el tipo, los posibles
+                valores y el valor por defecto del parámetro.</p>
+            <form action method="post" id="parameters-form" class="form"
+                  role="form">
+
+            </form>
+        </div>
+    </div>
+{% endblock %}

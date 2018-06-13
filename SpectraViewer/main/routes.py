@@ -11,6 +11,8 @@ from flask import render_template, redirect, url_for, request, session, flash, \
     send_from_directory, current_app
 from werkzeug.utils import secure_filename
 from zipfile import ZipFile
+from numpydoc.docscrape import ClassDoc
+from sklearn.linear_model import LogisticRegression, LinearRegression
 
 from SpectraViewer.main import main
 from SpectraViewer.main.forms import SpectrumForm, DatasetForm
@@ -19,6 +21,9 @@ from SpectraViewer.utils.mongo_facade import save_dataset, remove_dataset, \
     get_datasets, save_spectrum, get_spectra, remove_spectrum
 from SpectraViewer.utils.directories import get_temp_directory, get_path, \
     get_user_directory
+
+_available_models = {'logistic': LogisticRegression,
+                     'linear': LinearRegression}
 
 
 @main.before_app_request
@@ -249,3 +254,28 @@ def plot_spectrum(spectrum):
     """
     session['current_spectrum'] = spectrum
     return redirect('/plot/spectrum')
+
+
+@main.route('/create-model')
+@google_required
+def create_model():
+    models = {model_id: model.__name__ for model_id, model in
+              _available_models.items()}
+    return render_template('create_model.html', models=models)
+
+
+@main.route('/model-parameters/<model_id>')
+@google_required
+def model_params(model_id):
+    doc = ClassDoc(_available_models[model_id])
+    params = doc['Parameters']
+    params = list(map(list, params))
+    for param in params:
+        description_list = param[2]
+        try:
+            break_index = description_list.index('')
+        except ValueError:
+            break_index = len(description_list)
+        description = ' '.join(description_list[0:break_index])
+        param[2] = description
+    return render_template('model_parameters.html', params=params)

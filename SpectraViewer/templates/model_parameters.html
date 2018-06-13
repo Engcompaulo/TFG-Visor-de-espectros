@@ -1,0 +1,9 @@
+{% for param in params %}
+    <div class="form-group">
+        <label class="control-label" for="{{ param[0] }}">{{ param[0] }}</label>
+        <input id="{{ param[0] }}" type="text"
+               class="form-control"
+               placeholder="{{ param[1] }}">
+        <small class="help-block">{{ param[2] }}</small>
+    </div>
+{% endfor %}
