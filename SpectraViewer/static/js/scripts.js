@@ -15,5 +15,6 @@ function getModelParameters() {
     var selected = document.getElementById("select-model").selectedIndex;
     var model = document.getElementById("select-model").options[selected].value;
     var url = "/model-parameters/" + model;
+    document.getElementById("submit").disabled = false;
     $("#parameters-form").load(url);
 }

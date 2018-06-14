@@ -18,7 +18,7 @@ from SpectraViewer.main import main
 from SpectraViewer.main.forms import SpectrumForm, DatasetForm
 from SpectraViewer.utils.decorators import google_required
 from SpectraViewer.utils.mongo_facade import save_dataset, remove_dataset, \
-    get_datasets, save_spectrum, get_spectra, remove_spectrum
+    get_datasets, save_spectrum, get_spectra, remove_spectrum, get_user_dataset
 from SpectraViewer.utils.directories import get_temp_directory, get_path, \
     get_user_directory
 
@@ -256,12 +256,38 @@ def plot_spectrum(spectrum):
     return redirect('/plot/spectrum')
 
 
-@main.route('/create-model')
+@main.route('/create-model/<dataset>', methods=['GET', 'POST'])
 @google_required
-def create_model():
+def create_model(dataset):
+    if request.method == 'POST':
+        parameters = {}
+        for param, value in request.form.items():
+            if value != '':
+                if value == 'True':
+                    parameters[param] = True
+                elif value == 'False':
+                    parameters[param] = False
+                else:
+                    parameters[param] = value  # Numbers and strings
+        print(parameters)
+        model = _available_models[session['model']](**parameters)
+        data = get_user_dataset(dataset, session['user_id'])
+        # y_mina = data['Mina']
+        # y_prof = data['Profundidad']
+        y_prof_num = data['Profundidad_num']
+        x = data.drop(columns=['Nombre', 'Etiqueta', 'Mina', 'Profundidad',
+                               'Profundidad_num'])
+        # model_mina = model.fit(x, y_mina)
+        # mode_prof = model.fit(x, y_prof)
+        try:
+            mode_prof_num = model.fit(x, y_prof_num)
+        except Exception as e:
+            print(e)
+            flash(str(e), 'danger')
+        return redirect(url_for('main.create_model', dataset=dataset))
     models = {model_id: model.__name__ for model_id, model in
               _available_models.items()}
-    return render_template('create_model.html', models=models)
+    return render_template('create_model.html', models=models, dataset=dataset)
 
 
 @main.route('/model-parameters/<model_id>')
@@ -269,8 +295,9 @@ def create_model():
 def model_params(model_id):
     doc = ClassDoc(_available_models[model_id])
     params = doc['Parameters']
-    params = list(map(list, params))
+    params = list(map(list, params))  # Because previous line returns tuples
     for param in params:
+        # Returns a list with description, each element is a line
         description_list = param[2]
         try:
             break_index = description_list.index('')
@@ -278,4 +305,5 @@ def model_params(model_id):
             break_index = len(description_list)
         description = ' '.join(description_list[0:break_index])
         param[2] = description
+    session['model'] = model_id
     return render_template('model_parameters.html', params=params)

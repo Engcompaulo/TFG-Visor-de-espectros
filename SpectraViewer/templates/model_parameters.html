@@ -1,9 +1,25 @@
 {% for param in params %}
     <div class="form-group">
         <label class="control-label" for="{{ param[0] }}">{{ param[0] }}</label>
-        <input id="{{ param[0] }}" type="text"
-               class="form-control"
-               placeholder="{{ param[1] }}">
+        {% set param_type =  param[1].split(',')[0] %}
+        {% if param_type == 'int' %}
+            <input id="{{ param[0] }}" name="{{ param[0] }}" type="number"
+                   step="1" class="form-control" placeholder="{{ param[1] }}">
+        {% elif param_type == 'float' %}
+            <input id="{{ param[0] }}" name="{{ param[0] }}" type="number"
+                   step="0.01" class="form-control"
+                   placeholder="{{ param[1] }}">
+        {% elif param_type == 'bool' or param_type == 'boolean' %}
+            <select id="{{ param[0] }}" class="form-control"
+                    name="{{ param[0] }}">
+                <option value="" disabled selected>{{ param[1] }}</option>
+                <option value="True">True</option>
+                <option value="False">False</option>
+            </select>
+        {% else %}
+            <input id="{{ param[0] }}" name="{{ param[0] }}" type="text"
+                   class="form-control" placeholder="{{ param[1] }}">
+        {% endif %}
         <small class="help-block">{{ param[2] }}</small>
     </div>
 {% endfor %}

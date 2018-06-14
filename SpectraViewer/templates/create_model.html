@@ -23,9 +23,25 @@
     </div>
     <div class="row">
         <div class="col-md-6">
+        <h4>El dataset seleccionado es {{ dataset }}</h4>
+            <p><strong>Consideraciones</strong></p>
+            <ul>
+                <li>Los parámtros no introducidos usarán los valores por
+                    defecto.
+                </li>
+                <li>Dentro de la caja de texto se indica el tipo, los posibles
+                    valores y el valor por defecto del parámetro.
+                </li>
+                <li>El formulario se genera dinámicamente según el modelo
+                    seleccionado a partir de su documentación oficial, por eso
+                    los textos aparecen en ingles.
+                </li>
+                <li>Con los errores para lo mismo que en el punto anterior.</li>
+            </ul>
             <div class="form-group">
-                <label for="select-model">Modelo elegido</label>
-                <select id="select-model" class="form-control" onchange="getModelParameters()">
+                <label for="select-model">Modelos disponibles</label>
+                <select id="select-model" class="form-control"
+                        onchange="getModelParameters()">
                     <option value="" disabled selected>Selecciona el modelo
                     </option>
                     {% for model_id, model_name in models.items() %}
@@ -33,12 +49,13 @@
                     {% endfor %}
                 </select>
             </div>
+            <input id="submit" type="submit" form="parameters-form"
+                   class="btn btn-primary"
+                   data-toggle="modal" data-target="#waiting-modal"
+                   data-backdrop="static" data-keyboard="false"
+                   value="Crear y evaluar modelo" disabled>
         </div>
         <div class="col-md-6">
-            <p><strong>Introducza los parámetros del modelo</strong></p>
-            <p>Los parámtros no introducidos usarán los valores por defecto.
-                Dentro de la caja de texto se indica el tipo, los posibles
-                valores y el valor por defecto del parámetro.</p>
             <form action method="post" id="parameters-form" class="form"
                   role="form">
 
