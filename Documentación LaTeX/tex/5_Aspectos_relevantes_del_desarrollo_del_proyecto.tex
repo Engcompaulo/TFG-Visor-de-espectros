@@ -45,12 +45,12 @@ materiales:
 A medida que se añadían nuevas herramientas al proyecto, su documentación
 oficial también ha sido consultada en varias ocasiones, están disponibles en:
 \begin{itemize}
-	\item Flask\cite{doc:flask}
-	\item Bootstrap\cite{doc:bootstrap}
-	\item Nanobox\cite{doc:nanobox}
-	\item PyMongo\cite{doc:pymongo}
-	\item Dash\cite{doc:dash}
-	\item Plotly\cite{doc:plotly}
+	\item Documentación de Flask\cite{doc:flask}
+	\item Documentación de Bootstrap\cite{doc:bootstrap}
+	\item Documentación de Nanobox\cite{doc:nanobox}
+	\item Documentación de PyMongo\cite{doc:pymongo}
+	\item Documentación de Dash\cite{doc:dash}
+	\item Documentación de Plotly\cite{doc:plotly}
 \end{itemize}
 
 \section{Sistema de usuarios}
@@ -76,7 +76,112 @@ aspecto es abundante y era fácil de implementar. Además al iniciar sesión con
 este servicio nos permite usar la API de Google para obtener los datos del
 usuario necesarios.
 
-\section{Despliegue}
+\section{Subida de ficheros}\label{sec:subida}
+
+Una de las primeras características que se implementó fue la subida de ficheros
+al servidor, al tener ya el sistema de usuarios se podían organizar los datos
+sin problema para cada cliente. El formato requerido para subir los datos pasó
+por varios cambios motivados por la forma en la que Susana nos enviaba los datos
+que probar la aplicación. En secciones posteriores se explica como estos cambios
+afectaron también al almacenamiento de los datos y la interfaz del visor.
+
+\subsection{Organización en directorios}\label{sec:directorios}
+
+Al principio los datos se encontraban organizados en directorios cuyo nombre
+proporcionaba toda la información sobre los ejemplos que contenían. Por lo que
+el formato que se pedía era simple, un archivo comprimido en formato ``.zip''
+que contuviera estos directorios.
+
+\subsection{Estructura según hoja de metadatos}\label{sec:excel}
+
+Sobre mediados de Abril los nuevos datos recibidos empezaron a estar organizados
+según una hoja de Excel que relacionaba los nombres de directorios y los
+ejemplos que contenían con sus metadatos, en vez de estar contenidos en el
+nombre.
+
+Esta hoja contenía una columna llamada ``Id'' con el nombre de un directorio y
+los ejemplos de ese tipo, las siguientes columnas contenían datos sobre los
+ejemplos contenidos en esa fila, como la mina de la que han sido extraídas las
+muestras o la profundidad.
+
+Esta hoja se adaptó para aplicación manteniendo la columna ``Id'' y añadiendo
+fijas una columna para la mina y otras dos para la profundidad, una nominal y
+otra numérica. El formato de subida pasó a ser en un mismo fichero ``.zip'' los
+directorios que contienen los ejemplos y la hoja con los metadatos previamente
+cumplimentada.
+
+\section{Almacenamiento de datos}
+
+El principal motivo de implementar un sistema de usuarios fue que cada uno
+pudiera tener sus datos almacenados para no tener que subirlos cada vez que se
+quiera trabajar con ellos.
+
+\subsection{Inicialmente}
+
+Al principio se almacenaban directamente en un directorio nombrado como el id
+del usuario y lo único que se hacía era descomprimir el archivo comprimido en
+ese directorio. Esta forma de almacenar los datos conlleva varios problemas que
+motivaron el cambio en la forma de almacenamiento a la actual. Esta forma de
+almacenamiento se corresponde al formato explicado en la
+sección~\ref{sec:directorios} (Organización en directorios).
+
+El problema más evidente, y que más notarían los usuarios, es que cada vez que
+se quisiera ver un espectro hay que cargarlo desde el disco, disminuyendo el
+rendimiento general de la aplicación.
+
+Otro gran problema de esta forma de almacenar era como manejaba el servidor los
+ficheros guardados, este tema se explicará más en detalle en la
+sección~\ref{sec:despliegue}.
+
+El último problema y el más problemático desde el punto de vista de programación
+es que para cada operación que se quisiera realizar con los datos se necesitaban
+escribir funciones auxiliares complejas para buscar y manipular el árbol de
+directorios, las cuáles había que modificar con cada cambio en la estructura,
+dificultando el mantenimiento de la aplicación.
+
+Se planteó cambiar la forma de almacenar los datos en el servidor, cambio que
+terminó por realizarse después de valorar ventajas y desventajas en este momento
+del desarrollo.
+
+\subsection{Migración a MongoDB}
+
+Por sugerencia del tutor se investigó la posibilidad de usar MongoDB para
+almacenar los datos. Se vio que podría funcionar realmente bien al poder
+insertar directamente los ficheros cargados en la base de datos, recuperarlos y
+borrarlos fácilmente. Como consecuencia directa del cambio los métodos
+auxiliares con los que se interactuaba con los datos disminuyeron
+considerablemente en tamaño y complejidad.
+
+En primera instancia se optó por guardar los conjuntos de datos como un
+documento en el que estaban contenidos varios \textit{DataFrames} (cada uno
+representando un espectro) agrupados según la carpeta en la que estuvieran
+localizados los espectros. Cada \textit{DataFrame} contenía dos columnas, una
+con los valores del eje X y otra con los valores del eje Y.
+
+Pero seguido de adoptar esta estructura y tener la aplicación adaptada para ello
+llegó el cambio en como recibíamos los datos, provocando otra modificación en la
+estructura. Esta vez se decidió agrupar todo el conjunto de datos subido en un
+solo \textit{DataFrame}, en el que cada fila se corresponde con un espectro, las
+columnas representan el eje X y los valores de cada fila en esas columnas
+representan el valor del eje Y. Cada fila contiene adicionalmente columnas que
+indican el nombre del espectro y sus metadatos asociados (ver
+Figura~\ref{fig:dataframe-def}).
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\textwidth]{dataframe-def}
+	\caption{Estructura definitiva}\label{fig:dataframe-def}
+\end{figure}
+
+Guardar los datos de esta forma facilita aplicar los métodos de minería de datos
+al estar pensado para aplicarse en lote.
+
+\section{Interfaz del visor}
+
+La interfaz de visualización de espectros ha estado muy relacionada con la
+sección~\ref{sec:subida}, ya que 
+
+\section{Despliegue}\label{sec:despliegue}
 
 \subsection{Heroku}
 
@@ -94,14 +199,4 @@ usuario necesarios.
 
 \subsection{Cohesión}
 
-\section{Almacenamiento de datos}
 
-\subsection{Inicialmente}
-
-\subsection{Problemas}
-
-\subsection{Migración a MongoDB}
-
-\subsubsection{Primera aproximación}
-
-\subsubsection{Estructura definitiva}
