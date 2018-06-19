@@ -1,6 +1,90 @@
 \capitulo{5}{Aspectos relevantes del desarrollo del proyecto}
 
-\section{Introducción}
+En este apartado se van a recoger los aspectos más importantes del desarrollo
+del proyecto. Desde las decisiones que se tomaron y sus implicaciones,
+hasta los numerosos problemas a los que hubo que enfrentarse y cómo se
+solucionaron.
+
+\section{Elección del proyecto}
+
+A finales del curso pasado se organizó una charla en la que los profesores iban
+a presentar las optativas que daban clase de forma que los alumnos tuviéramos
+más fácil elegir asignaturas. En la presentación de la asignatura ``Minería de
+Datos'' despertó interés por el tema y se preguntó a José Francisco, por haber
+realizado la presentación, sobre TFGs relacionados con el tema.
+
+De los trabajos disponibles este llamó la atención por estar relacionados con
+geología y con desarrollo web, además de poder aplicar técnicas minería de datos
+en un entorno real de investigación.
+
+\section{Formación}
+
+Para poder realizar el proyecto se necesitaban unos conocimientos no adquiridos
+sobre desarrollo web, tanto de la parte de servidor en Flask como la parte del
+cliente en HTML, CSS y JavaScript, aunque en menor medida por haberse tocado
+algo durante el grado. Como se había hablado con los tutores antes de verano
+sobre el proyecto, se dedicó parte a aprender sobre ello. Además de para
+aprendizaje, los recursos se han usado también como material de consulta durante
+el desarrollo.
+
+\noindent Para la parte del servidor se siguieron los libros y tutoriales:
+\begin{itemize}
+	\item Flask Web Development\cite{grinberg2014flask}
+	\item Explore Flask\cite{exploreflask}
+	\item The Flask Mega-Tutorial Legacy (2012)\cite{grinberg-mega-legacy}
+	\item The Flask Mega-Tutorial (2017)\cite{grinberg-mega}
+\end{itemize}
+
+\noindent Para la parte del cliente se utilizaron principalmente los siguientes
+materiales:
+\begin{itemize}
+	\item MDN Web Docs\cite{mdn}
+	\item W3Schools Tutorials\cite{w3schools}
+\end{itemize}
+
+A medida que se añadían nuevas herramientas al proyecto, su documentación
+oficial también ha sido consultada en varias ocasiones, están disponibles en:
+\begin{itemize}
+	\item Flask\cite{doc:flask}
+	\item Bootstrap\cite{doc:bootstrap}
+	\item Nanobox\cite{doc:nanobox}
+	\item PyMongo\cite{doc:pymongo}
+	\item Dash\cite{doc:dash}
+	\item Plotly\cite{doc:plotly}
+\end{itemize}
+
+\section{Sistema de usuarios}
+
+Uno de los primeros problemas que se plantearon fue la forma de ofrecer el
+sistema de usuarios, para que cada uno pudiera almacenar sus archivos. Las
+opciones que se presentaban eran implementar uno desde cero con ayuda de las
+extensiones que ofrece Flask o mediante un sistema de terceros, como puede ser
+Google.
+
+Implementar el sistema desde cero tenía la ventaja de que los usuarios no tenían
+que salir de la página para iniciar sesión y que se había aprendido como hacerlo
+en los tutoriales sobre Flask mencionados anteriormente, mientras que el sistema
+de terceros no se sabía como hacerlo, pero tenía más ventajas, siendo las
+principales no tener que mantener una base de datos de usuarios, no depender de
+un sistema de envío de correo electrónico (dio problemas en proyectos
+anteriores) y no tener que obligar a los usuarios a crearse otra cuenta al poder
+usar una existente.
+
+Al final se decidió usar la autenticación con Google, por estar casi garantizado
+que los usuarios van a tener una cuenta existente, la documentación sobre este
+aspecto es abundante y era fácil de implementar. Además al iniciar sesión con
+este servicio nos permite usar la API de Google para obtener los datos del
+usuario necesarios.
+
+\section{Despliegue}
+
+\subsection{Heroku}
+
+\subsection{Problemas}
+
+\subsection{Nanobox como solución}
+
+\section{Procesamiento}
 
 \section{Tecnología y frameworks}
 
@@ -21,11 +105,3 @@
 \subsubsection{Primera aproximación}
 
 \subsubsection{Estructura definitiva}
-
-\section{Despliegue}
-
-\subsection{Heroku}
-
-\subsection{Problemas}
-
-\subsection{Nanobox como solución}
