@@ -178,25 +178,35 @@ al estar pensado para aplicarse en lote.
 
 \section{Interfaz del visor}
 
-La interfaz de visualización de espectros ha estado muy relacionada con la
-sección~\ref{sec:subida}, ya que 
+Esta parte del proyecto está muy relacionado con lo explicado en la
+sección~\ref{sec:subida}, el usuario del visor espera que se le presenten los
+datos de una forma similar a como los ha subido.
+
+Cuando los datos se subían como un archivo comprimido con carpetas cuyo nombre
+contiene la información se presentaban al usuario dos menús desplegables. En la
+carga solo uno de ellos contenía valores, los nombres de los directorios. El
+segundo desplegable actualizaba sus valores con los nombres de los ficheros
+contenidos en la carpeta seleccionada, al seleccionar el fichero se cargaba en
+el visor.
+
+Con el cambio de la hoja con metadatos, el tutor José Francisco propuso que al
+usuario se le mostrase una tabla parecida al hoja que había rellenado antes de
+subir los datos, con la diferencia de que se mostrasen todos los ficheros como
+filas con sus metadatos, asemejándose a la estructura final de almacenamiento de
+datos.
+
+Mostrar los datos al usuario en forma de tabla trajo las ventajas de poder
+representar varios espectros a la vez, filtrar y ordenar según las columnas (ver
+Figura~\ref{fig:tabla-espectros}).
+
+\imagen{tabla-espectros}{Tabla de espectros} 
 
 \section{Despliegue}\label{sec:despliegue}
 
-\subsection{Heroku}
-
-\subsection{Problemas}
-
-\subsection{Nanobox como solución}
 
 \section{Procesamiento}
 
 \section{Tecnología y frameworks}
 
-\subsection{Decisiones}
-
-\subsection{Compatibilidad}
-
-\subsection{Cohesión}
 
 
