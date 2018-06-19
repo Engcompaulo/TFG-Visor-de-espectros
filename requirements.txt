@@ -4,7 +4,7 @@ Flask==1.0.2
 Flask-Bootstrap==3.3.7.1
 Flask-Dance==0.14.0
 Flask-PyMongo==0.5.1
-WTForms==2.1
+WTForms==2.2.1
 Flask-WTF==0.14.2
 numpy==1.14.3
 pyOpenSSL==17.5.0
