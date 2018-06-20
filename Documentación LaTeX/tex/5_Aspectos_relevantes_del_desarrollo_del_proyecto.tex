@@ -203,10 +203,29 @@ Figura~\ref{fig:tabla-espectros}).
 
 \section{Despliegue}\label{sec:despliegue}
 
+La idea de realizar el proyecto como una aplicación web tiene relación más que directa con que pueda estar accesible en pocos clicks. Para ello se necesita que esté desplegada y accesible en Internet. En esta sección de describe las etapas por las que pasó el despliegue, los problemas que surgieron y como se solucionaron.
+
+En las primeras reuniones del proyecto se comentó con los tutores que un gran problema de los proyectos anteriores desarrollados en web se centraban en el despliegue al final del proyecto, haciendo que alguna vez no pudieran llegarse a desplegar, por eso se planteó la idea de empezar a desplegar desde el inicio del proyecto.
+
+\subsection{Servidor}
+
+La plataforma escogida fue \href{https://www.heroku.com/}{Heroku}\footnote{\url{https://www.heroku.com/}} por su simplicidad y un plan gratuito que cubre las necesidades del proyecto. Aunque en primera instancia parecía que esta plataforma funcionaba bien para nuestras necesidades se vio que no contaba con almacenamiento persistencia, convirtiendo su uso en inviable.
+
+Las opciones que se plantearon fueron buscar una forma de añadir este almacenamiento y cambiar de servidor por completo. Para añadirlo en Heroku había que depender de \textit{plugins} de terceros para enlazar servicios de almacenamiento de terceros teniendo que modificar la aplicación para hacerlo funcionar, además de ser servicios de pago.
+
+Al final se escogió por cambiar a un proveedor \textit{cloud} de pago que ofreciese máquinas virtuales privadas, las opciones manejadas fueron \href{https://www.digitalocean.com/}{DigitalOcean}\footnote{\url{https://www.digitalocean.com/}}, \href{https://aws.amazon.com/es/}{Amazon Web Services}\footnote{\url{https://aws.amazon.com/es/}} y \href{https://cloud.google.com/}{Google Cloud}\footnote{\url{https://cloud.google.com/}}. Se escogió la primera opción ya que gracias al \href{https://education.github.com/pack}{Student Developer Pack}\footnote{\url{https://education.github.com/pack}} se disponía de un cupón de 50\$ en esta plataforma.
+
+\subsection{Herramientas para el despliegue}
+
+La plataforma Heroku posee sus propias herramientas para el despliegue, facilitando en gran cantidad este proceso. Esta plataforma un repositorio \textit{git} remoto para almacenar la aplicación por lo que al contar ya con este sistema de control de versiones en el proyecto no hubo que modificar casi nada para poder desplegar, pero por lo problemas comentados anteriormente se tuvo que abandonar.
+
+Para complementar a DigitalOcean y facilitar la tarea del despliegue se ha usado el servicio \href{https://nanobox.io/}{Nanobox}\footnote{\url{https://nanobox.io/}}. Al principio de usar esta plataforma se vio que los datos almacenados se eliminaban en cada despliegue, para ello hubo que añadir un segundo contenedor que se ocupara del almacenamiento, lo bueno es que este contenedor se asocia a un directorio del servidor, por lo que la aplicación no se tuvo que modificar. Más adelante se añadió otro contenedor para gestionar la base de datos MongoDB.
+
+Las mayores ventajas que posee esta plataforma es el despliegue con un solo comando, se encarga de toda la configuración, monitorización del servidor, conexión remota al servidor sencilla y escalado sencillo del servidor.
 
 \section{Procesamiento}
 
-\section{Tecnología y frameworks}
+\section{Cohesión entre Flask y Dash}
 
 
 
