@@ -12,18 +12,36 @@ from flask import render_template, redirect, url_for, request, session, flash, \
 from werkzeug.utils import secure_filename
 from zipfile import ZipFile
 from numpydoc.docscrape import ClassDoc
-from sklearn.linear_model import LogisticRegression, LinearRegression
+
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.linear_model import LogisticRegression, RidgeClassifier
+from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier, \
+    GradientBoostingClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.svm import LinearSVC
+
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
 
 from SpectraViewer.main import main
 from SpectraViewer.main.forms import SpectrumForm, DatasetForm
 from SpectraViewer.utils.decorators import google_required
+from SpectraViewer.processing.Preprocess import preprocess_pipeline
 from SpectraViewer.utils.mongo_facade import save_dataset, remove_dataset, \
     get_datasets, save_spectrum, get_spectra, remove_spectrum, get_user_dataset
 from SpectraViewer.utils.directories import get_temp_directory, get_path, \
     get_user_directory
 
-_available_models = {'logistic': LogisticRegression,
-                     'linear': LinearRegression}
+_available_models = {'LDA': LinearDiscriminantAnalysis,
+                     'Knn': KNeighborsClassifier,
+                     'LR': LogisticRegression,
+                     'Ridge': RidgeClassifier,
+                     'RF': RandomForestClassifier,
+                     'Extra': ExtraTreesClassifier,
+                     'GBT': GradientBoostingClassifier,
+                     'Tree': DecisionTreeClassifier,
+                     'SVM': LinearSVC}
 
 
 @main.before_app_request
@@ -145,8 +163,7 @@ def upload_spectrum():
     """Render the upload spectrum view.
 
     This page contains a form for uploading spectum. If POST, uploads
-    the file and saves it to the user directory with the name
-    provided in the form.
+    the file and saves it to mongo.
 
     Returns
     -------
@@ -256,44 +273,111 @@ def plot_spectrum(spectrum):
     return redirect('/plot/spectrum')
 
 
-@main.route('/create-model/<dataset>', methods=['GET', 'POST'])
+@main.route('/create-model/<dataset>')
 @google_required
 def create_model(dataset):
-    if request.method == 'POST':
-        parameters = {}
-        for param, value in request.form.items():
-            if value != '':
-                if value == 'True':
-                    parameters[param] = True
-                elif value == 'False':
-                    parameters[param] = False
-                else:
-                    parameters[param] = value  # Numbers and strings
-        print(parameters)
-        model = _available_models[session['model']](**parameters)
-        data = get_user_dataset(dataset, session['user_id'])
-        # y_mina = data['Mina']
-        # y_prof = data['Profundidad']
-        y_prof_num = data['Profundidad_num']
-        x = data.drop(columns=['Nombre', 'Etiqueta', 'Mina', 'Profundidad',
-                               'Profundidad_num'])
-        # model_mina = model.fit(x, y_mina)
-        # mode_prof = model.fit(x, y_prof)
-        try:
-            mode_prof_num = model.fit(x, y_prof_num)
-        except Exception as e:
-            print(e)
-            flash(str(e), 'danger')
-        return redirect(url_for('main.create_model', dataset=dataset))
+    """Render the create model view.
+
+    A dropdown with the supported models is displayed, then the model
+    parameters are shown when selected.
+
+    Parameters
+    ----------
+    dataset : str
+        Dataset to be used when training the model.
+
+    """
     models = {model_id: model.__name__ for model_id, model in
               _available_models.items()}
     return render_template('create_model.html', models=models, dataset=dataset)
 
 
-@main.route('/model-parameters/<model_id>')
+@main.route('/train-model/<dataset>', methods=['POST'])
 @google_required
-def model_params(model_id):
-    doc = ClassDoc(_available_models[model_id])
+def train_model(dataset):
+    """Train the selected model with the desired parameters.
+
+    Train the model, calculate scores and save it, then redirect to
+    the manage view, displaying a message with the classifier scores.
+
+    Parameters
+    ----------
+    dataset : str
+        Dataset to be used when training the model.
+
+    """
+    parameters = {}
+    for param, value in request.form.items():
+        if value == 'True':
+            parameters[param] = True
+        elif value == 'False':
+            parameters[param] = False
+        elif value != '':  # Numbers and strings
+            try:
+                parameters[param] = int(value)
+            except ValueError:
+                try:
+                    parameters[param] = float(value)
+                except ValueError:
+                    parameters[param] = value
+    model = _available_models[session['model']]
+    data = get_user_dataset(dataset, session['user_id'])
+    y_mine = data['Mina'].values.astype(str)
+    y_prof = data['Profundidad'].values.astype(str)
+    y_prof_num = data['Profundidad_num'].values.astype(str)
+    x = data.drop(columns=['Nombre', 'Etiqueta', 'Mina', 'Profundidad',
+                           'Profundidad_num'])
+    x_pro, _ = preprocess_pipeline(x.values, x.columns, 'sCBN', 50, 1800,
+                                   'ALS_old', 'norm', 'cos', 'sg', 25)
+    test_size = 0.3
+    x_mine_train, x_mine_test, y_mine_train, y_mine_test = train_test_split(
+        x_pro, y_mine, test_size=test_size)
+    x_prof_train, x_prof_test, y_prof_train, y_prof_test = train_test_split(
+        x_pro, y_prof, test_size=test_size)
+    x_pnum_train, x_pnum_test, y_pnum_train, y_pnum_test = train_test_split(
+        x_pro, y_prof_num, test_size=test_size)
+    try:
+        mine_classifier = model(**parameters).fit(x_mine_train, y_mine_train)
+        mine_accuracy = accuracy_score(y_mine_test,
+                                       mine_classifier.predict(x_mine_test))
+        prof_classifier = model(**parameters).fit(x_prof_train, y_prof_train)
+        prof_accuracy = accuracy_score(y_prof_test,
+                                       prof_classifier.predict(x_prof_test))
+        pnum_classifier = model(**parameters).fit(x_pnum_train, y_pnum_train)
+        pnum_accuracy = accuracy_score(y_pnum_test,
+                                       pnum_classifier.predict(x_pnum_test))
+        session['results'] = {'mine': format(mine_accuracy * 100, '.2f'),
+                              'prof': format(prof_accuracy * 100, '.2f'),
+                              'pnum': format(pnum_accuracy * 100, '.2f')}
+    except Exception as e:
+        flash(str(e), 'danger')
+        return redirect(url_for('main.create_model', dataset=dataset))
+    else:
+        return redirect(url_for('main.results'))
+
+
+@main.route('/results/')
+@google_required
+def results():
+    validation_results = session['results']
+    return render_template('results.html', results=validation_results)
+
+
+@main.route('/model-parameters/<model_key>')
+@google_required
+def model_params(model_key):
+    """Return a custom form with the parameters of the given model.
+
+    Parameters
+    ----------
+    model_key : Key of the model stored in available models.
+
+    Returns
+    -------
+    Custom form.
+
+    """
+    doc = ClassDoc(_available_models[model_key])
     params = doc['Parameters']
     params = list(map(list, params))  # Because previous line returns tuples
     for param in params:
@@ -305,5 +389,5 @@ def model_params(model_id):
             break_index = len(description_list)
         description = ' '.join(description_list[0:break_index])
         param[2] = description
-    session['model'] = model_id
+    session['model'] = model_key
     return render_template('model_parameters.html', params=params)

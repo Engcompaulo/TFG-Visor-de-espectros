@@ -23,7 +23,7 @@
     </div>
     <div class="row">
         <div class="col-md-6">
-        <h4>El dataset seleccionado es {{ dataset }}</h4>
+            <h4>El dataset seleccionado es {{ dataset }}</h4>
             <p><strong>Consideraciones</strong></p>
             <ul>
                 <li>Los parámtros no introducidos usarán los valores por
@@ -56,9 +56,8 @@
                    value="Crear y evaluar modelo" disabled>
         </div>
         <div class="col-md-6">
-            <form action method="post" id="parameters-form" class="form"
-                  role="form">
-
+            <form action="{{ url_for('main.train_model', dataset=dataset) }}"
+                  method="post" id="parameters-form" class="form" role="form">
             </form>
         </div>
     </div>
