@@ -380,7 +380,7 @@ def results():
         classifiers.name = form.name.data
         classifiers.notes = form.notes.data
         if save_classifiers(classifiers):
-            flash('Clasificador guardado correctamente', 'sucess')
+            flash('Clasificador guardado correctamente', 'success')
             return redirect(url_for('main.manage'))
         else:
             flash('Clasificador ya existente', 'danger')
@@ -439,7 +439,21 @@ def delete_classifier(classifier):
     return redirect(url_for('main.manage'))
 
 
-@main.route('/predict/<spectrum>')
+@main.route('/predict/<spectrum>', methods=['GET', 'POST'])
 @google_required
 def predict(spectrum):
-    pass
+    classifiers = get_classifiers(session['user_id'])
+    if request.method == 'POST':
+        selected = request.form['classifier-select']
+        data = get_user_spectrum(spectrum, session['user_id'])
+        x_pro, _ = preprocess_pipeline(data.values, data.columns, 'sCBN', 50,
+                                       1800, 'ALS_old', 'norm', 'cos', 'sg', 25)
+        classifier = get_classifier(selected, session['user_id'])
+        predictions = dict()
+        predictions['mine'] = classifier.mine.predict(x_pro)[0]
+        predictions['prof'] = classifier.prof.predict(x_pro)[0]
+        predictions['pnum'] = classifier.pnum.predict(x_pro)[0]
+        return render_template('predict.html', classifiers=classifiers,
+                               predictions=predictions, spectrum=spectrum)
+    return render_template('predict.html', classifiers=classifiers,
+                           predictions=None, spectrum=spectrum)

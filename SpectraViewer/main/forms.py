@@ -9,7 +9,7 @@
 """
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired, FileAllowed
-from wtforms import SubmitField, StringField, TextAreaField
+from wtforms import SubmitField, StringField, TextAreaField, SelectField
 from wtforms.validators import DataRequired
 
 
@@ -79,7 +79,7 @@ class DatasetForm(FlaskForm):
 
 
 class ClassifierForm(FlaskForm):
-    """Form for en.
+    """Form for entering the classiffiers object name and notes.
 
     Attributes
     ----------

@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% set active_page="manage" %}
+
+
+{% block title %}Predicción{% endblock %}
+
+{% block page_content %}
+    <div id="waiting-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content panel panel-default">
+                <div class="modal-header panel-heading">
+                    <p>Espera</p>
+                </div>
+                <div class="modal-body panel-body">
+                    <p>El clasificador está haciendo las predicciones del
+                        modelo. Cuando termine se mostrarán los resultados.</p>
+                    <div class="loader"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-header">
+        <h2>Predicción del espectro</h2>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <p>El espectro a predecir es {{ spectrum }}</p>
+            <form action method="post" class="form" role="form">
+                <div class="form-group">
+                    <label for="classifier-select">Selecciona el clasificador
+                        que usar</label>
+                    <select id="classifier-select" name="classifier-select"
+                            class="form-control" onchange="enableSubmit()">
+                        <option value="" disabled="" selected="">Selecciona el
+                            clasificador
+                        </option>
+                        {% for classifier in classifiers %}
+                            <option value="{{ classifier.name }}">{{ classifier.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <input type="submit" class="btn btn-primary" id="submit"
+                       data-toggle="modal" data-target="#waiting-modal"
+                       data-backdrop="static" data-keyboard="false"
+                       value="Predecir espectro" disabled>
+            </form>
+        </div>
+        {% if predictions %}
+            <div class="col-md-6">
+                <p>Para el atributo <strong>"Mina"</strong> la predicción
+                    es "{{ predictions['mine'] }}"</p>
+                <p>Para el atributo <strong>"Profundidad"</strong> la predicción
+                    es "{{ predictions['prof'] }}"</p>
+                <p>Para el atributo <strong>"Profundidad_num"</strong> la
+                    predicción es "{{ predictions['pnum'] }}"</p>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

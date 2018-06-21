@@ -343,7 +343,7 @@ def save_classifiers(classifiers):
                             'user_id': classifiers.user,
                             'mine': pickle.dumps(classifiers.mine),
                             'prof': pickle.dumps(classifiers.prof),
-                            'pnum': pickle.dumps(classifiers.prof)}
+                            'pnum': pickle.dumps(classifiers.pnum)}
     try:
         mongo.db.models.insert_one(classifiers_document)
         return True
@@ -374,6 +374,32 @@ def get_classifiers(user_id):
                                          pickle.loads(document['prof']),
                                          pickle.loads(document['pnum'])))
     return classifiers
+
+
+def get_classifier(classifier_name, user_id):
+    """
+    Return all spectra a given user owns.
+
+    Parameters
+    ----------
+    classifier_name : str
+        Classifiers object name.
+    user_id : str
+        User id.
+
+    Returns
+    -------
+    ClassifierSet
+
+    """
+    document = mongo.db.models.find_one({'classifiers_name': classifier_name,
+                                         'user_id': user_id})
+    return ClassifierSet(document['classifiers_name'],
+                         document['user_id'],
+                         document['classifiers_notes'],
+                         pickle.loads(document['mine']),
+                         pickle.loads(document['prof']),
+                         pickle.loads(document['pnum']))
 
 
 def remove_classifiers(classifiers_name, user_id):
