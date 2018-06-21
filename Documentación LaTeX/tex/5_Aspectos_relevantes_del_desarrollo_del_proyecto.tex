@@ -76,6 +76,24 @@ aspecto es abundante y era fácil de implementar. Además al iniciar sesión con
 este servicio nos permite usar la API de Google para obtener los datos del
 usuario necesarios.
 
+\section{Cohesión entre Flask y Dash}
+
+Al contar con la presencia de dos \textit{frameworks} de desarrollo web hacer
+que funcionen juntos ha sido un reto, sobre todo teniendo en cuenta que Dash se
+ejecuta Flask pero no permite reutilizar sus componentes, favoreciendo la
+aparición de código repetido y disminuyendo la mantenibilidad.
+
+El mayor problema que se ha tenido ha sido la diferencia en como escribir el
+código HTML para la interfaz en el cliente. Mientras que en Flask se escribe en
+ficheros HTML llamados \textit{templates}, Dash apuesta por escribir todo el
+código desde Python. Esto favorece que surjan defectos de código, sobre todo de
+código duplicado.
+
+Se investigó bastante sobre cómo poder usar los \textit{templates} de Flask para
+definir la interfaz de Dash pero no se pudo encontrar forma de poder hacerlo. Al
+final no quedó otra forma de hacerlo, pero dentro de lo malo es un pequeño
+precio a pagar por el resto de ventajas que Dash ofrece.
+
 \section{Subida de ficheros}\label{sec:subida}
 
 Una de las primeras características que se implementó fue la subida de ficheros
@@ -109,6 +127,31 @@ fijas una columna para la mina y otras dos para la profundidad, una nominal y
 otra numérica. El formato de subida pasó a ser en un mismo fichero ``.zip'' los
 directorios que contienen los ejemplos y la hoja con los metadatos previamente
 cumplimentada.
+
+\section{Interfaz del visor}
+
+Esta parte del proyecto está muy relacionado con lo explicado en la
+sección~\ref{sec:subida}, el usuario del visor espera que se le presenten los
+datos de una forma similar a como los ha subido.
+
+Cuando los datos se subían como un archivo comprimido con carpetas cuyo nombre
+contiene la información se presentaban al usuario dos menús desplegables. En la
+carga solo uno de ellos contenía valores, los nombres de los directorios. El
+segundo desplegable actualizaba sus valores con los nombres de los ficheros
+contenidos en la carpeta seleccionada, al seleccionar el fichero se cargaba en
+el visor.
+
+Con el cambio de la hoja con metadatos, el tutor José Francisco propuso que al
+usuario se le mostrase una tabla parecida al hoja que había rellenado antes de
+subir los datos, con la diferencia de que se mostrasen todos los ficheros como
+filas con sus metadatos, asemejándose a la estructura final de almacenamiento de
+datos.
+
+Mostrar los datos al usuario en forma de tabla trajo las ventajas de poder
+representar varios espectros a la vez, filtrar y ordenar según las columnas (ver
+Figura~\ref{fig:tabla-espectros}).
+
+\imagen{tabla-espectros}{Tabla de espectros} 
 
 \section{Almacenamiento de datos}
 
@@ -165,7 +208,8 @@ solo \textit{DataFrame}, en el que cada fila se corresponde con un espectro, las
 columnas representan el eje X y los valores de cada fila en esas columnas
 representan el valor del eje Y. Cada fila contiene adicionalmente columnas que
 indican el nombre del espectro y sus metadatos asociados (ver
-Figura~\ref{fig:dataframe-def}).
+Figura~\ref{fig:dataframe-def}). En la sección~\ref{sec:integracion} se explican
+más en profundidad este cambio.
 
 \begin{figure}[!h]
 	\centering
@@ -176,56 +220,92 @@ Figura~\ref{fig:dataframe-def}).
 Guardar los datos de esta forma facilita aplicar los métodos de minería de datos
 al estar pensado para aplicarse en lote.
 
-\section{Interfaz del visor}
 
-Esta parte del proyecto está muy relacionado con lo explicado en la
-sección~\ref{sec:subida}, el usuario del visor espera que se le presenten los
-datos de una forma similar a como los ha subido.
+\section{Integración de los algoritmos existentes}\label{sec:integracion}
 
-Cuando los datos se subían como un archivo comprimido con carpetas cuyo nombre
-contiene la información se presentaban al usuario dos menús desplegables. En la
-carga solo uno de ellos contenía valores, los nombres de los directorios. El
-segundo desplegable actualizaba sus valores con los nombres de los ficheros
-contenidos en la carpeta seleccionada, al seleccionar el fichero se cargaba en
-el visor.
+Como se ha comentado en la introducción (página~\pageref{ch:introduccion}), este
+proyecto surge de una colaboración. De aquí se obtuvieron bastantes algoritmos,
+gran parte de ellos dedicados al procesamiento de los espectros, que se
+añadieron sobre la librería ``superman'' (\ref{lib:superman}).
 
-Con el cambio de la hoja con metadatos, el tutor José Francisco propuso que al
-usuario se le mostrase una tabla parecida al hoja que había rellenado antes de
-subir los datos, con la diferencia de que se mostrasen todos los ficheros como
-filas con sus metadatos, asemejándose a la estructura final de almacenamiento de
-datos.
+Una de las partes más importantes del proyecto era conseguir integrar estos
+algoritmos en la aplicación web para poder ejecutarlos sobre los espectros
+visualizados.
 
-Mostrar los datos al usuario en forma de tabla trajo las ventajas de poder
-representar varios espectros a la vez, filtrar y ordenar según las columnas (ver
-Figura~\ref{fig:tabla-espectros}).
+Cuando llegó el momento de integrarlos algoritmos en la aplicación había dos
+opciones para hacerlo funcionar, modificar la aplicación para adaptarse a los
+algoritmos o modificar los algoritmos para adaptarse a la aplicación.
 
-\imagen{tabla-espectros}{Tabla de espectros} 
+En primera instancia se intento modificar los algoritmos pero se vio que era un
+paquete con demasiadas dependencias dentro del propio paquete, por lo que cada
+cambio producía gran cantidad de errores de funcionamiento, que al solucionar
+producían todavía más errores dentro del paquete. Se optó por revertir estos
+cambios y modificar la aplicación.
+
+La modificación principal fue la modificación final en como guardar los datos
+comentada anteriormente (figura~\ref{fig:dataframe-def}). Con esa modificación
+el funcionamiento de la aplicación volvió a ser el correcto.
 
 \section{Despliegue}\label{sec:despliegue}
 
-La idea de realizar el proyecto como una aplicación web tiene relación más que directa con que pueda estar accesible en pocos clicks. Para ello se necesita que esté desplegada y accesible en Internet. En esta sección de describe las etapas por las que pasó el despliegue, los problemas que surgieron y como se solucionaron.
+La idea de realizar el proyecto como una aplicación web tiene relación más que
+directa con que pueda estar accesible en pocos clicks. Para ello se necesita que
+esté desplegada y accesible en Internet. En esta sección de describe las etapas
+por las que pasó el despliegue, los problemas que surgieron y como se
+solucionaron.
 
-En las primeras reuniones del proyecto se comentó con los tutores que un gran problema de los proyectos anteriores desarrollados en web se centraban en el despliegue al final del proyecto, haciendo que alguna vez no pudieran llegarse a desplegar, por eso se planteó la idea de empezar a desplegar desde el inicio del proyecto.
+En las primeras reuniones del proyecto se comentó con los tutores que un gran
+problema de los proyectos anteriores desarrollados en web se centraban en el
+despliegue al final del proyecto, haciendo que alguna vez no pudieran llegarse a
+desplegar, por eso se planteó la idea de empezar a desplegar desde el inicio del
+proyecto.
 
 \subsection{Servidor}
 
-La plataforma escogida fue \href{https://www.heroku.com/}{Heroku}\footnote{\url{https://www.heroku.com/}} por su simplicidad y un plan gratuito que cubre las necesidades del proyecto. Aunque en primera instancia parecía que esta plataforma funcionaba bien para nuestras necesidades se vio que no contaba con almacenamiento persistencia, convirtiendo su uso en inviable.
+La plataforma escogida fue
+\href{https://www.heroku.com/}{Heroku}\footnote{\url{https://www.heroku.com/}}
+por su simplicidad y un plan gratuito que cubre las necesidades del proyecto.
+Aunque en primera instancia parecía que esta plataforma funcionaba bien para
+nuestras necesidades se vio que no contaba con almacenamiento persistencia,
+convirtiendo su uso en inviable.
 
-Las opciones que se plantearon fueron buscar una forma de añadir este almacenamiento y cambiar de servidor por completo. Para añadirlo en Heroku había que depender de \textit{plugins} de terceros para enlazar servicios de almacenamiento de terceros teniendo que modificar la aplicación para hacerlo funcionar, además de ser servicios de pago.
+Las opciones que se plantearon fueron buscar una forma de añadir este
+almacenamiento y cambiar de servidor por completo. Para añadirlo en Heroku había
+que depender de \textit{plugins} de terceros para enlazar servicios de
+almacenamiento de terceros teniendo que modificar la aplicación para hacerlo
+funcionar, además de ser servicios de pago.
 
-Al final se escogió por cambiar a un proveedor \textit{cloud} de pago que ofreciese máquinas virtuales privadas, las opciones manejadas fueron \href{https://www.digitalocean.com/}{DigitalOcean}\footnote{\url{https://www.digitalocean.com/}}, \href{https://aws.amazon.com/es/}{Amazon Web Services}\footnote{\url{https://aws.amazon.com/es/}} y \href{https://cloud.google.com/}{Google Cloud}\footnote{\url{https://cloud.google.com/}}. Se escogió la primera opción ya que gracias al \href{https://education.github.com/pack}{Student Developer Pack}\footnote{\url{https://education.github.com/pack}} se disponía de un cupón de 50\$ en esta plataforma.
+Al final se escogió por cambiar a un proveedor \textit{cloud} de pago que
+ofreciese máquinas virtuales privadas, las opciones manejadas fueron
+\href{https://www.digitalocean.com/}{DigitalOcean}\footnote{\url{https://www.digitalocean.com/}},
+\href{https://aws.amazon.com/es/}{Amazon Web
+	Services}\footnote{\url{https://aws.amazon.com/es/}} y
+\href{https://cloud.google.com/}{Google
+	Cloud}\footnote{\url{https://cloud.google.com/}}. Se escogió la primera opción
+ya que gracias al \href{https://education.github.com/pack}{Student Developer
+	Pack}\footnote{\url{https://education.github.com/pack}} se disponía de un cupón
+de 50\$ en esta plataforma.
 
 \subsection{Herramientas para el despliegue}
 
-La plataforma Heroku posee sus propias herramientas para el despliegue, facilitando en gran cantidad este proceso. Esta plataforma un repositorio \textit{git} remoto para almacenar la aplicación por lo que al contar ya con este sistema de control de versiones en el proyecto no hubo que modificar casi nada para poder desplegar, pero por lo problemas comentados anteriormente se tuvo que abandonar.
+La plataforma Heroku posee sus propias herramientas para el despliegue,
+facilitando en gran cantidad este proceso. Esta plataforma un repositorio
+\textit{git} remoto para almacenar la aplicación por lo que al contar ya con
+este sistema de control de versiones en el proyecto no hubo que modificar casi
+nada para poder desplegar, pero por lo problemas comentados anteriormente se
+tuvo que abandonar.
 
-Para complementar a DigitalOcean y facilitar la tarea del despliegue se ha usado el servicio \href{https://nanobox.io/}{Nanobox}\footnote{\url{https://nanobox.io/}}. Al principio de usar esta plataforma se vio que los datos almacenados se eliminaban en cada despliegue, para ello hubo que añadir un segundo contenedor que se ocupara del almacenamiento, lo bueno es que este contenedor se asocia a un directorio del servidor, por lo que la aplicación no se tuvo que modificar. Más adelante se añadió otro contenedor para gestionar la base de datos MongoDB.
+Para complementar a DigitalOcean y facilitar la tarea del despliegue se ha usado
+el servicio
+\href{https://nanobox.io/}{Nanobox}\footnote{\url{https://nanobox.io/}}. Al
+principio de usar esta plataforma se vio que los datos almacenados se eliminaban
+en cada despliegue, para ello hubo que añadir un segundo contenedor que se
+ocupara del almacenamiento, lo bueno es que este contenedor se asocia a un
+directorio del servidor, por lo que la aplicación no se tuvo que modificar. Más
+adelante se añadió otro contenedor para gestionar la base de datos MongoDB.
 
-Las mayores ventajas que posee esta plataforma es el despliegue con un solo comando, se encarga de toda la configuración, monitorización del servidor, conexión remota al servidor sencilla y escalado sencillo del servidor.
-
-\section{Procesamiento}
-
-\section{Cohesión entre Flask y Dash}
-
+Las mayores ventajas que posee esta plataforma es el despliegue con un solo
+comando, se encarga de toda la configuración, monitorización del servidor,
+conexión remota al servidor sencilla y escalado sencillo del servidor.
 
 
