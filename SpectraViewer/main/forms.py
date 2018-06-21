@@ -76,3 +76,21 @@ class DatasetForm(FlaskForm):
                                              'data-target': '#waiting-modal',
                                              'data-backdrop': 'static',
                                              'data-keyboard': 'false'})
+
+
+class ClassifierForm(FlaskForm):
+    """Form for en.
+
+    Attributes
+    ----------
+    name : StringField
+        Field with the classifier name. Required.
+    notes : TextAreaField
+        Field with the dataset notes. Optional.
+
+    """
+    _name_validators = [
+        DataRequired('Es obligatorio poner nombre al clasificador')]
+    name = StringField(label='Nombre del clasificador',
+                       validators=_name_validators)
+    notes = TextAreaField(label='Comentarios sobre el clasificador')

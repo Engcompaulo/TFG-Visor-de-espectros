@@ -11,10 +11,11 @@
 import os
 import numpy as np
 import pandas as pd
+import pickle
 from pymongo.errors import DuplicateKeyError
 
 from SpectraViewer import mongo
-from SpectraViewer.models import Spectrum, Dataset
+from SpectraViewer.models import Spectrum, Dataset, ClassifierSet
 from SpectraViewer.utils.directories import get_path
 
 
@@ -321,3 +322,72 @@ def remove_spectrum(spectrum_name, user_id):
     """
     mongo.db.spectra.delete_one({'spectrum_name': spectrum_name,
                                  'user_id': user_id})
+
+
+def save_classifiers(classifiers):
+    """Save the given classifiers object to Mongo.
+
+    Parameters
+    ----------
+    classifiers : ClassifierSet
+        Class containing all data of the classifiers.
+
+    Returns
+    -------
+    bool
+        True if saved, False if name and user is already saved.
+
+    """
+    classifiers_document = {'classifiers_name': classifiers.name,
+                            'classifiers_notes': classifiers.notes,
+                            'user_id': classifiers.user,
+                            'mine': pickle.dumps(classifiers.mine),
+                            'prof': pickle.dumps(classifiers.prof),
+                            'pnum': pickle.dumps(classifiers.prof)}
+    try:
+        mongo.db.models.insert_one(classifiers_document)
+        return True
+    except DuplicateKeyError:
+        return False
+
+
+def get_classifiers(user_id):
+    """
+    Return all spectra a given user owns.
+
+    Parameters
+    ----------
+    user_id : str
+        User id.
+
+    Returns
+    -------
+    list
+
+    """
+    classifiers = list()
+    for document in mongo.db.models.find({'user_id': user_id}):
+        classifiers.append(ClassifierSet(document['classifiers_name'],
+                                         document['user_id'],
+                                         document['classifiers_notes'],
+                                         pickle.loads(document['mine']),
+                                         pickle.loads(document['prof']),
+                                         pickle.loads(document['pnum'])))
+    return classifiers
+
+
+def remove_classifiers(classifiers_name, user_id):
+    """
+    Remove from Mongo the classifiers object with the given name
+     belonging to the given user.
+
+    Parameters
+    ----------
+    classifiers_name : str
+        Spectrum name.
+    user_id : str
+        User id.
+
+    """
+    mongo.db.models.delete_one({'classifiers_name': classifiers_name,
+                                'user_id': user_id})

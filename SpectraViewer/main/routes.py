@@ -13,6 +13,8 @@ from werkzeug.utils import secure_filename
 from zipfile import ZipFile
 from numpydoc.docscrape import ClassDoc
 
+import pickle
+
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.linear_model import LogisticRegression, RidgeClassifier
@@ -25,11 +27,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
 from SpectraViewer.main import main
-from SpectraViewer.main.forms import SpectrumForm, DatasetForm
+from SpectraViewer.main.forms import SpectrumForm, DatasetForm, ClassifierForm
 from SpectraViewer.utils.decorators import google_required
 from SpectraViewer.processing.Preprocess import preprocess_pipeline
-from SpectraViewer.utils.mongo_facade import save_dataset, remove_dataset, \
-    get_datasets, save_spectrum, get_spectra, remove_spectrum, get_user_dataset
+from SpectraViewer.utils.mongo_facade import *
 from SpectraViewer.utils.directories import get_temp_directory, get_path, \
     get_user_directory
 
@@ -98,8 +99,9 @@ def manage():
     user_spectra = [{'name': spectrum.name,
                      'notes': spectrum.notes} for spectrum in
                     get_spectra(user_id)]
+    user_classifiers = get_classifiers(user_id)
     return render_template('manage.html', datasets=user_datasets,
-                           spectra=user_spectra)
+                           spectra=user_spectra, classifiers=user_classifiers)
 
 
 @main.route('/download-template', methods=['GET', 'POST'])
@@ -346,6 +348,12 @@ def train_model(dataset):
         pnum_classifier = model(**parameters).fit(x_pnum_train, y_pnum_train)
         pnum_accuracy = accuracy_score(y_pnum_test,
                                        pnum_classifier.predict(x_pnum_test))
+        classifiers = ClassifierSet(None, session['user_id'], None,
+                                    mine_classifier, prof_classifier,
+                                    pnum_classifier)
+        temp = get_path(get_user_directory(), 'classifiers.pk')
+        with open(temp, 'wb') as temp_file:
+            pickle.dump(classifiers, temp_file)
         session['results'] = {'mine': format(mine_accuracy * 100, '.2f'),
                               'prof': format(prof_accuracy * 100, '.2f'),
                               'pnum': format(pnum_accuracy * 100, '.2f')}
@@ -356,11 +364,28 @@ def train_model(dataset):
         return redirect(url_for('main.results'))
 
 
-@main.route('/results/')
+@main.route('/results', methods=['GET', 'POST'])
 @google_required
 def results():
+    """
+    Shows the test results and presents a form for saving the classifiers.
+
+    """
     validation_results = session['results']
-    return render_template('results.html', results=validation_results)
+    form = ClassifierForm()
+    if form.validate_on_submit():
+        temp = get_path(get_user_directory(), 'classifiers.pk')
+        with open(temp, 'rb') as temp_file:
+            classifiers = pickle.load(temp_file)
+        classifiers.name = form.name.data
+        classifiers.notes = form.notes.data
+        if save_classifiers(classifiers):
+            flash('Clasificador guardado correctamente', 'sucess')
+            return redirect(url_for('main.manage'))
+        else:
+            flash('Clasificador ya existente', 'danger')
+    return render_template('results.html', results=validation_results,
+                           form=form)
 
 
 @main.route('/model-parameters/<model_key>')
@@ -391,3 +416,30 @@ def model_params(model_key):
         param[2] = description
     session['model'] = model_key
     return render_template('model_parameters.html', params=params)
+
+
+@main.route('/delete_classifier/<classifier>')
+@google_required
+def delete_classifier(classifier):
+    """
+    Remove the classifiers object with the given name from the database.
+
+    Parameters
+    ----------
+    classifier : str
+        Classifires object name.
+
+    Returns
+    -------
+    Redirect to the manage view.
+
+    """
+    remove_classifiers(classifier, session['user_id'])
+    flash('Se ha borrado correctamente el clasificador', 'success')
+    return redirect(url_for('main.manage'))
+
+
+@main.route('/predict/<spectrum>')
+@google_required
+def predict(spectrum):
+    pass

@@ -9,27 +9,27 @@
         <h2>Mis ficheros guardados</h2>
     </div>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <p>Para subir un dataset pulse <a
                     href="{{ url_for('main.upload_dataset') }}">aquí</a></p>
             {% if datasets %}
                 <p>A continuación se muestran los datasets que has subido.</p>
                 <ul class="list-group">
                     {% for dataset in datasets %}
-                        <li class="list-group-item">
-                            <div class="list-group-item-heading clearfix">
-                                <h4 class="pull-left">{{ dataset['name'] }}</h4>
-                                <div class="btn-group pull-right" role="group">
-                                    <a href="{{ url_for('main.plot_dataset', dataset=dataset['name']) }}"
-                                       class="btn btn-primary">Representar</a>
-                                    <a href="{{ url_for('main.delete_dataset', dataset=dataset['name']) }}"
-                                       class="btn btn-danger"
-                                       onclick="return confirmDeletion()">Eliminar</a>
-                                    <a href="{{ url_for('main.create_model', dataset=dataset['name']) }}"
-                                       class="btn btn-default">Entrenar modelo</a>
-                                </div>
+                        <li class="list-group-item clearfix">
+                            <div class="list-group-item-heading">
+                                <h4>{{ dataset['name'] }}</h4>
                             </div>
                             <p class="list-group-item-text">{{ dataset['notes'] }}</p>
+                            <div class="btn-group pull-right" role="group">
+                                <a href="{{ url_for('main.plot_dataset', dataset=dataset['name']) }}"
+                                   class="btn btn-primary">Visualizar</a>
+                                <a href="{{ url_for('main.delete_dataset', dataset=dataset['name']) }}"
+                                   class="btn btn-danger"
+                                   onclick="return confirmDeletion()">Eliminar</a>
+                                <a href="{{ url_for('main.create_model', dataset=dataset['name']) }}"
+                                   class="btn btn-default">Crear modelo</a>
+                            </div>
                         </li>
                     {% endfor %}
                 </ul>
@@ -37,25 +37,49 @@
                 <p>No hay ningún dataset para esta cuenta.</p>
             {% endif %}
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <p>Para subir un espectro pulse <a
                     href="{{ url_for('main.upload_spectrum') }}">aquí</a></p>
             {% if spectra %}
                 <p>A continuación se muestran los espectros que has subido.</p>
                 <div class="list-group">
                     {% for spectrum in spectra %}
-                        <li class="list-group-item">
-                            <div class="list-group-item-heading clearfix">
-                                <h4 class="pull-left">{{ spectrum['name'] }}</h4>
-                                <div class="btn-group pull-right" role="group">
-                                    <a href="{{ url_for('main.plot_spectrum', spectrum=spectrum['name']) }}"
-                                       class="btn btn-primary">Representar</a>
-                                    <a href="{{ url_for('main.delete_spectrum', spectrum=spectrum['name']) }}"
-                                       class="btn btn-danger"
-                                       onclick="return confirmDeletion()">Eliminar</a>
-                                </div>
+                        <li class="list-group-item clearfix">
+                            <div class="list-group-item-heading">
+                                <h4>{{ spectrum['name'] }}</h4>
                             </div>
                             <p class="list-group-item-text">{{ spectrum['notes'] }}</p>
+                            <div class="btn-group pull-right" role="group">
+                                <a href="{{ url_for('main.plot_spectrum', spectrum=spectrum['name']) }}"
+                                   class="btn btn-primary">Visualizar</a>
+                                <a href="{{ url_for('main.delete_spectrum', spectrum=spectrum['name']) }}"
+                                   class="btn btn-danger"
+                                   onclick="return confirmDeletion()">Eliminar</a>
+                                <a href="{{ url_for('main.predict', spectrum=spectrum['name']) }}"
+                                   class="btn btn-default">Predecir</a>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>No hay ningún espectro para esta cuenta</p>
+            {% endif %}
+        </div>
+        <div class="col-md-4">
+            {% if classifiers %}
+                <p>A continuación se muestran los clasificadores guardados.</p>
+                <div class="list-group">
+                    {% for classifier in classifiers %}
+                        <li class="list-group-item clearfix">
+                            <div class="list-group-item-heading">
+                                <h4>{{ classifier.name }}</h4>
+                            </div>
+                            <p class="list-group-item-text">{{ classifier.notes }}</p>
+                            <div class="btn-group pull-right" role="group">
+                                <a href="{{ url_for('main.delete_classifier', classifier=classifier.name) }}"
+                                   class="btn btn-danger"
+                                   onclick="return confirmDeletion()">Eliminar</a>
+                            </div>
                         </li>
                     {% endfor %}
                 </div>

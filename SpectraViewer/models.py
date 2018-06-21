@@ -26,6 +26,7 @@ class Dataset(object):
         Notes related to the dataset.
 
     """
+
     def __init__(self, name, user, data, notes):
         self.name = name
         self.user = user
@@ -48,9 +49,39 @@ class Spectrum(object):
         Notes related to the spectrum.
 
     """
+
     def __init__(self, name, user, data, notes):
         self.name = name
         self.user = user
         self.data = data
         self.notes = notes
 
+
+class ClassifierSet(object):
+    """This class stores all three possible classifiers along with other
+    attributes.
+
+    Attributes
+    ----------
+    name : str
+        Name of the classifier set.
+    user : str
+        User who owns the classifier set.
+    notes : str
+        Notes related to the classifier.
+    mine : scikit-learn model
+        Trained model which predicts "Mina" attribute.
+    prof : scikit-learn model
+        Trained model which predicts "Profundidad" attribute.
+    pnum : scikit-learn model
+        Trained model which predicts "Profundidad_num" attribute.
+    """
+
+    def __init__(self, name, user, notes, mine_classifier, prof_classifier,
+                 pnum_classifier):
+        self.name = name
+        self.user = user
+        self.notes = notes
+        self.mine = mine_classifier
+        self.prof = prof_classifier
+        self.pnum = pnum_classifier

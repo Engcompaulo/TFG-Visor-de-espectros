@@ -1,31 +1,25 @@
 {% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
 
-{% block title %}Crear modelo{% endblock %}
+{% block title %}Resultados{% endblock %}
 
 {% block page_content %}
-    <div id="waiting-modal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content panel panel-default">
-                <div class="modal-header panel-heading">
-                    <p>Espera</p>
-                </div>
-                <div class="modal-body panel-body">
-                    <p>El modelo se está entrenando. El proceso
-                        puede tardar unos minutos, cuando termine será
-                        redirigido a la página de resultados</p>
-                    <div class="loader"></div>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="page-header">
         <h2>Evaluación de resultados</h2>
     </div>
     <div class="row">
         <div class="col-md-6">
-            <p>Para el atributo <strong>"Mina"</strong> la exactitud es de {{ results['mine'] }}%</p>
-            <p>Para el atributo <strong>"Profundidad"</strong> la exactitud es de {{ results['prof'] }}%</p>
-            <p>Para el atributo <strong>"Profundidad_num"</strong> la exactitud es de {{ results['pnum'] }}%</p>
+            <p>Para el atributo <strong>"Mina"</strong> la exactitud es
+                de {{ results['mine'] }}%</p>
+            <p>Para el atributo <strong>"Profundidad"</strong> la exactitud es
+                de {{ results['prof'] }}%</p>
+            <p>Para el atributo <strong>"Profundidad_num"</strong> la exactitud
+                es de {{ results['pnum'] }}%</p>
+        </div>
+        <div class="col-md-6">
+            {{ wtf.quick_form(form, id='form') }}
+            <input type="submit" class="btn btn-primary" value="Guardar" form="form">
+            <a href="manage.html" class="btn btn-default">Descartar</a>
         </div>
     </div>
 {% endblock %}

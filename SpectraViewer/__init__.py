@@ -69,3 +69,6 @@ def _init_extensions(app):
         mongo.db.spectra.create_index([('spectrum_name', pymongo.ASCENDING),
                                        ('user_id', pymongo.ASCENDING)],
                                       unique=True)
+        mongo.db.models.create_index([('classifiers_name', pymongo.ASCENDING),
+                                      ('user_id', pymongo.ASCENDING)],
+                                     unique=True)
