@@ -371,7 +371,7 @@ def results():
     Shows the test results and presents a form for saving the classifiers.
 
     """
-    validation_results = session['results']
+    test_results = session['results']
     form = ClassifierForm()
     if form.validate_on_submit():
         temp = get_path(get_user_directory(), 'classifiers.pk')
@@ -384,7 +384,11 @@ def results():
             return redirect(url_for('main.manage'))
         else:
             flash('Clasificador ya existente', 'danger')
-    return render_template('results.html', results=validation_results,
+            return redirect(url_for('main.results'))
+    form.notes.data = f"Mina: {test_results['mine']}% acierto, " \
+                      f"Profundidad: {test_results['prof']}% acierto, " \
+                      f"Profundidad_num: {test_results['pnum']}% acierto. "
+    return render_template('results.html', results=test_results,
                            form=form)
 
 
