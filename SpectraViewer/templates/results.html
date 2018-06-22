@@ -19,7 +19,7 @@
         <div class="col-md-6">
             {{ wtf.quick_form(form, id='form') }}
             <input type="submit" class="btn btn-primary" value="Guardar" form="form">
-            <a href="manage.html" class="btn btn-default">Descartar</a>
+            <a href="{{ url_for('main.manage') }}" class="btn btn-default">Descartar</a>
         </div>
     </div>
 {% endblock %}
