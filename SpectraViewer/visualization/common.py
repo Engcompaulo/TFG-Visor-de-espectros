@@ -14,6 +14,76 @@ import dash_html_components as html
 from SpectraViewer.processing.Preprocess import PreprocessOperator
 
 
+def get_controls_help():
+    """
+    Get the layout of the help section dedicated to processing controls.
+
+    """
+    return html.Div(className='panel panel-default', children=[
+        html.Div(className='panel-heading',
+                 children=html.H4(
+                     'Controles de procesamiento')),
+        html.Div(className='panel-body', children=[
+            html.P(
+                'Cada etiqueta asociada a un control tiene entre paréntesis la letra que lo representa'),
+            html.P(
+                'En el cuadro "Orden de procesado" hay que introducir '
+                'las letras de los controles en el orden que se quiera realizar el procesado'),
+            html.Dl(className='dl-horizontal', children=[
+                html.Dt('Recorte'), html.Dd(
+                    'Muestra los valores entre el rango definido'),
+                html.Dt('Línea base'),
+                html.Dd('Elimina la línea base del gráfico'),
+                html.Dt('Normalización'),
+                html.Dd('Normaliza los valores de los datos'),
+                html.Dt('Aplastado'),
+                html.Dd('Aplasta los valores de los datos'),
+                html.Dt('Suavizado'),
+                html.Dd('Elimina pequeños picos en los datos, '
+                        'se requiere escoger un tipo y un tamaño, '
+                        'cuanto mayor sea el tamaño menos picos quedan'),
+            ])
+        ])
+    ])
+
+
+def get_graph_help():
+    """
+    Get the layout of the help section dedicated to graph options.
+
+    """
+    return html.Div(className='panel panel-default', children=[
+        html.Div(className='panel-heading',
+                 children=html.H4('Opciones de los gráficos')),
+        html.Div(className='panel-body', children=[
+            html.Ul(children=[
+                html.Li(
+                    'Seleccionando una zona sobre el gráfico se hace zoom en esa parte'),
+                html.Li(
+                    'Haciendo doble click después de hacer zoom se vuelve a la vista general'),
+                html.P('Con varios ejemplos seleccionados:'),
+                html.Ul(children=[
+                    html.Li(
+                        'Haciendo click en el nombre de uno se oculta del gŕafico'),
+                    html.Li(
+                        'Haciendo doble click en el nombre de uno se ocultan el resto'),
+                ]),
+                html.Li(
+                    'El propio gráfico tiene que varias cuya función se muestra al pasar el ratón por encima de su icono')
+            ])
+        ])
+    ])
+
+
+def get_back_button():
+    """
+    Get the layout of the back button.
+
+    """
+    return html.A(className='btn btn-default', href='/manage',
+                  children=['Volver a mis archivos'])
+
+
 def get_processing_controls():
     """
     Get the layout of the processing controls.

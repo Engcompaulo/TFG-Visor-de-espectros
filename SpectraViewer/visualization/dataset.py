@@ -12,7 +12,8 @@ import dash_html_components as html
 import dash_table_experiments as dt
 from flask import session
 
-from SpectraViewer.visualization.common import get_processing_controls
+from SpectraViewer.visualization.common import get_processing_controls, \
+    get_back_button, get_graph_help, get_controls_help
 
 
 def compose_layout():
@@ -31,8 +32,7 @@ def compose_layout():
     metadata = dataset_data.loc[:, ['Nombre', 'Etiqueta', 'Mina', 'Profundidad',
                                     'Profundidad_num']]
     layout = html.Div(children=[
-        html.A(className='btn btn-default', href='/manage',
-               children=['Volver a mis archivos']),
+        get_back_button(),
         html.Details(children=[
             html.Summary(className='btn btn-default', children='Ayuda'),
             html.Div(className='row', children=[
@@ -55,56 +55,10 @@ def compose_layout():
                     ])
                 ]),
                 html.Div(className='col-md-4', children=[
-                    html.Div(className='panel panel-default', children=[
-                        html.Div(className='panel-heading',
-                                 children=html.H4(
-                                     'Controles de procesamiento')),
-                        html.Div(className='panel-body', children=[
-                            html.P(
-                                'Cada etiqueta asociada a un control tiene entre paréntesis la letra que lo representa'),
-                            html.P(
-                                'En el cuadro "Orden de procesado" hay que introducir '
-                                'las letras de los controles en el orden que se quiera realizar el procesado'),
-                            html.Dl(className='dl-horizontal', children=[
-                                html.Dt('Recorte'), html.Dd(
-                                    'Muestra los valores entre el rango definido'),
-                                html.Dt('Línea base'),
-                                html.Dd('Elimina la línea base del gráfico'),
-                                html.Dt('Normalización'),
-                                html.Dd('Normaliza los valores de los datos'),
-                                html.Dt('Aplastado'),
-                                html.Dd('Aplasta los valores de los datos'),
-                                html.Dt('Suavizado'),
-                                html.Dd('Elimina pequeños picos en los datos, '
-                                        'se requiere escoger un tipo y un tamaño, '
-                                        'cuanto mayor sea el tamaño menos picos quedan'),
-
-                            ])
-                        ])
-                    ])
+                    get_controls_help()
                 ]),
                 html.Div(className='col-md-4', children=[
-                    html.Div(className='panel panel-default', children=[
-                        html.Div(className='panel-heading',
-                                 children=html.H4('Opciones de los gráficos')),
-                        html.Div(className='panel-body', children=[
-                            html.Ul(children=[
-                                html.Li(
-                                    'Seleccionando una zona sobre el gráfico se hace zoom en esa parte'),
-                                html.Li(
-                                    'Haciendo doble click después de hacer zoom se vuelve a la vista general'),
-                                html.P('Con varios ejemplos seleccionados:'),
-                                html.Ul(children=[
-                                    html.Li(
-                                        'Haciendo click en el nombre de uno se oculta del gŕafico'),
-                                    html.Li(
-                                        'Haciendo doble click en el nombre de uno se ocultan el resto'),
-                                ]),
-                                html.Li(
-                                    'El propio gráfico tiene que varias cuya función se muestra al pasar el ratón por encima de su icono')
-                            ])
-                        ])
-                    ])
+                    get_graph_help()
                 ])
             ])
         ])
