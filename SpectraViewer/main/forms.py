@@ -9,7 +9,7 @@
 """
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired, FileAllowed
-from wtforms import SubmitField, StringField, TextAreaField, SelectField
+from wtforms import SubmitField, StringField, TextAreaField
 from wtforms.validators import DataRequired
 
 
