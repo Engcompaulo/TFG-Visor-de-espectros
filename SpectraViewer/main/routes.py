@@ -385,6 +385,7 @@ def results():
         else:
             flash('Clasificador ya existente', 'danger')
             return redirect(url_for('main.results'))
+    form.name.data = _available_models[session['model']].__name__
     form.notes.data = f"Mina: {test_results['mine']}% acierto, " \
                       f"Profundidad: {test_results['prof']}% acierto, " \
                       f"Profundidad_num: {test_results['pnum']}% acierto. "
