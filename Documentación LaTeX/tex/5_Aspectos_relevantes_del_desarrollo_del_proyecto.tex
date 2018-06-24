@@ -304,8 +304,75 @@ ocupara del almacenamiento, lo bueno es que este contenedor se asocia a un
 directorio del servidor, por lo que la aplicación no se tuvo que modificar. Más
 adelante se añadió otro contenedor para gestionar la base de datos MongoDB.
 
-Las mayores ventajas que posee esta plataforma es el despliegue con un solo
-comando, se encarga de toda la configuración, monitorización del servidor,
-conexión remota al servidor sencilla y escalado sencillo del servidor.
+\section{Creación de clasificadores}
 
+Dentro del objetivo de aplicación de técnicas de minería de datos había que
+decidir si dejar a los usuarios la opción de crear clasificadores personalizados
+o simplemente entrenarlos a partir de \textit{datasets} subidos. Se decidió
+probar la primera opción, teniendo la segunda como respaldo en caso de no
+funcionar.
 
+\subsection{Obtención de parámetros}
+
+Para conseguir esta personalización surge el problema de cómo obtener los
+parámetros del clasificador y presentárselos al usuario. La primera idea que
+surgió es analizar la documentación oficial de los clasificadores y crear a mano
+un fichero con los parámetros, esto puede resultar viable si se usan pocos
+clasificadores pero dificulta mucho la adición de nuevos.
+
+Se descartó a favor de buscar una herramienta que pudiera analizar la
+documentación \textit{in-code} de los clasificadores. Al ser un formato
+estructurado y conociendo herramientas en otros lenguajes de análisis de este
+tipo de documentación seguro que para Python existen herramientas parecidas.
+
+Se encontró la librería
+\href{https://github.com/numpy/numpydoc}{numpydoc}\footnote{\url{https://github.com/numpy/numpydoc}}
+que, entre otras características, ofrece la funcionalidad que se busca, analiza
+la documentación y devuelve un diccionario con las secciones, entre ellas los
+parámetros.
+
+Con esta información se puede generar un formulario automáticamente y hacer que
+cambie dinámicamente según la opción del usuario.
+
+\subsection{Procesamiento del formulario}
+
+El servidor recibe todos los datos como si fueran cadenas, aunque el control en
+el formulario sea de tipo numérico, por lo toca convertir las cadenas al tipo
+correcto con un método de prueba y error, para luego guardarlos y pasárselos al
+constructor del clasificador. Si no se ha introducido valor no se guarda
+permitiendo usar el valor por defecto.
+
+Primero si el valor coincide con un \textit{booleano} se convierte, si no se
+prueba a convertir en entero, si salta excepción se prueba a convertir en
+numérico con decimales, en caso de que salte excepción, al no haber más tipos
+primitivos se asume que el valor tiene que ser una cadena y guarda como tal.
+
+\subsection{Mantener el modelo entre peticiones}
+
+Al ser los clasificadores creados y personalizados desde la web, estos
+necesariamente se tienen que crear mientras se procesa la petición, con su
+consecuente destrucción al terminar de procesarla, con lo que la tarea de
+guardarlos se complica.
+
+Las ideas propuestas para solventar el problema fueron guardar los parámetros
+usados como una \textit{cookie} para poder entrenar el modelo otra vez antes de
+guardarlo o serializar el modelo ya entrenado en el servidor temporalmente y
+cargarlo en caso de querer guardarlo definitivamente.
+
+A pesar de la facilidad de usar \textit{cookies} para solucionar el problema,
+estos datos guardados son necesarios solo en el caso de que se elija guarda el
+modelo, por lo que parece algo precipitado guardarlos cuando puede que no se
+lleguen a usar.
+
+Sin embargo la razón para descartar esta idea es la confianza que se ofrece al
+usuario. Si se reentrena el modelo, aunque sea con los mismos parámetros, la
+separación que se hace de los datos en entrenamiento y test puede ser diferente,
+resultando en un clasificador diferente con estadísticas diferentes.
+
+La opción de serialización permite centralizar todo en el servidor, permitiendo
+una fácil carga y guardado del modelo entrenado, solucionando el problema de la
+confianza. Además se evita el envío de datos innecesarios al usuario en cada
+petición. Por último, el servidor está configurado para vaciar el almacenamiento
+temporal cada día evitando el problema de almacenar datos que puede que no se
+usen, porque la decisión de guardar el clasificador se toma justo después de
+evaluarlo. 
