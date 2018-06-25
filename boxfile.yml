@@ -19,7 +19,7 @@ web.main:
   cron:
     - id: clear-temp
       schedule: '0 0 * * *'
-      command: 'rm -rf /app/instance/uploads/temp/'
+      command: 'rm -rf /app/instance/uploads/'
 
 # Configuración del contenedor del almacenamiento
 data.uploads:

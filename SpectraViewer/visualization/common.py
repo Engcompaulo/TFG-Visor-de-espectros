@@ -28,7 +28,7 @@ def get_controls_help():
                 'Cada etiqueta asociada a un control tiene entre paréntesis la letra que lo representa'),
             html.P(
                 'En el cuadro "Orden de procesado" hay que introducir '
-                'las letras de los controles en el orden que se quiera realizar el procesado'),
+                'las letras de los controles en el orden que se quieran realizar las operaciones'),
             html.Dl(className='dl-horizontal', children=[
                 html.Dt('Recorte'), html.Dd(
                     'Muestra los valores entre el rango definido'),
@@ -36,8 +36,10 @@ def get_controls_help():
                 html.Dd('Elimina la línea base del gráfico'),
                 html.Dt('Normalización'),
                 html.Dd('Normaliza los valores de los datos'),
-                html.Dt('Aplastado'),
-                html.Dd('Aplasta los valores de los datos'),
+                html.Dt('Compresión'),
+                html.Dd('Comprime el espectro a uno que sea lo más parecido '
+                        'posible intentando que la pérdida de información sea '
+                        'mínima'),
                 html.Dt('Suavizado'),
                 html.Dd('Elimina pequeños picos en los datos, '
                         'se requiere escoger un tipo y un tamaño, '
@@ -168,7 +170,7 @@ def get_processing_controls():
             html.Div(className='form-group', children=[
                 html.Label(htmlFor='squash',
                            className='col-md-4 control-label',
-                           children='Aplastado (S)'),
+                           children='Compresión (S)'),
                 html.Div(className='col-md-8', children=[
                     dcc.Dropdown(options=[
                         {'label': squash_option, 'value': squash_option}
