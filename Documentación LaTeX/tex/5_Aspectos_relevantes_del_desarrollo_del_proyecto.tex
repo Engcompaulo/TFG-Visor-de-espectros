@@ -209,7 +209,7 @@ datos subido en un solo \textit{DataFrame}, en el que cada fila se corresponde
 con un espectro, las columnas representan el eje X y los valores de cada fila en
 esas columnas representan el valor del eje Y. Cada fila contiene adicionalmente
 columnas que indican el nombre del espectro y sus metadatos asociados (ver
-Figura~\ref{fig:dataframe-def}). En la sección~\ref{sec:integracion} se explican
+figura~\ref{fig:dataframe-def}). En la sección~\ref{sec:integracion} se explican
 más en profundidad este cambio.
 
 \begin{figure}[!h]
@@ -238,21 +238,21 @@ opciones para hacerlo funcionar, modificar la aplicación para adaptarse a los
 algoritmos o modificar los algoritmos para adaptarse a la aplicación.
 
 En primera instancia se intento modificar los algoritmos, pero se vio que era un
-paquete con demasiadas dependencias dentro del propio paquete, por lo que cada
-cambio producía gran cantidad de errores de funcionamiento, que al solucionar
+paquete con demasiadas dependencias dentro del mismo, por lo que cada cambio 
+producía gran cantidad de errores de funcionamiento, que al solucionar 
 producían todavía más errores dentro del paquete. Se optó por revertir estos
 cambios y modificar la aplicación.
 
-La modificación principal fue la modificación final en como guardar los datos
-comentada anteriormente (figura~\ref{fig:dataframe-def}). Con esa modificación
-el funcionamiento de la aplicación volvió a ser el correcto.
+La modificación principal fue el último cambio comentado en la 
+sección~\ref{sec:migrate-mongo} (figura~\ref{fig:dataframe-def}). Con esa 
+modificación el funcionamiento de la aplicación volvió a ser el correcto.
 
 \section{Despliegue}\label{sec:despliegue}
 
 La idea de realizar el proyecto como una aplicación web tiene relación más que
 directa con que pueda ser fácilmente accesible. Para ello se necesita que
 esté desplegada y accesible en Internet. En esta sección de describe las etapas
-por las que pasó el despliegue, los problemas que surgieron y como se
+por las que pasó el despliegue, los problemas que surgieron y cómo se
 solucionaron.
 
 En las primeras reuniones del proyecto se comentó, con los tutores que un gran
@@ -266,12 +266,12 @@ proyecto.
 La plataforma escogida fue \hrefFootnote{https://www.heroku.com/}{Heroku}
 por su simplicidad y un plan gratuito que cubre las necesidades del proyecto.
 Aunque en primera instancia parecía que esta plataforma funcionaba bien para
-nuestras necesidades, se vio que no contaba con almacenamiento persistencia,
+nuestras necesidades, se vio que no contaba con almacenamiento persistente,
 convirtiendo su uso en inviable.
 
 Las opciones que se plantearon fueron buscar una forma de añadir este
 almacenamiento y cambiar de servidor por completo. Para añadirlo en Heroku había
-que depender de complementos de terceros para enlazar servicios de
+que depender de complementos externos para enlazar a servicios de 
 almacenamiento de terceros teniendo que modificar la aplicación para hacerlo
 funcionar, además de ser servicios de pago.
 
