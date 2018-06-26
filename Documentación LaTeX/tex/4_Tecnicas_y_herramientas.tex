@@ -109,11 +109,31 @@ Este \textit{framework} es bastante fácil de utilizar y no impone ninguna limit
 
 Debido a su simplicidad tiene bastantes carencias respecto a funcionalidades avanzadas pero gracias a los complementos que la gran comunidad que se ha formado a su alrededor ha desarrollado deja de ser un problema.
 
+\subsection{Librería de representación}
+
+\begin{itemize}
+	\tightlist
+	\item Herramientas consideradas: \hrefFootnote{https://plot.ly/}{Plotly}, \hrefFootnote{https://plot.ly/products/dash/}{Dash}, \hrefFootnote{https://bokeh.pydata.org/en/latest/}{Bokeh}
+	\item Herramienta escogida: Dash
+\end{itemize}
+
+Dash es un \textit{framwork} desarrollo web construido sobre Flask, ReactJS y Plotly para la creación de aplicaciones web centradas en visualización de datos. Su filosofía es escribir todo el código desde Python.
+
+Permite asociar funciones a componentes de la interfaz que son ejecutadas cuando se realiza en evento concreto sobre ellos. Esto es una gran ventaja para el proyecto, ya que facilita en gran medida la actualización de los gráficos al aplicar opciones de preprocesamiento.
+
 \subsection{Scikit-learn}
 
 \hrefFootnote{http://scikit-learn.org}{Scikit-learn}~\cite{art:scikit-learn} es una librería de aprendizaje automático en Python. Contiene una amplia cantidad de algoritmos de clasificación, regresión y \textit{clustering}.
 
 Esta librería proporciona los modelos usados en el proyecto, así como las funciones para calcular las estadísticas de los modelos entrenados.
+
+\subsection{MongoDB}
+
+\hrefFootnote{https://www.mongodb.com/}{MongoDB} es una base de datos NoSQL de tipo documental. permite almacenar datos cuya estructura sea similar a JSON. Las consultas a esta base de datos son muy sencillas de realizar y la respuesta es bastante rápida.
+
+Se ha escogido esta plataforma por la simplicidad con las que se pueden insertar y recuperar \textit{DataFrames} de \href{https://pandas.pydata.org/}{pandas}, una estructura de datos similar a una tabla que puede exportarse a formato JSON.
+
+Aunque al principio del desarrollo no se requería el uso de una base de datos, en la sección~\ref{sec:migrate-mongo} se explican las razones que motivaron el cambio.
 
 \subsection{Entorno de desarrollo integrado (IDE}
 
@@ -161,198 +181,33 @@ El análisis del proyecto se puede encontrar \url{https://app.codacy.com/project
 
 Esta herramienta analiza las dependencias del proyecto en busca de nuevas versiones e informa cuando una ha sacado nueva versión. También es capaz de mostrar la licencia de software que posee la dependencia y de ofrecer un enlace a su repositorio.
 
+El análisis de dependencias del proyecto está disponible en \url{https://requires.io/github/IvanBeke/TFG-Visor-de-espectros/requirements/?branch=master}.
+
 \subsubsection{Snyk}
 
-Esta herramienta analiza las dependencias de nuestro proyecto para informar al usuario de vulnerabilidades de las mismas, de tal forma que pueda estar preparado contra ellas.
+Esta herramienta analiza las dependencias de nuestro proyecto para informar al usuario de vulnerabilidades de las mismas, de tal forma que puedan preparar medidas contra estos fallos.
+
+El informe de vulnerabilidades está disponible en \url{https://snyk.io/test/github/IvanBeke/TFG-Visor-de-espectros?targetFile=requirements.txt}.
 
 \section{Despliegue}
 
 \subsection{Alojamienta}
 
+\begin{itemize}
+	\tightlist
+	\item Herramientas consideradas: \hrefFootnote{https://www.heroku.com/}{Heroku}, \hrefFootnote{https://www.digitalocean.com/}{Digital Ocean}, \hrefFootnote{https://cloud.google.com/}{Google Cloud},
+	\hrefFootnote{https://www.openshift.com/}{Open Shift},
+	\hrefFootnote{https://www.pythonanywhere.com/}{PythonAnywhere},
+	\hrefFootnote{https://aws.amazon.com/es/}{Amazon Web Services}
+	\item Herramienta escogida: Digital Ocean
+\end{itemize}
+
+Digital Ocean es un proveedor de servicios de computación en la nube. Ofrece servidores virtuales privados para usarlos como se quiera dentro de unas limitaciones en procesador, memoria y tamaño de disco.
+
+Aunque al principio se usó Heroku se cambió la plataforma escogida por los motivos explicados en la sección~\ref{sec:despliegue}. Gracias al \hrefFootnote{https://education.github.com/pack}{Student Developer Pack} se pudo hacer uso de esta plataforma por ofrecer un cupón de 50\$.
+
 \subsection{Nanobox}
 
-\section{Almacenamiento}
+\hrefFootnote{https://nanobox.io/}{Nanobox} es una plataforma con el objetivo de facilitar la tarea del despliegue de páginas web sin que haya que preocuparse de la configuración del servidor ni su infraestructura.
 
-\subsection{Sistema de almacenamiento}
-
-\subsection{Explorador}
-
-\section{Librerías}
-
-\section{Librerías de representación}
-
-\subsection{Dash}
-Librería en Python que permite crear sitios webs completos para representación
-de datos. Para ello hace uso de diversas tecnologías, \textit{Flask} para el
-servidor web, \textit{Plotly} para la representación y \textit{React} para los
-componentes y actualización.
-\subsubsection{Pros}
-\begin{itemize}
-	\item Gráficos interactivos
-	\item Fácil actualización del gráfico en la web mediante \verb|@app.callback|
-	\item Integración de elementos HTML para la actualización del gráfico
-	\item Uso de la librería \textit{cufflinks} para unir generar una figura
-	directamente de un \textit{DataFrame}
-	\item Al ser de los creadores de \textit{Plotly} y usarlo internamente da la
-	posibilidad de usar sus componentes
-	\item Al usar \textit{Flask} como servidor tiene acceso a todas sus ventajas
-\end{itemize}
-\subsubsection{Contras}
-\begin{itemize}
-	\item El código HTML hay que escribirlo desde el código de Python, esto hace
-	que se complique el mantenimiento
-	\item No se pueden reutilizar las plantillas de \textit{Flask}
-\end{itemize}
-
-\subsection{Plotly}
-Plataforma para representación de datos, dispone de varias librerías para
-diferentes lenguajes de programación. Representación online y offline.
-\subsubsection{Pros}
-\begin{itemize}
-	\item Gráficos interactivos
-	\item Posibilidad de uso con \textit{Flask} y \textit{Jupyter}
-\end{itemize}
-\subsubsection{Contras}
-\begin{itemize}
-	\item Para representar en la web hay que hacer uso de dos versiones de la
-	librería, para Python y para JavaScript
-	\item La representación online guarda los gráficos generados en una cuenta
-	asociada de la plataforma
-	\item La representación offline devuelve el gráfico en Python, pero para
-	representarlo es necesario convertirlo a JSON, enviarlo a la web y que la parte
-	de JS lo represente
-	\item La actualización es necesaria hacerla desde el cliente con JS, donde no
-	se dispone de los datos ni de las utilidades de minería de datos
-\end{itemize}
-
-\section{Infraestructura}
-\subsection{Jupyter Notebook}
-Aplicación web que permite la edición y ejecución de código, Python en este
-caso, en el navegador, donde también se muestran el resultado de la ejecución.
-Dispone de \textit{widgets} para interactuar con el programa. Se instala
-localmente.
-\subsubsection{Pros}
-\begin{itemize}
-	\item Fácil subir archivos al servidor en el menú principal
-	\item Al no tener que hacer una interfaz web permite centrarse en la
-	programación del código de minería de datos
-	\item Los gráficos generados con \textit{Plotly} se representan directamente en
-	el notebook
-	\item Posibilidad de usar \url{https://mybinder.org/} para el despliegue
-	\item Actualización del gráfico por medio de los \textit{widgets} e
-	\verb|interact|
-\end{itemize}
-\subsubsection{Contras}
-\begin{itemize}
-	\item Menos usable e intuitivo
-	\item Al estar el código expuesto el cliente podría alterarlo sin querer
-	\item
-	\href{http://jupyter-notebook.readthedocs.io/en/latest/public_server.html}{Solo
-		se puede un usuario en servidor público}
-\end{itemize}
-
-\subsection{Flask}
-Microframework para aplicaciones web en Python. Aunque por si solo
-\textit{Flask} no sea muy completo, dispone de una gran cantidad de extensiones
-oficiales y de la comunidad para suplir todas las características de un
-framework web completo.
-\subsubsection{Pros}
-\begin{itemize}
-	\item Maneja bien la subida de ficheros
-	\item Al ser web hay más control sobre lo que puede hacer el usuario y sobre lo
-	que se le presenta, con la finalidad de hacer más usable la aplicación
-	\item Reutilización de código HTML mediante plantillas y macros
-\end{itemize}
-\subsubsection{Contras}
-\begin{itemize}
-	\item Mucho más trabajo al tener que diseñar y programar la interfaz web
-\end{itemize}
-
-\section{Despliegue}
-\url{https://www.youtube.com/watch?v=vGphzPLemZE}\\
-\url{https://gumroad.com/l/python-deployments}\\
-\url{https://www.fullstackpython.com/platform-as-a-service.html}\\
-\url{https://www.fullstackpython.com/servers.html}
-\subsection{Heroku}
-Plataforma como servicio, la forma más fácil de despliegue. Tan escalable como
-fondo tenga la cartera. \url{https://www.heroku.com/}\\
-
-El almacenamiento no es permanente, hay que usar servicios de terceros y
-conectarlos mediante plugin.
-\subsection{Ngrok}
-Túnel seguro desde Internet hasta un servidor local en tu máquina. Dirección
-aleatoria cada vez que se enciende. \url{https://ngrok.com/}\\
-
-El almacenamiento es permanente porque es el almacenamiento de la máquina.
-\subsection{Digital Ocean}
-Solo de pago pero de momento está disponible por el pack educacional de GitHub.
-Tan escalable como fondo tenga la cartera. VPS.\\
-\url{https://www.digitalocean.com/}\\
-\url{https://pythonprogramming.net/basic-flask-website-tutorial/}\\
-
-Dispone del almacenamiento que ofrece la máquina virtual, es permanente. En caso
-de que ese espacio sea insuficiente se puede agregar más pagando.
-\subsection{Google App Engine, Google Cloud Platform}
-Despliegue de Google como plataforma como servicio o VPS. Periodo de prueba
-gratis y luego tan escalable como fondo tenga la cartera. Funciona con Python
-2.7\\
-\url{https://cloud.google.com/appengine/docs/standard/python/getting-started/python-standard-env}\\
-\url{https://cloud.google.com/appengine/docs/standard/python/tools/uploadinganapp}\\
-\url{https://cloud.google.com/python/getting-started/hello-world}\\
-\url{https://cloud.google.com/appengine/docs/flexible/python/quickstart}\\
-
-Ofrece formas de almacenamiento de Google como Cloud Storage para ficheros, caso
-que nos interesa, hay que pagar por ellas.
-\subsection{Open Shitf}
-Plataforma como servicio. Plan básico gratis y plan profesional de pago, tan
-escalable como fondo tenga la cartera.\\
-\url{https://www.openshift.com/}\\
-\url{https://blog.openshift.com/beginners-guide-to-writing-flask-apps-on-openshift/}\\
-\url{https://blog.openshift.com/how-to-install-and-configure-a-python-flask-dev-environment-deploy-to-openshift/}\\
-
-No ofrece almacenamiento por defecto, lo ofrece por medio de lo que llaman
-``PersistentVolume'', ofrecen una API para comunicarse con ello.
-\subsection{PythonAnywhere} 
-Plataforma como servicio especializada en Python. Varios planes, a mejor plan
-más caro. El plan más básico es gratis.\\
-\url{https://www.pythonanywhere.com/}\\
-\url{https://www.youtube.com/watch?v=M-QRwEEZ9-8}\\
-Ofrecen almacenamiento de serie pero muy limitado y de pago.
-\subsection{AWS Elastic Beanstalk,  AWS CodeStar}
-Solución en la nube de Amazon. VPS. Tan escalable como fondo tenga la cartera.\\
-\url{https://aws.amazon.com/es/elasticbeanstalk/}\\
-\url{https://aws.amazon.com/es/codestar/}\\
-
-Al igual que en el caso de Google, ofrece almacenamiento persistente con sus
-servicios, Amazon S3, los cuales hay que pagar.
-\subsection{AWS Lambda, Zappa}
-Zappa es un capa por encima de AWS Lambda para desplegar en modo
-\textit{serverless}. AWS Lambda se ocupa del escalado y Zappa del despliegue.\\
-\url{https://github.com/Miserlou/Zappa}\\
-
-Solo almacenamiento temporal.
-\subsection{Docker}
-Despliegue en contenedores.\\
-\url{https://www.docker.com/}\\
-
-De serie no tiene almacenamiento persistente pero es capaz de ofrecerlo mediante
-``storage drivers''. Requiere bastante configuración.
-\subsection{Azure}
-Solución en la nube de Microsoft. VPS. Tan escalable como fondo tenga la
-cartera.\\
-\url{https://azure.microsoft.com/es-es/}\\
-\url{https://docs.microsoft.com/en-us/azure/app-service/app-service-web-get-started-python}\\
-
-Sí ofrece almacenamiento persistente.
-\subsection{Nanobox}\label{nanobox}
-Solución interesante, combina los contenedores de Docker con despliegue en la
-nube y lo automatiza. De momento compatibilidad con Digital Ocean, Amazon y
-Linode, Google, Joyent y Azure en camino. Plan básico gratis, el resto de
-precios son flexibles. También en local.\\
-\url{https://nanobox.io/}\\
-\url{https://github.com/nanobox-io/nanobox}\\
-
-Ofrece almacenamiento persistente, hay que configurar las rutas que van a ser
-persistentes en el fichero de configuración. Cada despliegue el almacenamiento
-que se haya usado so borra. Depende del almacenamiento que esté disponible en el
-servicio escogido para almacenar.
+Para ello se enlaza con proveedores de servicios de computación de la nube y mediante una herramienta en línea de comandos e instrucciones simples se ocupa de todo el proceso para tener la aplicación web lista.
