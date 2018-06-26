@@ -97,55 +97,88 @@ sencilla y visual. Se puede enlazar con los repositorios remotos principales y
 está disponible para Windows, Mac y Linux.
 
 Aunque se ha trabajado con las tres herramientas mencionadas, se ha elegido por
-ser actualmente la única de ellas disponible para Linux. La versión Pro de este programa está incluida dentro del \hrefFootnote{https://education.github.com/pack}{Student Developer Pack}.
+ser actualmente la única de ellas disponible para Linux. La versión Pro de este
+programa está incluida dentro del
+\hrefFootnote{https://education.github.com/pack}{Student Developer Pack}.
 
 \section{Herramientas}
 
 \subsection{Flask}
 
-Una de las condiciones iniciales del proyecto es el uso de Python para desarrollar el servidor web con el \textit{framework} \hrefFootnote{http://flask.pocoo.org/}{Flask}.
+Una de las condiciones iniciales del proyecto es el uso de Python para
+desarrollar el servidor web con el \textit{framework}
+\hrefFootnote{http://flask.pocoo.org/}{Flask}.
 
-Este \textit{framework} es bastante fácil de utilizar y no impone ninguna limitación respecto a estructura del proyecto ni a los componentes que usar durante el desarrollo~\cite{grinberg2014flask}.
+Este \textit{framework} es bastante fácil de utilizar y no impone ninguna
+limitación respecto a estructura del proyecto ni a los componentes que usar
+durante el desarrollo~\cite{grinberg2014flask}.
 
-Debido a su simplicidad tiene bastantes carencias respecto a funcionalidades avanzadas pero gracias a los complementos que la gran comunidad que se ha formado a su alrededor ha desarrollado deja de ser un problema.
+Debido a su simplicidad tiene bastantes carencias respecto a funcionalidades
+avanzadas pero gracias a los complementos que la gran comunidad que se ha
+formado a su alrededor ha desarrollado deja de ser un problema.
 
 \subsection{Librería de representación}
 
 \begin{itemize}
 	\tightlist
-	\item Herramientas consideradas: \hrefFootnote{https://plot.ly/}{Plotly}, \hrefFootnote{https://plot.ly/products/dash/}{Dash}, \hrefFootnote{https://bokeh.pydata.org/en/latest/}{Bokeh}
+	\item Herramientas consideradas: \hrefFootnote{https://plot.ly/}{Plotly},
+	\hrefFootnote{https://plot.ly/products/dash/}{Dash},
+	\hrefFootnote{https://bokeh.pydata.org/en/latest/}{Bokeh}
 	\item Herramienta escogida: Dash
 \end{itemize}
 
-Dash es un \textit{framwork} desarrollo web construido sobre Flask, ReactJS y Plotly para la creación de aplicaciones web centradas en visualización de datos. Su filosofía es escribir todo el código desde Python.
+Dash es un \textit{framework} desarrollo web construido sobre Flask, ReactJS y
+Plotly para la creación de aplicaciones web centradas en visualización de datos.
+Su filosofía es escribir todo el código desde Python.
 
-Permite asociar funciones a componentes de la interfaz que son ejecutadas cuando se realiza en evento concreto sobre ellos. Esto es una gran ventaja para el proyecto, ya que facilita en gran medida la actualización de los gráficos al aplicar opciones de preprocesamiento.
+Permite asociar funciones a componentes de la interfaz que son ejecutadas cuando
+se realiza en evento concreto sobre ellos. Esto es una gran ventaja para el
+proyecto, ya que facilita en gran medida la actualización de los gráficos al
+aplicar opciones de preprocesamiento.
 
 \subsection{Scikit-learn}
 
-\hrefFootnote{http://scikit-learn.org}{Scikit-learn}~\cite{art:scikit-learn} es una librería de aprendizaje automático en Python. Contiene una amplia cantidad de algoritmos de clasificación, regresión y \textit{clustering}.
+\hrefFootnote{http://scikit-learn.org}{Scikit-learn}~\cite{art:scikit-learn} es
+una librería de aprendizaje automático en Python. Contiene una amplia cantidad
+de algoritmos de clasificación, regresión y \textit{clustering}.
 
-Esta librería proporciona los modelos usados en el proyecto, así como las funciones para calcular las estadísticas de los modelos entrenados.
+Esta librería proporciona los modelos usados en el proyecto, así como las
+funciones para calcular las estadísticas de los modelos entrenados.
 
 \subsection{MongoDB}
 
-\hrefFootnote{https://www.mongodb.com/}{MongoDB} es una base de datos NoSQL de tipo documental. permite almacenar datos cuya estructura sea similar a JSON. Las consultas a esta base de datos son muy sencillas de realizar y la respuesta es bastante rápida.
+\hrefFootnote{https://www.mongodb.com/}{MongoDB} es una base de datos NoSQL de
+tipo documental. permite almacenar datos cuya estructura sea similar a JSON. Las
+consultas a esta base de datos son muy sencillas de realizar y la respuesta es
+bastante rápida.
 
-Se ha escogido esta plataforma por la simplicidad con las que se pueden insertar y recuperar \textit{DataFrames} de \href{https://pandas.pydata.org/}{pandas}, una estructura de datos similar a una tabla que puede exportarse a formato JSON.
+Se ha escogido esta plataforma por la simplicidad con las que se pueden insertar
+y recuperar \textit{DataFrames} de \href{https://pandas.pydata.org/}{pandas},
+una estructura de datos similar a una tabla que puede exportarse a formato JSON.
 
-Aunque al principio del desarrollo no se requería el uso de una base de datos, en la sección~\ref{sec:migrate-mongo} se explican las razones que motivaron el cambio.
+Aunque al principio del desarrollo no se requería el uso de una base de datos,
+en la sección~\ref{sec:migrate-mongo} se explican las razones que motivaron el
+cambio.
 
 \subsection{Entorno de desarrollo integrado (IDE}
 
 \begin{itemize}
 	\tightlist
-	\item Herramientas consideradas: \hrefFootnote{https://www.jetbrains.com/pycharm/}{PyCharm}, \hrefFootnote{https://atom.io/}{Atom}, \hrefFootnote{https://code.visualstudio.com/}{VS Code}
+	\item Herramientas consideradas:
+	\hrefFootnote{https://www.jetbrains.com/pycharm/}{PyCharm},
+	\hrefFootnote{https://atom.io/}{Atom},
+	\hrefFootnote{https://code.visualstudio.com/}{VS Code}
 	\item Herramienta escogida: PyCharm
 \end{itemize}
 
-PyCharm es un IDE desarrollado por la empresa JetBrains para el lenguaje Python. Existen dos ediciones, \textit{Community} y \textit{Professional}. Gracias al programa \hrefFootnote{https://www.jetbrains.com/student/}{For Students} de JetBrains se está usando la versión \textit{Professional} en el proyecto, aunque la \textit{Community} serviría perfectamente.
+PyCharm es un IDE desarrollado por la empresa JetBrains para el lenguaje Python.
+Existen dos ediciones, \textit{Community} y \textit{Professional}. Gracias al
+programa \hrefFootnote{https://www.jetbrains.com/student/}{For Students} de
+JetBrains se está usando la versión \textit{Professional} en el proyecto, aunque
+la \textit{Community} serviría perfectamente.
 
-Ofrece soporte para Flask de serie y soporte para desarrollo web mediante complementos, razones principales de la elección.
+Ofrece soporte para Flask de serie y soporte para desarrollo web mediante
+complementos, razones principales de la elección.
 
 \subsection{Documentación}
 
@@ -155,39 +188,58 @@ Ofrece soporte para Flask de serie y soporte para desarrollo web mediante comple
 	\item Herramienta escogida: \LaTeX
 \end{itemize}
 
-\LaTeX es un lenguaje orientado a la creación de documentos que presenten alta calidad tipográfica.
+\LaTeX es un lenguaje orientado a la creación de documentos que presenten alta
+calidad tipográfica.
 
-Aunque su curva de aprendizaje es elevada, posee grande ventajas como no tener que preocuparse del formato del documento o que los textos no pierdan calidad al ser ampliados o impresos.
+Aunque su curva de aprendizaje es elevada, posee grande ventajas como no tener
+que preocuparse del formato del documento o que los textos no pierdan calidad al
+ser ampliados o impresos.
 
 \subsection{Calidad del código}
 
 \begin{itemize}
 	\tightlist
-	\item Herramientas consideradas: \hrefFootnote{https://www.codacy.com/}{Codacy}, \hrefFootnote{https://codeclimate.com/}{Code Climate}
+	\item Herramientas consideradas:
+	\hrefFootnote{https://www.codacy.com/}{Codacy},
+	\hrefFootnote{https://codeclimate.com/}{Code Climate}
 	\item Herramienta escogida: Codacy
 \end{itemize}
 
-Codacy es una herramienta de revisión automática de código. Se integra con GitHub y analiza los proyectos que se hayan seleccionado cuando se produce un \textit{push} al repositorio.
+Codacy es una herramienta de revisión automática de código. Se integra con
+GitHub y analiza los proyectos que se hayan seleccionado cuando se produce un
+\textit{push} al repositorio.
 
-Esta herramienta detecta problemas de seguridad, de estilo de código, complejidad, código duplicado y código duplicado. Con estos datos se elaboran gráficos históricos de la evolución del proyecto.
+Esta herramienta detecta problemas de seguridad, de estilo de código,
+complejidad, código duplicado y código duplicado. Con estos datos se elaboran
+gráficos históricos de la evolución del proyecto.
 
-Después de los análisis se asigna al proyecto una certificación según calidad basada en letras. Durante el desarrollo se ha intentado mantener una Certificación A, la más alta. 
+Después de los análisis se asigna al proyecto una certificación según calidad
+basada en letras. Durante el desarrollo se ha intentado mantener una
+Certificación A, la más alta. 
 
-El análisis del proyecto se puede encontrar \url{https://app.codacy.com/project/IvanBeke/TFG-Visor-de-espectros/dashboard}
+El análisis del proyecto se puede encontrar
+\url{https://app.codacy.com/project/IvanBeke/TFG-Visor-de-espectros/dashboard}
 
 \subsection{Monitorización de dependencias}
 
 \subsubsection{Requires.io}
 
-Esta herramienta analiza las dependencias del proyecto en busca de nuevas versiones e informa cuando una ha sacado nueva versión. También es capaz de mostrar la licencia de software que posee la dependencia y de ofrecer un enlace a su repositorio.
+Esta herramienta analiza las dependencias del proyecto en busca de nuevas
+versiones e informa cuando una ha sacado nueva versión. También es capaz de
+mostrar la licencia de software que posee la dependencia y de ofrecer un enlace
+a su repositorio.
 
-El análisis de dependencias del proyecto está disponible en \url{https://requires.io/github/IvanBeke/TFG-Visor-de-espectros/requirements/?branch=master}.
+El análisis de dependencias del proyecto está disponible en
+\url{https://requires.io/github/IvanBeke/TFG-Visor-de-espectros/requirements/?branch=master}.
 
 \subsubsection{Snyk}
 
-Esta herramienta analiza las dependencias de nuestro proyecto para informar al usuario de vulnerabilidades de las mismas, de tal forma que puedan preparar medidas contra estos fallos.
+Esta herramienta analiza las dependencias de nuestro proyecto para informar al
+usuario de vulnerabilidades de las mismas, de tal forma que puedan preparar
+medidas contra estos fallos.
 
-El informe de vulnerabilidades está disponible en \url{https://snyk.io/test/github/IvanBeke/TFG-Visor-de-espectros?targetFile=requirements.txt}.
+El informe de vulnerabilidades está disponible en
+\url{https://snyk.io/test/github/IvanBeke/TFG-Visor-de-espectros?targetFile=requirements.txt}.
 
 \section{Despliegue}
 
@@ -195,19 +247,31 @@ El informe de vulnerabilidades está disponible en \url{https://snyk.io/test/git
 
 \begin{itemize}
 	\tightlist
-	\item Herramientas consideradas: \hrefFootnote{https://www.heroku.com/}{Heroku}, \hrefFootnote{https://www.digitalocean.com/}{Digital Ocean}, \hrefFootnote{https://cloud.google.com/}{Google Cloud},
+	\item Herramientas consideradas:
+	\hrefFootnote{https://www.heroku.com/}{Heroku},
+	\hrefFootnote{https://www.digitalocean.com/}{Digital Ocean},
+	\hrefFootnote{https://cloud.google.com/}{Google Cloud},
 	\hrefFootnote{https://www.openshift.com/}{Open Shift},
 	\hrefFootnote{https://www.pythonanywhere.com/}{PythonAnywhere},
 	\hrefFootnote{https://aws.amazon.com/es/}{Amazon Web Services}
 	\item Herramienta escogida: Digital Ocean
 \end{itemize}
 
-Digital Ocean es un proveedor de servicios de computación en la nube. Ofrece servidores virtuales privados para usarlos como se quiera dentro de unas limitaciones en procesador, memoria y tamaño de disco.
+Digital Ocean es un proveedor de servicios de computación en la nube. Ofrece
+servidores virtuales privados para usarlos como se quiera dentro de unas
+limitaciones en procesador, memoria y tamaño de disco.
 
-Aunque al principio se usó Heroku se cambió la plataforma escogida por los motivos explicados en la sección~\ref{sec:despliegue}. Gracias al \hrefFootnote{https://education.github.com/pack}{Student Developer Pack} se pudo hacer uso de esta plataforma por ofrecer un cupón de 50\$.
+Aunque al principio se usó Heroku se cambió la plataforma escogida por los
+motivos explicados en la sección~\ref{sec:despliegue}. Gracias al
+\hrefFootnote{https://education.github.com/pack}{Student Developer Pack} se pudo
+hacer uso de esta plataforma por ofrecer un cupón de 50\$.
 
 \subsection{Nanobox}
 
-\hrefFootnote{https://nanobox.io/}{Nanobox} es una plataforma con el objetivo de facilitar la tarea del despliegue de páginas web sin que haya que preocuparse de la configuración del servidor ni su infraestructura.
+\hrefFootnote{https://nanobox.io/}{Nanobox} es una plataforma con el objetivo de
+facilitar la tarea del despliegue de páginas web sin que haya que preocuparse de
+la configuración del servidor ni su infraestructura.
 
-Para ello se enlaza con proveedores de servicios de computación de la nube y mediante una herramienta en línea de comandos e instrucciones simples se ocupa de todo el proceso para tener la aplicación web lista.
+Para ello se enlaza con proveedores de servicios de computación de la nube y
+mediante una herramienta en línea de comandos e instrucciones simples se ocupa
+de todo el proceso para tener la aplicación web lista.

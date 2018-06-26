@@ -272,10 +272,12 @@
 	\end{center}
 }
 
+\newcommand{\hrefFootnote}[2]{%
+	\href{#1}{#2}\footnote{\url{#1}}
+}
 
 
-
-
+\newcommand{\code}[1]{\texttt{#1}}
 
 
 
@@ -383,13 +385,13 @@
 	\noindent D. José Francisco Díez Pastor y D. César Ignacio García Osorio, profesores del
 	departamento de Ingeniería Civil, área de Lenguajes y Sistemas Informáticos
 	
-	\noindent Expone:
+	\noindent Exponen:
 	
 	\noindent Que el alumno D. \nombre, con DNI 45573756S, ha realizado el Trabajo final
 	de Grado en Ingeniería Informática titulado ``Visor de espectros''. 
 	
 	\noindent Y que dicho trabajo ha sido realizado por el alumno bajo la dirección
-	del que suscribe, en virtud de lo cual se autoriza su presentación y defensa.
+	de los que suscriben, en virtud de lo cual se autoriza su presentación y defensa.
 	
 	\begin{center} %\large
 		En Burgos, {\large \today}
@@ -438,7 +440,7 @@
 		origen
 		o profundidad de muestras de minerales extraídos.
 		
-		Actualmente se están empezando a usar técnicas de minería de datos para la
+		Actualmente, se están empezando a usar técnicas de minería de datos para la
 		identificación de estos espectros. Aunque existen herramientas que son capaces
 		de visualizar y aplicar ciertas operaciones sobre los espectros, no existe un
 		software específico que facilite la aplicación de técnicas de minería de datos
@@ -475,7 +477,7 @@
 		of
 		extracted mineral samples.
 		
-		Currently data mining techniques are beginning to be used for the
+		Currently, data mining techniques are beginning to be used for the
 		identification
 		of these spectra. Although there are tools that are able to visualize and
 		apply
@@ -508,9 +510,6 @@
 	
 	\listoffigures
 	
-	\clearpage
-	
-	\listoftables
 	\clearpage
 	
 	\mainmatter

@@ -29,28 +29,28 @@ el desarrollo.
 
 \noindent Para la parte del servidor se siguieron los libros y tutoriales:
 \begin{itemize}
-	\item Flask Web Development\cite{grinberg2014flask}
-	\item Explore Flask\cite{exploreflask}
-	\item The Flask Mega-Tutorial Legacy (2012)\cite{grinberg-mega-legacy}
-	\item The Flask Mega-Tutorial (2017)\cite{grinberg-mega}
+	\item Flask Web Development~\cite{grinberg2014flask}
+	\item Explore Flask~\cite{exploreflask}
+	\item The Flask Mega-Tutorial Legacy (2012)~\cite{grinberg-mega-legacy}
+	\item The Flask Mega-Tutorial (2017)~\cite{grinberg-mega}
 \end{itemize}
 
 \noindent Para la parte del cliente se utilizaron principalmente los siguientes
 materiales:
 \begin{itemize}
-	\item MDN Web Docs\cite{mdn}
-	\item W3Schools Tutorials\cite{w3schools}
+	\item MDN Web Docs~\cite{mdn}
+	\item W3Schools Tutorials~\cite{w3schools}
 \end{itemize}
 
 A medida que se añadían nuevas herramientas al proyecto, su documentación
 oficial también ha sido consultada en varias ocasiones, están disponibles en:
 \begin{itemize}
-	\item Documentación de Flask\cite{doc:flask}
-	\item Documentación de Bootstrap\cite{doc:bootstrap}
-	\item Documentación de Nanobox\cite{doc:nanobox}
-	\item Documentación de PyMongo\cite{doc:pymongo}
-	\item Documentación de Dash\cite{doc:dash}
-	\item Documentación de Plotly\cite{doc:plotly}
+	\item Documentación de Flask~\cite{doc:flask}
+	\item Documentación de Bootstrap~\cite{doc:bootstrap}
+	\item Documentación de Nanobox~\cite{doc:nanobox}
+	\item Documentación de PyMongo~\cite{doc:pymongo}
+	\item Documentación de Dash~\cite{doc:dash}
+	\item Documentación de Plotly~\cite{doc:plotly}
 \end{itemize}
 
 \section{Sistema de usuarios}
@@ -90,41 +90,42 @@ código desde Python. Esto favorece que surjan defectos de código, sobre todo d
 código duplicado.
 
 Se investigó bastante sobre cómo poder usar los \textit{templates} de Flask para
-definir la interfaz de Dash pero no se pudo encontrar forma de poder hacerlo. Al
+definir la interfaz de Dash, pero no se pudo encontrar forma de poder hacerlo. Al
 final no quedó otra forma de hacerlo, pero dentro de lo malo es un pequeño
 precio a pagar por el resto de ventajas que Dash ofrece.
 
 \section{Subida de ficheros}\label{sec:subida}
 
 Una de las primeras características que se implementó fue la subida de ficheros
-al servidor, al tener ya el sistema de usuarios se podían organizar los datos
+al servidor, al tener ya el sistema de usuarios, se podían organizar los datos
 sin problema para cada cliente. El formato requerido para subir los datos pasó
-por varios cambios motivados por la forma en la que Susana nos enviaba los datos
-que probar la aplicación. En secciones posteriores se explica como estos cambios
-afectaron también al almacenamiento de los datos y la interfaz del visor.
+por varios cambios motivados por la forma en la que la Dra. Jorge Villa nos
+enviaba los datos que probar la aplicación. En secciones posteriores se explica
+como estos cambios afectaron también al almacenamiento de los datos y la
+interfaz del visor.
 
 \subsection{Organización en directorios}\label{sec:directorios}
 
-Al principio los datos se encontraban organizados en directorios cuyo nombre
+Al principio, los datos se encontraban organizados en directorios cuyo nombre
 proporcionaba toda la información sobre los ejemplos que contenían. Por lo que
-el formato que se pedía era simple, un archivo comprimido en formato ``.zip''
+el formato que se pedía era simple, un archivo comprimido en formato \code{.zip}
 que contuviera estos directorios.
 
 \subsection{Estructura según hoja de metadatos}\label{sec:excel}
 
-Sobre mediados de Abril los nuevos datos recibidos empezaron a estar organizados
+Sobre mediados de abril los nuevos datos recibidos empezaron a estar organizados
 según una hoja de Excel que relacionaba los nombres de directorios y los
 ejemplos que contenían con sus metadatos, en vez de estar contenidos en el
 nombre.
 
-Esta hoja contenía una columna llamada ``Id'' con el nombre de un directorio y
+Esta hoja contenía una columna llamada \code{Id} con el nombre de un directorio y
 los ejemplos de ese tipo, las siguientes columnas contenían datos sobre los
 ejemplos contenidos en esa fila, como la mina de la que han sido extraídas las
 muestras o la profundidad.
 
-Esta hoja se adaptó para aplicación manteniendo la columna ``Id'' y añadiendo
+Esta hoja se adaptó para aplicación manteniendo la columna \code{Id} y añadiendo
 fijas una columna para la mina y otras dos para la profundidad, una nominal y
-otra numérica. El formato de subida pasó a ser en un mismo fichero ``.zip'' los
+otra numérica. El formato de subida pasó a ser en un mismo fichero \code{.zip} los
 directorios que contienen los ejemplos y la hoja con los metadatos previamente
 cumplimentada.
 
@@ -135,21 +136,21 @@ sección~\ref{sec:subida}, el usuario del visor espera que se le presenten los
 datos de una forma similar a como los ha subido.
 
 Cuando los datos se subían como un archivo comprimido con carpetas cuyo nombre
-contiene la información se presentaban al usuario dos menús desplegables. En la
-carga solo uno de ellos contenía valores, los nombres de los directorios. El
+contiene la información, se presentaban al usuario dos menús desplegables. En la
+carga, solo uno de ellos contenía valores, los nombres de los directorios. El
 segundo desplegable actualizaba sus valores con los nombres de los ficheros
 contenidos en la carpeta seleccionada, al seleccionar el fichero se cargaba en
 el visor.
 
-Con el cambio de la hoja con metadatos, el tutor José Francisco propuso que al
-usuario se le mostrase una tabla parecida al hoja que había rellenado antes de
+Con el cambio de la hoja con metadatos, el tutor Dr. Díez Pastor propuso que al
+usuario se le mostrase una tabla parecida a la hoja que había rellenado antes de
 subir los datos, con la diferencia de que se mostrasen todos los ficheros como
 filas con sus metadatos, asemejándose a la estructura final de almacenamiento de
 datos.
 
 Mostrar los datos al usuario en forma de tabla trajo las ventajas de poder
 representar varios espectros a la vez, filtrar y ordenar según las columnas (ver
-Figura~\ref{fig:tabla-espectros}).
+figura~\ref{fig:tabla-espectros}).
 
 \imagen{tabla-espectros}{Tabla de espectros} 
 
@@ -161,22 +162,22 @@ quiera trabajar con ellos.
 
 \subsection{Inicialmente}
 
-Al principio se almacenaban directamente en un directorio nombrado como el id
-del usuario y lo único que se hacía era descomprimir el archivo comprimido en
-ese directorio. Esta forma de almacenar los datos conlleva varios problemas que
-motivaron el cambio en la forma de almacenamiento a la actual. Esta forma de
-almacenamiento se corresponde al formato explicado en la
-sección~\ref{sec:directorios} (Organización en directorios).
+Al principio, se almacenaban directamente en un directorio nombrado como el
+identificador del usuario y lo único que se hacía era descomprimir el archivo
+comprimido en ese directorio. Esta forma de almacenar los datos conlleva varios
+problemas que motivaron el cambio en la forma de almacenamiento a la actual.
+Esta forma de almacenamiento se corresponde al formato explicado en la
+sección~\ref{sec:directorios}.
 
-El problema más evidente, y que más notarían los usuarios, es que cada vez que
-se quisiera ver un espectro hay que cargarlo desde el disco, disminuyendo el
+El problema más evidente, y que más notarían los usuarios, es que, cada vez que
+se quisiera ver un espectro, hay que cargarlo desde el disco, disminuyendo el
 rendimiento general de la aplicación.
 
 Otro gran problema de esta forma de almacenar era como manejaba el servidor los
 ficheros guardados, este tema se explicará más en detalle en la
 sección~\ref{sec:despliegue}.
 
-El último problema y el más problemático desde el punto de vista de programación
+El último problema, y el más problemático desde el punto de vista de programación,
 es que para cada operación que se quisiera realizar con los datos se necesitaban
 escribir funciones auxiliares complejas para buscar y manipular el árbol de
 directorios, las cuáles había que modificar con cada cambio en la estructura,
@@ -191,7 +192,7 @@ del desarrollo.
 Por sugerencia del tutor se investigó la posibilidad de usar MongoDB para
 almacenar los datos. Se vio que podría funcionar realmente bien al poder
 insertar directamente los ficheros cargados en la base de datos, recuperarlos y
-borrarlos fácilmente. Como consecuencia directa del cambio los métodos
+borrarlos fácilmente. Como consecuencia directa del cambio, los métodos
 auxiliares con los que se interactuaba con los datos disminuyeron
 considerablemente en tamaño y complejidad.
 
@@ -201,13 +202,13 @@ representando un espectro) agrupados según la carpeta en la que estuvieran
 localizados los espectros. Cada \textit{DataFrame} contenía dos columnas, una
 con los valores del eje X y otra con los valores del eje Y.
 
-Pero seguido de adoptar esta estructura y tener la aplicación adaptada para ello
-llegó el cambio en como recibíamos los datos, provocando otra modificación en la
-estructura. Esta vez se decidió agrupar todo el conjunto de datos subido en un
-solo \textit{DataFrame}, en el que cada fila se corresponde con un espectro, las
-columnas representan el eje X y los valores de cada fila en esas columnas
-representan el valor del eje Y. Cada fila contiene adicionalmente columnas que
-indican el nombre del espectro y sus metadatos asociados (ver
+Pero justo a continuación de adoptar esta estructura y tener la aplicación
+adaptada para ello llegó el cambio en como recibíamos los datos, provocando otra
+modificación en la estructura. Esta vez se decidió agrupar todo el conjunto de
+datos subido en un solo \textit{DataFrame}, en el que cada fila se corresponde
+con un espectro, las columnas representan el eje X y los valores de cada fila en
+esas columnas representan el valor del eje Y. Cada fila contiene adicionalmente
+columnas que indican el nombre del espectro y sus metadatos asociados (ver
 Figura~\ref{fig:dataframe-def}). En la sección~\ref{sec:integracion} se explican
 más en profundidad este cambio.
 
@@ -217,7 +218,7 @@ más en profundidad este cambio.
 	\caption{Estructura definitiva}\label{fig:dataframe-def}
 \end{figure}
 
-Guardar los datos de esta forma facilita aplicar los métodos de minería de datos
+Guardar los datos de esta forma facilita aplicar los métodos de minería de datos,
 al estar pensado para aplicarse en lote.
 
 
@@ -226,17 +227,17 @@ al estar pensado para aplicarse en lote.
 Como se ha comentado en la introducción (página~\pageref{ch:introduccion}), este
 proyecto surge de una colaboración. De aquí se obtuvieron bastantes algoritmos,
 gran parte de ellos dedicados al procesamiento de los espectros, que se
-añadieron sobre la librería ``superman'' (\ref{lib:superman}).
+añadieron sobre la librería ``superman''~(\ref{lib:superman}).
 
 Una de las partes más importantes del proyecto era conseguir integrar estos
 algoritmos en la aplicación web para poder ejecutarlos sobre los espectros
 visualizados.
 
-Cuando llegó el momento de integrarlos algoritmos en la aplicación había dos
+Cuando llegó el momento de integrar los algoritmos en la aplicación había dos
 opciones para hacerlo funcionar, modificar la aplicación para adaptarse a los
 algoritmos o modificar los algoritmos para adaptarse a la aplicación.
 
-En primera instancia se intento modificar los algoritmos pero se vio que era un
+En primera instancia se intento modificar los algoritmos, pero se vio que era un
 paquete con demasiadas dependencias dentro del propio paquete, por lo que cada
 cambio producía gran cantidad de errores de funcionamiento, que al solucionar
 producían todavía más errores dentro del paquete. Se optó por revertir estos
@@ -249,12 +250,12 @@ el funcionamiento de la aplicación volvió a ser el correcto.
 \section{Despliegue}\label{sec:despliegue}
 
 La idea de realizar el proyecto como una aplicación web tiene relación más que
-directa con que pueda estar accesible en pocos clicks. Para ello se necesita que
+directa con que pueda ser fácilmente accesible. Para ello se necesita que
 esté desplegada y accesible en Internet. En esta sección de describe las etapas
 por las que pasó el despliegue, los problemas que surgieron y como se
 solucionaron.
 
-En las primeras reuniones del proyecto se comentó con los tutores que un gran
+En las primeras reuniones del proyecto se comentó, con los tutores que un gran
 problema de los proyectos anteriores desarrollados en web se centraban en el
 despliegue al final del proyecto, haciendo que alguna vez no pudieran llegarse a
 desplegar, por eso se planteó la idea de empezar a desplegar desde el inicio del
@@ -262,47 +263,43 @@ proyecto.
 
 \subsection{Servidor}
 
-La plataforma escogida fue
-\href{https://www.heroku.com/}{Heroku}\footnote{\url{https://www.heroku.com/}}
+La plataforma escogida fue \hrefFootnote{https://www.heroku.com/}{Heroku}
 por su simplicidad y un plan gratuito que cubre las necesidades del proyecto.
 Aunque en primera instancia parecía que esta plataforma funcionaba bien para
-nuestras necesidades se vio que no contaba con almacenamiento persistencia,
+nuestras necesidades, se vio que no contaba con almacenamiento persistencia,
 convirtiendo su uso en inviable.
 
 Las opciones que se plantearon fueron buscar una forma de añadir este
 almacenamiento y cambiar de servidor por completo. Para añadirlo en Heroku había
-que depender de \textit{plugins} de terceros para enlazar servicios de
+que depender de complementos de terceros para enlazar servicios de
 almacenamiento de terceros teniendo que modificar la aplicación para hacerlo
 funcionar, además de ser servicios de pago.
 
 Al final se escogió por cambiar a un proveedor \textit{cloud} de pago que
 ofreciese máquinas virtuales privadas, las opciones manejadas fueron
-\href{https://www.digitalocean.com/}{DigitalOcean}\footnote{\url{https://www.digitalocean.com/}},
-\href{https://aws.amazon.com/es/}{Amazon Web
-	Services}\footnote{\url{https://aws.amazon.com/es/}} y
-\href{https://cloud.google.com/}{Google
-	Cloud}\footnote{\url{https://cloud.google.com/}}. Se escogió la primera opción
-ya que gracias al \href{https://education.github.com/pack}{Student Developer
-	Pack}\footnote{\url{https://education.github.com/pack}} se disponía de un cupón
-de 50\$ en esta plataforma.
+\hrefFootnote{https://www.digitalocean.com/}{DigitalOcean},
+\hrefFootnote{https://aws.amazon.com/es/}{Amazon Web Services} y
+\hrefFootnote{https://cloud.google.com/}{Google Cloud}. Se escogió la primera
+opción ya que gracias al
+\hrefFootnote{https://education.github.com/pack}{Student Developer Pack} se
+disponía de un cupón de 50\$ en esta plataforma.
 
 \subsection{Herramientas para el despliegue}
 
 La plataforma Heroku posee sus propias herramientas para el despliegue,
-facilitando en gran cantidad este proceso. Esta plataforma un repositorio
+facilitando en gran cantidad este proceso. Esta plataforma usa un repositorio
 \textit{git} remoto para almacenar la aplicación por lo que al contar ya con
 este sistema de control de versiones en el proyecto no hubo que modificar casi
-nada para poder desplegar, pero por lo problemas comentados anteriormente se
+nada para poder desplegar, pero por los problemas comentados anteriormente se
 tuvo que abandonar.
 
 Para complementar a DigitalOcean y facilitar la tarea del despliegue se ha usado
-el servicio
-\href{https://nanobox.io/}{Nanobox}\footnote{\url{https://nanobox.io/}}. Al
-principio de usar esta plataforma se vio que los datos almacenados se eliminaban
-en cada despliegue, para ello hubo que añadir un segundo contenedor que se
-ocupara del almacenamiento, lo bueno es que este contenedor se asocia a un
-directorio del servidor, por lo que la aplicación no se tuvo que modificar. Más
-adelante se añadió otro contenedor para gestionar la base de datos MongoDB.
+el servicio \hrefFootnote{https://nanobox.io/}{Nanobox}. Al principio de usar
+esta plataforma, se vio que los datos almacenados se eliminaban en cada
+despliegue, para ello hubo que añadir un segundo contenedor que se ocupara del
+almacenamiento, lo bueno es que este contenedor se asocia a un directorio del
+servidor, por lo que la aplicación no se tuvo que modificar. Más adelante se
+añadió otro contenedor para gestionar la base de datos MongoDB.
 
 \section{Creación de clasificadores}
 
@@ -318,15 +315,15 @@ Para conseguir esta personalización surge el problema de cómo obtener los
 parámetros del clasificador y presentárselos al usuario. La primera idea que
 surgió es analizar la documentación oficial de los clasificadores y crear a mano
 un fichero con los parámetros, esto puede resultar viable si se usan pocos
-clasificadores pero dificulta mucho la adición de nuevos.
+clasificadores, pero dificulta mucho la adición de nuevos.
 
 Se descartó a favor de buscar una herramienta que pudiera analizar la
 documentación \textit{in-code} de los clasificadores. Al ser un formato
-estructurado y conociendo herramientas en otros lenguajes de análisis de este
-tipo de documentación seguro que para Python existen herramientas parecidas.
+estructurado, y conociendo herramientas en otros lenguajes de análisis de este
+tipo de documentación, se tenía la confianza de que para Python existirían
+herramientas parecidas.
 
-Se encontró la librería
-\href{https://github.com/numpy/numpydoc}{numpydoc}\footnote{\url{https://github.com/numpy/numpydoc}}
+Efectivamente, encontró la librería \hrefFootnote{https://github.com/numpy/numpydoc}{numpydoc}
 que, entre otras características, ofrece la funcionalidad que se busca, analiza
 la documentación y devuelve un diccionario con las secciones, entre ellas los
 parámetros.
@@ -339,13 +336,13 @@ cambie dinámicamente según la opción del usuario.
 El servidor recibe todos los datos como si fueran cadenas, aunque el control en
 el formulario sea de tipo numérico, por lo toca convertir las cadenas al tipo
 correcto con un método de prueba y error, para luego guardarlos y pasárselos al
-constructor del clasificador. Si no se ha introducido valor no se guarda
+constructor del clasificador. Si no se ha introducido valor, no se guarda,
 permitiendo usar el valor por defecto.
 
-Primero si el valor coincide con un \textit{booleano} se convierte, si no se
-prueba a convertir en entero, si salta excepción se prueba a convertir en
+Primero, si el valor coincide con un \textit{booleano}, se convierte, si no, se
+prueba a convertir en entero, si salta excepción, se prueba a convertir en
 numérico con decimales, en caso de que salte excepción, al no haber más tipos
-primitivos se asume que el valor tiene que ser una cadena y guarda como tal.
+primitivos, se asume que el valor tiene que ser una cadena y guarda como tal.
 
 \subsection{Mantener el modelo entre peticiones}
 
@@ -356,7 +353,7 @@ guardarlos se complica.
 
 Las ideas propuestas para solventar el problema fueron guardar los parámetros
 usados como una \textit{cookie} para poder entrenar el modelo otra vez antes de
-guardarlo o serializar el modelo ya entrenado en el servidor temporalmente y
+guardarlo, o serializar el modelo ya entrenado en el servidor temporalmente y
 cargarlo en caso de querer guardarlo definitivamente.
 
 A pesar de la facilidad de usar \textit{cookies} para solucionar el problema,
@@ -364,7 +361,7 @@ estos datos guardados son necesarios solo en el caso de que se elija guarda el
 modelo, por lo que parece algo precipitado guardarlos cuando puede que no se
 lleguen a usar.
 
-Sin embargo la razón para descartar esta idea es la confianza que se ofrece al
+Sin embargo, la razón para descartar esta idea es la confianza que se ofrece al
 usuario. Si se reentrena el modelo, aunque sea con los mismos parámetros, la
 separación que se hace de los datos en entrenamiento y test puede ser diferente,
 resultando en un clasificador diferente con estadísticas diferentes.
@@ -373,6 +370,6 @@ La opción de serialización permite centralizar todo en el servidor, permitiend
 una fácil carga y guardado del modelo entrenado, solucionando el problema de la
 confianza. Además se evita el envío de datos innecesarios al usuario en cada
 petición. Por último, el servidor está configurado para vaciar el almacenamiento
-temporal cada día evitando el problema de almacenar datos que puede que no se
+temporal cada día, evitando el problema de almacenar datos que puede que no se
 usen, porque la decisión de guardar el clasificador se toma justo después de
 evaluarlo. 
