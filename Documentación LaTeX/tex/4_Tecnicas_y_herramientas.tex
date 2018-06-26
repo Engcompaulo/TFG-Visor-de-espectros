@@ -1,5 +1,184 @@
 \capitulo{4}{Técnicas y herramientas}
 
+\section{Técnicas}
+
+\subsection{Scrum}
+
+Scrum es una metodología de desarrollo ágil basada en los principios del
+manifiesto ágil\footnote{\url{http://agilemanifesto.org/}}. Esta metodología
+esta pensada para equipos por lo que ha sido adaptada para el desarrollo de este
+proyecto.
+
+Scrum consiste en ciclos de trabajo iterativos denominados \textit{sprints}, con
+duración de una semana generalmente, en los que al terminar se entrega un
+producto funcional. Al final de cada \textit{sprint} se lleva a cabo una reunión
+con los tutores para comentar el desarrollo del \textit{sprint}, enseñar los
+avances y planear el siguiente ciclo de desarrollo.
+
+El uso de esta metodología permite la entrega de un producto de forma
+incremental, además de soportar cambios en los requisitos durante el desarrollo
+teniendo en cuenta el \textit{feedback} del usuario, consiguiendo al final un
+producto de más calidad y valor para el usuario.
+
+\subsection{Kanban}
+
+Kanban se refiere a un sistema de organización visual de tareas, representadas
+como tarjetas, organizadas en diferentes tableros según el estado de desarrollo
+en que se encuentren.
+
+Este sistema encaja perfectamente con la metodología Scrum, organizando las
+tareas de cada \textit{sprint} para una mayor planificación. Esto permite
+centrarse en las tareas que están desarrollo, mantener un registro de las tareas
+terminadas y que no se pierdan tareas que están por hacer.
+
+\section{Control de versiones y gestión del proyecto}
+
+\subsection{Git}
+
+Git es un sistema de control de versiones distribuido. No se han considerado
+otras alternativas al ser un sistema ya conocido. Actualmente puede ser
+considerado el sistema con más usuarios y de más fama.
+
+\subsection{Repositorio remoto}
+
+\begin{itemize}
+	\tightlist
+	\item Herramientas consideradas: \hrefFootnote{https://github.com/}{GitHub},
+	\hrefFootnote{https://bitbucket.org}{Bitbucket},
+	\hrefFootnote{https://about.gitlab.com/}{GitLab}
+	\item Herramienta escogida: GitHub
+\end{itemize}
+
+GitHub es un servicio de alojamiento de repositorios de código basado en
+\textit{Git}.
+
+Esta plataforma se ha utilizado para alojar el proyecto, gestionar las tareas
+mediante \textit{Issues} y planificar \textit{sprints} mediante
+\textit{Milestones}.
+
+La principal razón para escoger esta plataforma es la experiencia previa además
+de haber trabajado en ella en asignaturas del grado.
+
+\subsection{Tablero kanban}
+
+\begin{itemize}
+	\tightlist
+	\item Herramientas consideradas:
+	\hrefFootnote{https://www.zenhub.com/}{ZenHub},
+	\hrefFootnote{https://www.gitkraken.com/glo}{GitKraken Glo}
+	\item Herramienta escogida: ZenHub
+\end{itemize}
+
+ZenHub es una herramienta que ofrece tableros kanban para organizar las tareas
+de un proyecto. Esta herramienta se integra dentro de GitHub permitiendo tener
+toda la gestión centralizada en un mismo lugar.
+
+Las \textit{Issues} de GitHub se representan como tarjetas que organizar en los
+tableros. También ofrece la creación de gráficos \textit{burndown} para
+visualizar el desarrollo del \textit{sprint}. 
+
+Al igual que en el caso anterior, se ha escogido por tener experiencia previa en
+asignaturas del grado.
+
+\subsection{Interfaz gráfico}
+
+\begin{itemize}
+	\tightlist
+	\item Herramientas consideradas:
+	\hrefFootnote{https://www.sourcetreeapp.com/}{Sourcetree},
+	\hrefFootnote{https://www.gitkraken.com/}{GitKraken},
+	\hrefFootnote{https://desktop.github.com/}{GitHub Desktop}
+	\item Herramienta escogida: GitKraken
+\end{itemize}
+
+GitKraken es un \textit{software} que proporciona una interfaz gráfica al
+sistema \textit{Git} permitiendo realizar todas sus acciones de una forma más
+sencilla y visual. Se puede enlazar con los repositorios remotos principales y
+está disponible para Windows, Mac y Linux.
+
+Aunque se ha trabajado con las tres herramientas mencionadas, se ha elegido por
+ser actualmente la única de ellas disponible para Linux. La versión Pro de este programa está incluida dentro del \hrefFootnote{https://education.github.com/pack}{Student Developer Pack}.
+
+\section{Herramientas}
+
+\subsection{Flask}
+
+Una de las condiciones iniciales del proyecto es el uso de Python para desarrollar el servidor web con el \textit{framework} \hrefFootnote{http://flask.pocoo.org/}{Flask}.
+
+Este \textit{framework} es bastante fácil de utilizar y no impone ninguna limitación respecto a estructura del proyecto ni a los componentes que usar durante el desarrollo~\cite{grinberg2014flask}.
+
+Debido a su simplicidad tiene bastantes carencias respecto a funcionalidades avanzadas pero gracias a los complementos que la gran comunidad que se ha formado a su alrededor ha desarrollado deja de ser un problema.
+
+\subsection{Scikit-learn}
+
+\hrefFootnote{http://scikit-learn.org}{Scikit-learn}~\cite{art:scikit-learn} es una librería de aprendizaje automático en Python. Contiene una amplia cantidad de algoritmos de clasificación, regresión y \textit{clustering}.
+
+Esta librería proporciona los modelos usados en el proyecto, así como las funciones para calcular las estadísticas de los modelos entrenados.
+
+\subsection{Entorno de desarrollo integrado (IDE}
+
+\begin{itemize}
+	\tightlist
+	\item Herramientas consideradas: \hrefFootnote{https://www.jetbrains.com/pycharm/}{PyCharm}, \hrefFootnote{https://atom.io/}{Atom}, \hrefFootnote{https://code.visualstudio.com/}{VS Code}
+	\item Herramienta escogida: PyCharm
+\end{itemize}
+
+PyCharm es un IDE desarrollado por la empresa JetBrains para el lenguaje Python. Existen dos ediciones, \textit{Community} y \textit{Professional}. Gracias al programa \hrefFootnote{https://www.jetbrains.com/student/}{For Students} de JetBrains se está usando la versión \textit{Professional} en el proyecto, aunque la \textit{Community} serviría perfectamente.
+
+Ofrece soporte para Flask de serie y soporte para desarrollo web mediante complementos, razones principales de la elección.
+
+\subsection{Documentación}
+
+\begin{itemize}
+	\tightlist
+	\item Herramientas consideradas: \LaTeX, Microsoft Office, Libre Office
+	\item Herramienta escogida: \LaTeX
+\end{itemize}
+
+\LaTeX es un lenguaje orientado a la creación de documentos que presenten alta calidad tipográfica.
+
+Aunque su curva de aprendizaje es elevada, posee grande ventajas como no tener que preocuparse del formato del documento o que los textos no pierdan calidad al ser ampliados o impresos.
+
+\subsection{Calidad del código}
+
+\begin{itemize}
+	\tightlist
+	\item Herramientas consideradas: \hrefFootnote{https://www.codacy.com/}{Codacy}, \hrefFootnote{https://codeclimate.com/}{Code Climate}
+	\item Herramienta escogida: Codacy
+\end{itemize}
+
+Codacy es una herramienta de revisión automática de código. Se integra con GitHub y analiza los proyectos que se hayan seleccionado cuando se produce un \textit{push} al repositorio.
+
+Esta herramienta detecta problemas de seguridad, de estilo de código, complejidad, código duplicado y código duplicado. Con estos datos se elaboran gráficos históricos de la evolución del proyecto.
+
+Después de los análisis se asigna al proyecto una certificación según calidad basada en letras. Durante el desarrollo se ha intentado mantener una Certificación A, la más alta. 
+
+El análisis del proyecto se puede encontrar \url{https://app.codacy.com/project/IvanBeke/TFG-Visor-de-espectros/dashboard}
+
+\subsection{Monitorización de dependencias}
+
+\subsubsection{Requires.io}
+
+Esta herramienta analiza las dependencias del proyecto en busca de nuevas versiones e informa cuando una ha sacado nueva versión. También es capaz de mostrar la licencia de software que posee la dependencia y de ofrecer un enlace a su repositorio.
+
+\subsubsection{Snyk}
+
+Esta herramienta analiza las dependencias de nuestro proyecto para informar al usuario de vulnerabilidades de las mismas, de tal forma que pueda estar preparado contra ellas.
+
+\section{Despliegue}
+
+\subsection{Alojamienta}
+
+\subsection{Nanobox}
+
+\section{Almacenamiento}
+
+\subsection{Sistema de almacenamiento}
+
+\subsection{Explorador}
+
+\section{Librerías}
+
 \section{Librerías de representación}
 
 \subsection{Dash}
