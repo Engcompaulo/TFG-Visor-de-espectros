@@ -1,43 +1,213 @@
-\apendice{Manual del programador}
+\lstset{
+	frame=single
+}
+
+\apendice{Documentación del programador}
 
 \section{Introducción}
+En este apéndice se presenta todo lo que tiene que conocer un desarrollador 
+para poder continuar con el desarrollo de la aplicación. Se describe la 
+estructura de directorios del proyecto, como instalar la aplicación
 
 \section{Estructura de directorios}
 
+A continuación se presentan los directorios que contiene el proyecto con una 
+breve descripción de cada uno.\\
+
+\dirtree{%
+.1 / Directorio raíz.
+.2 Documentacion LaTeX/ -Documentación del proyecto.
+.3 img/ -Imágenes de la documentación.
+.3 tex/ -Secciones de la documentación.
+.3 anexos.pdf -Anexos del proyecto.
+.3 memoria.pdf -Memoria del proyecto.
+.2 etc/ -Configuración del servidor.
+.2 SpectraViewer/ -Aplicación web.
+.3 auth/ -Módulo de autenticación.
+.4 \_\_init\_\_.py -Fichero principal del módulo.
+.4 routes.py -Rutas del módulo.
+.3 main/ -Módulo principal de la aplicación.
+.4 \_\_init\_\_.py -Fichero principal del módulo.
+.4 errors.py -Manejadores de errores de la aplicación.
+.4 forms.py -Formularios de WTForms.
+.4 routes.py -Rutas del módulo.
+.3 processing/ -Fuentes de la librería superman ampliada.
+.3 static/ -Contenido estático de la aplicación.
+.4 css/ -Directorio con hojas de estilos.
+.4 img/ -Imágenes usadas en la web.
+.4 js/ -Directorio con ficheros de JavaScript.
+.3 templates/ -Plantillas de Jinja2.
+.4 errors/ -Plantillas específicas de errores.
+.3 utils/ -Directorio con utilidades de la aplicación.
+.3 visualization/ -Aplicaciones Dash para la visualización.
+.4 \_\_init\_\_.py -Fichero principal del módulo.
+.4 common.py -Cosas comunes en la visualización.
+.4 dataset.py -Visualización de datasets.
+.4 spectrum.py -Visualización de espectros.
+.3 \_\_init\_\_.py -Fichero principal del módulo.
+.3 manual\_de\_uso.pdf -Manual de usuario.
+.3 metadatos.xlsx -Plantilla de metadatos.
+.3 models.py -Modelos de la aplicación.
+.2 tests/ -Directorio de las pruebas.
+.2 boxfile.yml -Configuración de Nanobox.
+.2 config.py -Configuración de la aplicación web.
+.2 install\_dependencies -Script para instalar dependencias.
+.2 requirements.txt -Fichero con las dependencias del proyecto.
+.2 start.py -Script para ejecutar la aplicación.
+}
+
 \section{Manual del programador}
 
+En esta sección se explican los puntos más importantes que los desarrolladores 
+deben tener en cuenta para mantener o seguir ampliando este proyecto.
+
+\subsection{Actualización de los gráficos}
+
+
+
 \subsection{Manual de despliegue}
-El despliegue de la aplicación se hace mediante la herramienta Nanobox, cuyo
-propósito principal es el de facilitar la tarea de despliegue. Para ello combina
-servicios de virtualización con servidores virtuales privados o VPS, ocupándose
-de la configuración de la máquina virtual que el proveedor de VPS nos
-proporcione.\\
 
-El primer paso es registrarse en alguno de los proveedores
-disponibles\footnote{\url{https://docs.nanobox.io/providers/hosting-accounts/}}.
-Para este proyecto se ha elegido Digital Ocean debido a que durante el proyecto
-se contaba con el ``Student Developer Pack'' de GitHub, el cual contiene un
-crédito gratuito de 50\$ para esa plataforma.\\
+La configuración de despliegue tiene tres etapas, que se describen en esta 
+sección.
 
-El siguiente paso es crear una cuenta en
-Nanobox\footnote{\url{https://nanobox.io/}}. Una vez hecho, hay que enlazar esta
-cuenta con la creada anteriormente, desde las opciones de la cuenta en la
-pestaña ``Hosting Accounts'', una vez ahí seguir las instrucciones que se
-muestran en la página.\\
+\subsubsection{Alojamiento}
 
-Después de tener las cuentas preparadas hay que descargar la herramienta Nanobox
-para el sistema adecuado e instalarla, seguir las instrucciones de la
-documentación oficial\footnote{\url{https://docs.nanobox.io/install/}} y las del
-instalador.\\
+Para este proyecto el proveedor escogido ha sido 
+\hrefFootnote{https://www.digitalocean.com/}{Digital Ocean}, pero puede servir 
+cualquiera de los 
+\hrefFootnote{https://docs.nanobox.io/providers/hosting-accounts/}{proveerdores 
+compatibles} con Nanobox.
 
-Desde la página principal se pulsa en ``Lauch New App'' para crear la nueva
-aplicación, seguir las instrucciones en la página. Al terminar se muestran
-instrucciones para desplegar la aplicación.\\
+Nos dirigimos a la página del proveedor para registrarnos y poder conseguir un 
+\textit{token} que Nanobox nos pedirá más adelante. Es necesario asociar una 
+tarjeta al servicio para que nos puedan cobrar el coste del servidor.
 
-Como se puede comprobar, Nanobox cumple el propósito de facilitar el despliegue.
-Para cualquier otra duda sobre la herramienta toda la documentación oficial está
-disponible en \url{https://docs.nanobox.io/}.\\
-\section{Compilación, instalación y ejecución del proyecto}
+El \textit{token} lo creamos en la sección API de la barra de navegación.
+
+\subsubsection{Nanobox}
+
+A continuación, crearemos una cuenta en el servicio \hrefFootnote{ 
+https://nanobox.io/}{Nanobox}. Con la cuenta ya confirmada, nos dirigimos a las 
+opciones de la cuenta y asociamos la cuenta de Digital Ocean con el 
+\textit{token} obtenido previamente.
+
+El siguiente paso es instalar la herramienta 
+\hrefFootnote{https://docs.nanobox.io/install/}{nanobox}. La primera que la 
+usemos nos pedirá los datos de nuestra cuenta para iniciar sesión.
+
+La configuración de este servicio se realiza por medio del fichero 
+\code{boxfile.yml}, aquí se indican los componentes de la aplicación y su 
+configuración.
+
+Para poder desplegar la aplicación, necesitamos tener creado una aplicación en 
+Nanobox, esto se realiza desde la web. Para ello, pulsamos el botón ``Launch 
+New App'' y seguimos las instrucciones que se muestran.
+
+Ahora estando todo configurado queda desplegar la aplicación, este paso se 
+realiza con el siguiente comando:
+\begin{lstlisting}
+	$ nanobox deploy
+\end{lstlisting}
+
+Para cualquier otra duda con la herramienta se puede buscar en su documentación 
+oficial~\cite{doc:nanobox}.
+
+\section{Instalación y ejecución del proyecto}\label{sec:instalacion}
+
+Dado que el proyecto se ha desarrollado usando el sistema operativo Ubuntu, las 
+instrucciones de instalación están orientadas a ese sistema.
+
+\subsection{MongoDB}
+
+Antes de instalar el proyecto es necesario instalar la base de datos 
+\hrefFootnote{https://www.mongodb.com/}{MongoDB}.
+
+Una vez instalado, para iniciar el servicio y poder conectarnos a la base de 
+datos es necesario ejecutar el siguiente comando:
+\begin{lstlisting}
+	$ sudo service mongod start
+\end{lstlisting}
+
+\subsection{Python}
+
+Este proyecto está desarrollado con la versión 3.6.3, pero con para desarrollar 
+la mínima es 3.6. Python se puede descargar desde el siguiente enlace: 
+\url{https://www.python.org/downloads/}
+
+\subsection{Instalación}
+
+La forma más cómoda de obtener el código del proyecto es mediante \textit{git}, 
+para ello usar el siguiente comando:
+\begin{lstlisting}
+	$ git clone <url_del_repositorio>
+\end{lstlisting}
+Siendo \url{https://github.com/IvanBeke/TFG-Visor-de-espectros.git} la URL del 
+repositorio.
+
+Ya con el proyecto descargado, el siguiente paso es instalar las dependencias. 
+Aunque se pueden instalar sobre la instalación global de Python, es 
+recomendable usar un entorno virtual. Para crearlo usar el siguiente comando:
+\begin{lstlisting}
+	$ python3 -m venv <nombre_del_entorno>
+\end{lstlisting}
+Para activar el entorno usar el siguiente comando:
+\begin{lstlisting}
+	$ source <ruta/del/entorno>/bin/activate
+\end{lstlisting}
+Para instalar las dependencias se pueden ejecutar cualquiera de los siguientes 
+comandos:
+\begin{lstlisting}
+	$ bash install_dependencies.sh
+	$ pip install -r requirementes.txt
+\end{lstlisting}
+
+\subsubsection{Claves OAuth de Google}
+
+El inicio de sesión con Google usa la API de OAuth, para que funcione se 
+necesitan el \textit{client\_id} y \textit{client\_secret}. Estos valores se 
+obtienen desde \url{https://console.developers.google.com/apis/credentials}.
+
+\subsubsection{Variables de entorno}
+
+Para que la aplicación funcione correctamente hay que definir las siguientes 
+variables de entorno:
+\begin{itemize}
+	\item \code{GOOGLE\_OAUTH\_CLIENT\_ID}: \textit{client\_id} obtenido 
+	anteriormente.
+	\item \code{GOOGLE\_OAUTH\_CLIENT\_SECRET}: \textit{client\_secret} 
+	obtenido anteriormente.
+	\item \code{UPLOAD\_FOLDER}: directorio donde se van a guardar los archivos 
+	que se suban a la aplicación.
+	\item \code{SECRET\_KEY}: clave necesaria por Flask.
+	\item \code{OAUTHLIB\_RELAX\_TOKEN\_SCOPE}: recomendable poner este valor a 
+	1\footnote{\url{https://flask-dance.readthedocs.io/en/v0.14.0/quickstarts/google.html}}.
+	\item \code{ENVIRONMENT}: entorno en el que se está actualmente, 
+	development, production.
+	\item \code{DATA\_MONGODB\_HOST}: dirección para conectarse a MongoDB.
+\end{itemize}
+
+\subsection{Ejecución}
+
+Para ejecutar la aplicación es necesario tener el entorno virtual activo y 
+ejecutar el siguiente comando:
+\begin{lstlisting}
+	$ python start.py
+\end{lstlisting}
+Esto lanza el servidor Flask en el ordenador local y puerto 5000, se accede 
+desde \url{https://127.0.0.1:5000/}. Al entrar seguramente el navegador avise 
+de certificado incorrecto, esto se debe al uso de un certificado local, ya que 
+OAuth requiere el uso de \code{https}.
 
 \section{Pruebas del sistema}
 
+Las pruebas del sistema se encuentran dentro del directorio \code{tests}. Se 
+han codificado pruebas unitarias para probar los modelos de la aplicación, se 
+encuentran en el fichero \code{unitarios}. Se ha usado el \textit{framework} 
+\textit{Unittest}~\cite{unittest}, que viene por defecto instalado con Python, 
+por lo que no es necesario instalar ninguna dependencia.
+
+Para ejecutar las pruebas, dirigirse al directorio raíz del proyecto y ejecutar 
+el siguiente comando:
+\begin{lstlisting}
+	$ python -m unittest tests.unitarios
+\end{lstlisting}
