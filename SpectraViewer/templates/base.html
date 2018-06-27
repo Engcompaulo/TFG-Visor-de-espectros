@@ -36,6 +36,8 @@
                             <a href="{{ url_for('main.upload_spectrum') }}">Subir
                                 espectro</a></li>
                     {% endif %}
+                    <li><a href="{{ url_for('main.download_manual') }}">Manual
+                        de usuario</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {% if not session['email'] %}

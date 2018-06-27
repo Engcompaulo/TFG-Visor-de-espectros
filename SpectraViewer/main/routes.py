@@ -120,6 +120,21 @@ def download_template():
                                as_attachment=True)
 
 
+@main.route('/download-user-manual', methods=['GET', 'POST'])
+def download_manual():
+    """
+    Download to the user the user manual
+
+    Returns
+    -------
+    file
+        Return the user manual.
+
+    """
+    return send_from_directory(current_app.root_path, 'manual_de_uso.pdf',
+                               as_attachment=True)
+
+
 @main.route('/datasets/upload', methods=['GET', 'POST'])
 @google_required
 def upload_dataset():
