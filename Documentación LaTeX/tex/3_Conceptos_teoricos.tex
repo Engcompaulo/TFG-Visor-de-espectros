@@ -39,12 +39,12 @@ ventajas, entre las que destacan~\cite{what-is-raman}:
 
 Técnicas usadas con el propósito de presentar datos o información mediante
 gráficos, como puntos, líneas o barras. Está considerado uno de los pasos dentro
-del análisis de datos o ciencia de datos\cite{wiki:dataviz}.
+del análisis de datos o ciencia de datos~\cite{wiki:dataviz}.
 
 Su objetivo principal es el de comunicas información de forma clara y eficiente,
 sin significar esto que para que un gráfico sea funcional tenga que parecer
 aburrido ni que tenga que ser extremadamente sofisticado para resultar
-agradable\cite{friedman2008}.
+agradable~\cite{friedman2008}.
 
 \section{Minería de datos}
 
@@ -66,8 +66,8 @@ Las fases del proceso de minería de datos se pueden dividir en las siguientes:
 	sobre el que poder aplicar las técnicas de minería de datos.
 	\item \textbf{Minería de datos}: aplicar algoritmos sobre los datos capaces de
 	extraer patrones ocultos en ellos.
-	\item \textbf{Evaluación}: comprobar como de bien funcionan los patrones
-	descubiertos en datos nuevos.
+	\item \textbf{Evaluación}: comprobar como de bien se ajustan los patrones
+	descubiertos a datos nuevos.
 \end{enumerate}
 
 Este proyecto se centra en la parte de preprocesamiento, minería de datos y
@@ -79,25 +79,25 @@ En esta sección se definen las operaciones de preprocesamiento ofrecidas en la
 aplicación. Se van a explicar tomando como ejemplo uno de los espectros usados
 por la aplicación.
 
-\subsubsection{Recorte (Crop)}
+\subsubsection{Recorte (\textit{Crop})}
 
 La operación de recorte devuelve los valores del espectro contenidos entre un
 límite inferior y un límite superior (ver figura~\ref{fig:recorte}).
 
 \imagen{recorte}{Recorte entre valores 200 y 1500}
 
-\subsubsection{Corrección de línea base (Baseline correction)}
+\subsubsection{Corrección de línea base (\textit{Baseline correction})}
 
 La línea base de un gráfico se puede definir como una línea imaginaria sobre la
-que se apoyan los datos. Esta línea da lugar a mediciones incorrectas por lo que
-es conveniente eliminarla de los gráficos. Como se ve en la
-figura~\ref{fig:baseline}, antes de aplicar la operación, los datos van
-ascendiendo a medida que aumenta el eje X, después de la operación los datos
-están correctamente nivelados.
+que se apoyan los datos. El hecho de que esta línea no sea horizontal puede dar 
+lugar a interpretaciones erróneas de los datos, por lo que es conveniente 
+eliminarla de los gráficos. Como se ve en la figura~\ref{fig:baseline}, antes 
+de aplicar la operación, los datos van ascendiendo a medida que aumenta el eje 
+X, después de la operación los datos están correctamente nivelados.
 
 \imagen{baseline}{Corrección de la línea base}
 
-\subsubsection{Normalización (Normalization)}
+\subsubsection{Normalización (\textit{Normalization})}
 
 La normalización consiste en el proceso de transformar los valores de los
 espectros de tal forma que todos los espectros se midan por la misma escala para
@@ -106,7 +106,7 @@ cambiado al rango (0, 1).
 
 \imagen{norm}{Normalización de los datos}
 
-\subsubsection{Compresión (Squash)}
+\subsubsection{Compresión (\textit{Squash})}
 
 Esta operación consiste en la construcción de datos similares a los originales
 pero de menor tamaño, sin embargo estos datos nuevos deben producir un resultado
@@ -116,7 +116,7 @@ es menor, indicando la transformación de los datos.
 
 \imagen{squash}{Compresión de los datos}
 
-\subsubsection{Suavizado (Smooth)}
+\subsubsection{Suavizado (\textit{Smooth})}
 
 La operación de suavizado está enfocada a eliminar el ruido del espectro. Este
 ruido provoca picos en el gráfico que impiden analizarlo bien ya que 
@@ -129,8 +129,8 @@ figura~\ref{fig:smooth}).
 \section{Base de datos NoSQL}
 
 Las bases de datos no relacionales, o NoSQL (tradicionalmente ``non SQL'',
-actualmente ``Not Only SQL'')\cite{wiki:nosql} son sistemas de almacenamiento de
-datos que no requieren de una estructura definida y/o fija para su
+actualmente ``Not Only SQL'')~\cite{wiki:nosql} son sistemas de almacenamiento 
+de datos que no requieren de una estructura definida y/o fija para su 
 funcionamiento.
 
 Se diferencian principalmente de de los sistemas de bases de datos relacionales
@@ -140,10 +140,10 @@ a otros datos almacenados.
 
 Los principales tipos en los que se dividen este tipo de sistemas son:
 \begin{itemize}
-	\item Bases de datos documentales
-	\item Bases de datos clave/valor
-	\item Bases de datos en grafo
-	\item Bases de datos orientadas a objetos
+	\item Bases de datos documentales.
+	\item Bases de datos clave/valor.
+	\item Bases de datos en grafo.
+	\item Bases de datos orientadas a objetos.
 \end{itemize}
 
 %\tablaSmall{Herramientas y tecnologías utilizadas en cada parte del proyecto}{l

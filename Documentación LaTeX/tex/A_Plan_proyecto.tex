@@ -3,10 +3,11 @@
 \section{Introducción}
 Para que un proyecto se desarrolle con normalidad y con el menor número de
 imprevistos posibles es esencial que cuente con una fase de planificación. Aquí
-se estima el tiempo, trabajo y dinero que puede llegar a usarse durante la
-realización del proyecto. Para ello, se debe analizar en detalle cada parte del
-proyecto. De cara al futuro, el análisis del proyecto puede servir para predecir
-como de bien puede desarrollarse una continuación del mismo.
+se estima el tiempo, trabajo y dinero necesario para realización del proyecto.
+
+Para ello, se debe analizar en detalle cada parte del proyecto. De cara al 
+futuro, el análisis del proyecto puede servir para predecir como de bien puede 
+desarrollarse una continuación del mismo.
 
 La planificación del proyecto consta de dos partes:
 \begin{itemize}
@@ -33,7 +34,7 @@ La planificación temporal se organiza mediante \textit{sprints}. Cada
 realiza una reunión con los tutores para dar por terminado
 
 \subsection{Sprint 0}
-En este \textit{sprint} marcó el inicio del proyecto. La lista de tareas está
+En este \textit{sprint} se marcó el inicio del proyecto. La lista de tareas está
 disponible en
 \href{https://github.com/IvanBeke/TFG-Visor-de-espectros/milestone/1?closed=1}{Sprint
 	0}\footnote{\url{https://github.com/IvanBeke/TFG-Visor-de-espectros/milestone/1?closed=1}}.
@@ -46,14 +47,14 @@ básicos. Todas las tareas se completaron a tiempo.\\
 En este \textit{sprint} se habló sobre el despliegue de la aplicación. Los
 tutores comentaron que en proyectos webs anteriores el despliegue se solía dejar
 para las etapas finales del proyecto, haciendo que todos los problemas asociados
-surjan en esas finales, retrasando el despliegue y, a veces, no llegar a
+surjan en esas etapas finales, retrasando el despliegue y, a veces, impidiendo
 desplegar la aplicación.\\
 
-Se conocía la plataforma Heroku para ello y se probó a usarla, adicionalmente se
-buscaron otras alternativas. También se usó el prototipo escogido para crear el
-proyecto definitivo y se trabajó en la memoria. La última parte fue estudiar las
-guías de estilo de Python, aplicarlas en los prototipos y documentar su
-código.\\
+Se conocía la plataforma Heroku así que fue la primera opción que se probó., 
+adicionalmente se buscaron otras alternativas. También se usó el prototipo 
+escogido para crear el proyecto definitivo y se trabajó en la memoria. La 
+última parte fue estudiar las guías de estilo de Python, aplicarlas en los 
+prototipos y documentar su código.\\
 
 La lista de tareas está disponible en
 \href{https://github.com/IvanBeke/TFG-Visor-de-espectros/milestone/2?closed=1}{Sprint
@@ -63,9 +64,10 @@ Todas las tareas se completaron a tiempo.\\
 \subsection{Sprint 2}
 Dado que en la aplicación se necesita que los usuarios suban contenido, se
 necesita control de usuarios, en este \textit{sprint} se investigaron formas de
-ofrecerlo. También debido a la necesidad de disponer almacenamiento persistente
-se tuvo que mirar otras formas de despliegue y buscar como Heroku lo ofrece, que
-de serie no lo hace. Al final se decidió cambiar a Nanobox.\\
+ofrecerlo. También debido a la necesidad de disponer almacenamiento persistente,
+se tuvo que mirar otras formas de despliegue e investigar como Heroku lo 
+ofrece, dado que por defecto no lo hace. Al final se decidió cambiar a 
+Digital Ocean con Nanobox.\\
 
 La lista de tareas está disponible en
 \href{https://github.com/IvanBeke/TFG-Visor-de-espectros/milestone/3?closed=1}{Sprint
@@ -78,7 +80,7 @@ basado en el prototipo. Como tal se mejoró el aspecto visual de la aplicación,
 se cambio la estructura para tener partes diferenciadas y mantenibles, añadir
 control de usuarios y mejorar la subida de ficheros.\\
 
-También se planteó añadir subir y visualizar un \textit{dataset} completo,
+También se planteó añadir, subir y visualizar un \textit{dataset} completo,
 escribir el manual de despliegue y los casos de uso.\\
 
 La lista de tareas está disponible en
@@ -97,9 +99,9 @@ almacenamiento para guardar los datos, por lo que se realizó una comparación
 entre formas de almacenar los datos. También se añadió la opción de borrar un
 \textit{dataset} ya almacenado.\\
 
-Al igual que en el \textit{sprint} anterior se estructuró la aplicación como
-conjunto, en este \textit{sprint} se estructura la parte de visualización.
-También se arreglaron dos \textit{bugs} que se introdujeron en el
+Similar a lo ocurrido en el \textit{sprint} anterior, se cambió la estructura 
+de la aplicación, en este \textit{sprint} se estructuró la parte de 
+visualización. También se arreglaron dos errores que se introdujeron en el
 \textit{sprint} anterior en la aplicación desplegada.\\
 
 La lista de tareas está disponible en
@@ -114,7 +116,7 @@ Todas las tareas se completaron a tiempo. El gráfico \textit{burndown} del
 De la comparación del \textit{sprint} anterior se decidió usar MongoDB para el
 almacenamiento, por lo cual la mayoría de los esfuerzos se centraron en adaptar
 la aplicación para usar MongoDB en todos sus aspectos: guardar, borrar y coger
-los datos. También se solucionó un \textit{bug} en la parte de visualización.\\
+los datos. También se solucionó un error en la parte de visualización.\\
 
 La lista de tareas está disponible en
 \href{https://github.com/IvanBeke/TFG-Visor-de-espectros/milestone/6?closed=1}{Sprint
@@ -127,10 +129,10 @@ Todas las tareas se completaron a tiempo. El gráfico \textit{burndown} del
 \subsection{Sprint 6}
 Para este \textit{sprint} se planteó cambiar la forma en la que se guardan los
 \textit{datasets}, de forma que cuando el sistema de aprendizaje automático esté
-implementado sea más sencillo pasar los datos para el entrenamiento. También se
+implementado, sea más sencillo pasar los datos para el entrenamiento. También se
 añadió soporte de comentarios en el \textit{dataset}. Debido a un cambio en como
-la geóloga organizaba sus datos, se tuvo de adaptar la subida de
-\textit{datasets} a este cambio. Por último se empezó a añadir controles en la
+la geóloga organizaba sus datos, se tuvo que adaptar la subida de
+\textit{datasets} a este cambio. Por último, se empezó a añadir controles en la
 parte de visualización para el procesado de los espectros.\\
 
 La lista de tareas está disponible en
@@ -148,8 +150,8 @@ ejemplos subidos y sus metadatos, documentar el código y avanzar en la memoria 
 anexos.\\
 
 Durante el \textit{sprint}, se vio que la tarea sobre procesamiento de datos era
-demasiado extensa, dividiéndola en dos partes, la primera que sería añadir los
-controles para el procesamiento en la interfaz, y una segunda para añadir el
+demasiado extensa, dividiéndola en dos partes, la primera que sería para añadir 
+los controles para el procesamiento en la interfaz, y una segunda para añadir el
 código de procesamiento de datos, para realizar en el siguiente
 \textit{sprint}.\\
 
@@ -164,7 +166,7 @@ figura~\ref{fig:burndown-sprint7}.\\
 
 \subsection{Sprint 8}
 Este \textit{sprint} se centró en completar la tarea del \textit{sprint}
-anterior, arreglar un \textit{bug} del despliegue, añadir al proyecto el código
+anterior, arreglar un error del despliegue, añadir al proyecto el código
 de procesamiento de datos y enlazarlo a los controles, añadir instrucciones de
 esta parte y ampliar la planificación temporal con links al repositorio y
 capturas de los gráficos \textit{burndown}.\\
@@ -215,9 +217,9 @@ figura~\ref{fig:burndown-sprint10}.\\
 
 \subsection{Sprint 11}
 En este \textit{sprint} se completaron las tareas pendientes del \textit{sprint}
-anterior, además se realizó también la tarea de predecir nuevos espectros.
-También se avanzó bastante en la memoria, aunque no se llegaron a terminar
-completamente todas las secciones previstas.\\
+anterior, además se realizó también la tarea de codificar la predicción de 
+nuevos espectros. También se avanzó bastante en la memoria, aunque no se 
+llegaron a terminar completamente todas las secciones previstas.\\
 
 Debido a la cercanía de la entrega este \textit{sprint} tuvo más carga de
 trabajo que los anteriores. Se puede considerar el último \textit{sprint} de

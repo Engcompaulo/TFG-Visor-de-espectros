@@ -17,10 +17,11 @@ detallan sus requisitos, tanto funcionales como no funcionales.
 	\textit{datasets} subidos.
 	\item Poder usar los modelos mencionados anteriormente para predecir nuevos
 	ejemplos subidos.
-	\item Que la aplicación final sea útil para la investigadora.
+	\item Que la aplicación final sea útil para la investigadora, que hace las 
+	veces de cliente en este proyecto.
 \end{itemize}
 
-\section{Catalogo de requisitos}
+\section{Catálogo de requisitos}
 
 \subsection{Requisitos funcionales}
 
@@ -81,7 +82,7 @@ detallan sus requisitos, tanto funcionales como no funcionales.
 	\item \textbf{RNF-1 Usabilidad}: la aplicación debe ser intuitiva y fácil 
 	de usar.
 	\item \textbf{RNF-2 Escalabilidad}: el rendimiento debe poder aumentar al 
-	aumentar los recursos.
+	incrementar los recursos.
 	\item \textbf{RNF-3 Manteninibilidad}: debe ser sencillo añadir 
 	funcionalidad nueva a la aplicación.
 	\item \textbf{RNF-4 Compatibilidad}: la aplicación debe poder funcionar en 
@@ -101,13 +102,13 @@ desarrollan los casos de uso mostrados en el diagrama.
 
 \casoDeUso{1}{Iniciar sesión}
 {RF-1, RF-1.1, RF-1.2}
-{El usuario inicia sesión en la aplicación}
-{Navegador web abierto y página de la aplicación cargada}
+{El usuario inicia sesión en la aplicación.}
+{Navegador web abierto y página de la aplicación cargada.}
 {
 	\item Pulsar botón ``Iniciar sesión con Google''.
 	\item Introducir o seleccionar cuenta de Google.
 }
-{Redirección a la aplicación con sesión iniciada}
+{Redirección a la aplicación con sesión iniciada.}
 {	\item Cuenta no existente.
 	\item Combinación de nombre y contraseña incorrecta.
 }
@@ -115,21 +116,21 @@ desarrollan los casos de uso mostrados en el diagrama.
 
 \casoDeUso{2}{Cerrar sesión}
 {RF-1, RF-1.3}
-{El usuario cierra sesión en la aplicación}
-{Sesión iniciada en la aplicación}
+{El usuario cierra sesión en la aplicación.}
+{Sesión iniciada en la aplicación.}
 {
 	\item Pulsar en el botón cuyo texto es el correo.
 	\item Pulsar ``Cerrar sesión''.
 }
-{Redirección a la aplicación con sesión cerrada}
+{Redirección a la aplicación con sesión cerrada.}
 {	\item La sesión no estaba iniciada.
 }
 {Alta}
 
 \casoDeUso{3}{Subir dataset}
 {RF-2, RF-2.1}
-{El usuario sube un dataset a la aplicación para su guardado}
-{Sesión iniciada en la aplicación}
+{El usuario sube un dataset a la aplicación para su guardado.}
+{Sesión iniciada en la aplicación.}
 {
 	\item Pulsar en el botón ``Subir dataset''.
 	\item Descargar y rellenar la plantilla.
@@ -138,7 +139,7 @@ desarrollan los casos de uso mostrados en el diagrama.
 	\item Seleccionar el fichero creado.
 	\item Presionar el botón ``Subir''.
 }
-{Redirección a la página de los archivos guardados}
+{Redirección a la página de los archivos guardados.}
 {	\item El formato del dataset no es correcto.
 	\item Existe un dataset con el mismo nombre.
 }
@@ -146,15 +147,15 @@ desarrollan los casos de uso mostrados en el diagrama.
 
 \casoDeUso{4}{Subir espectro}
 {RF-3, RF-3.1}
-{El usuario sube un espectro a la aplicación para su guardado}
-{Sesión iniciada en la aplicación}
+{El usuario sube un espectro a la aplicación para su guardado.}
+{Sesión iniciada en la aplicación.}
 {
 	\item Pulsar en el botón ``Subir espectro''.
 	\item Rellenar el formulario de subida.
 	\item Seleccionar el espectro.
 	\item Presionar botón ``Subir''.
 }
-{Redirección a la página de los archivos guardados}
+{Redirección a la página de los archivos guardados.}
 {	\item El formato del espectro no es correcto.
 	\item Existe un espectro con el mismo nombre.
 }
@@ -162,37 +163,37 @@ desarrollan los casos de uso mostrados en el diagrama.
 
 \casoDeUso{5}{Visualizar dataset}
 {RF-2, RF-2.3, RF-4, RF-4.1}
-{El usuario visualiza un espectro en la aplicación}
+{El usuario visualiza un espectro en la aplicación.}
 {Sesión iniciada en la aplicación, dataset guardado en la aplicación y estar en 
-la página de ``Mis ficheros''}
+la página de ``Mis ficheros''.}
 {
 	\item Escoger un dataset que visualizar.
 	\item Pulsar el botón ``Visualizar'' en el dataset escogido.
 }
-{Se muestra la página de visualización}
+{Se muestra la página de visualización.}
 {	\item No se ha podido cargar el dataset.
 }
 {Alta}
 
 \casoDeUso{6}{Visualizar espectro}
 {RF-3, RF-3.3, RF-4, RF-4.2}
-{El usuario visualiza un espectro en la aplicación}
+{El usuario visualiza un espectro en la aplicación.}
 {Sesión iniciada en la aplicación, espectro guardado en la aplicación y estar 
-en la página de ``Mis ficheros''}
+en la página de ``Mis ficheros''.}
 {
 	\item Escoger un espectro que visualizar.
 	\item Pulsar el botón ``Visualizar'' en el espectro escogido.
 }
-{Se muestra la página de visualización}
+{Se muestra la página de visualización.}
 {	\item No se ha podido cargar el espectro.
 }
 {Alta}
 
 \casoDeUso{7}{Guardar clasificador}
 {RF-5, RF-5.1, RF-5.2}
-{El usuario crear y entrena un modelo usando como datos un dataset guardado}
+{El usuario crear y entrena un modelo usando como datos un dataset guardado.}
 {Sesión iniciada en la aplicación, dataset guardado en la aplicación y estar en 
-la página de ``Mis ficheros''}
+la página de ``Mis ficheros''.}
 {
 	\item Escoger el dataset que se quiera usar como base.
 	\item Pulsar el botón ``Crear modelo'' en el dataset escogido.
@@ -209,7 +210,7 @@ la página de ``Mis ficheros''}
 		\item Pulsar el botón ``Descartar''.
 	\end{enumerate}
 }
-{Se redirige a los archivos guardados}
+{Se redirige a los archivos guardados.}
 {	\item Los parámetros del modelo introducidos son erróneos.
 	\item Ya existe un clasificador con el nombre introducido.
 }
@@ -219,7 +220,7 @@ la página de ``Mis ficheros''}
 {RF-5, RF-5.3}
 {El usuario usa un clasificador creado para predecir un espectro.}
 {Sesión iniciada en la aplicación, dataset guardado en la aplicación, algún 
-clasificador creado y estar en la página de ``Mis ficheros''}
+clasificador creado y estar en la página de ``Mis ficheros''.}
 {
 	\item Escoger el espectro que se quiera predecir.
 	\item Pulsar el botón ``Predecir'' en el espectro escogido.
@@ -227,7 +228,7 @@ clasificador creado y estar en la página de ``Mis ficheros''}
 	\item Pulsar el botón ``Predecir espectro''.
 	\item Para guardar el clasificador:
 }
-{Se muestra la predicción}
+{Se muestra la predicción.}
 {	\item No se puede cargar el clasificador.
 }
 {Media}

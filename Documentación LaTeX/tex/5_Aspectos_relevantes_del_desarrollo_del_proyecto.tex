@@ -23,34 +23,34 @@ Para poder realizar el proyecto se necesitaban unos conocimientos no adquiridos
 sobre desarrollo web, tanto de la parte de servidor en Flask como la parte del
 cliente en HTML, CSS y JavaScript, aunque en menor medida por haberse tocado
 algo durante el grado. Como se había hablado con los tutores antes de verano
-sobre el proyecto, se dedicó parte a aprender sobre ello. Además de para
+sobre el proyecto, se dedicó parte de este a aprender sobre ello. Además de para
 aprendizaje, los recursos se han usado también como material de consulta durante
 el desarrollo.
 
 \noindent Para la parte del servidor se siguieron los libros y tutoriales:
 \begin{itemize}
-	\item Flask Web Development~\cite{grinberg2014flask}
-	\item Explore Flask~\cite{exploreflask}
-	\item The Flask Mega-Tutorial Legacy (2012)~\cite{grinberg-mega-legacy}
-	\item The Flask Mega-Tutorial (2017)~\cite{grinberg-mega}
+	\item Flask Web Development~\cite{grinberg2014flask}.
+	\item Explore Flask~\cite{exploreflask}.
+	\item The Flask Mega-Tutorial Legacy (2012)~\cite{grinberg-mega-legacy}.
+	\item The Flask Mega-Tutorial (2017)~\cite{grinberg-mega}.
 \end{itemize}
 
 \noindent Para la parte del cliente se utilizaron principalmente los siguientes
 materiales:
 \begin{itemize}
-	\item MDN Web Docs~\cite{mdn}
-	\item W3Schools Tutorials~\cite{w3schools}
+	\item MDN Web Docs~\cite{mdn}.
+	\item W3Schools Tutorials~\cite{w3schools}.
 \end{itemize}
 
 A medida que se añadían nuevas herramientas al proyecto, su documentación
 oficial también ha sido consultada en varias ocasiones, están disponibles en:
 \begin{itemize}
-	\item Documentación de Flask~\cite{doc:flask}
-	\item Documentación de Bootstrap~\cite{doc:bootstrap}
-	\item Documentación de Nanobox~\cite{doc:nanobox}
-	\item Documentación de PyMongo~\cite{doc:pymongo}
-	\item Documentación de Dash~\cite{doc:dash}
-	\item Documentación de Plotly~\cite{doc:plotly}
+	\item Documentación de Flask~\cite{doc:flask}.
+	\item Documentación de Bootstrap~\cite{doc:bootstrap}.
+	\item Documentación de Nanobox~\cite{doc:nanobox}.
+	\item Documentación de PyMongo~\cite{doc:pymongo}.
+	\item Documentación de Dash~\cite{doc:dash}.
+	\item Documentación de Plotly~\cite{doc:plotly}.
 \end{itemize}
 
 \section{Sistema de usuarios}
@@ -80,18 +80,20 @@ usuario necesarios.
 
 Al contar con la presencia de dos \textit{frameworks} de desarrollo web hacer
 que funcionen juntos ha sido un reto, sobre todo teniendo en cuenta que Dash se
-ejecuta Flask pero no permite reutilizar sus componentes, favoreciendo la
+ejecuta sobre Flask, pero no permite reutilizar sus componentes, favoreciendo la
 aparición de código repetido y disminuyendo la mantenibilidad.
 
 El mayor problema que se ha tenido ha sido la diferencia en como escribir el
 código HTML para la interfaz en el cliente. Mientras que en Flask se escribe en
 ficheros HTML llamados \textit{templates}, Dash apuesta por escribir todo el
 código desde Python. Esto favorece que surjan defectos de código, sobre todo de
-código duplicado.
+código duplicado\footnote{Se puede ver un debate sobre los inconvenientes y 
+ventajas del enfoque de Dash a la generación de plantillas en 
+\url{https://github.com/plotly/dash/issues/44}.}.
 
 Se investigó bastante sobre cómo poder usar los \textit{templates} de Flask para
-definir la interfaz de Dash, pero no se pudo encontrar forma de poder hacerlo. Al
-final no quedó otra forma de hacerlo, pero dentro de lo malo es un pequeño
+definir la interfaz de Dash, pero no se pudo encontrar forma de poder hacerlo. 
+Al final no quedó otra forma de hacerlo, pero dentro de lo malo es un pequeño
 precio a pagar por el resto de ventajas que Dash ofrece.
 
 \section{Subida de ficheros}\label{sec:subida}
@@ -99,7 +101,7 @@ precio a pagar por el resto de ventajas que Dash ofrece.
 Una de las primeras características que se implementó fue la subida de ficheros
 al servidor, al tener ya el sistema de usuarios, se podían organizar los datos
 sin problema para cada cliente. El formato requerido para subir los datos pasó
-por varios cambios motivados por la forma en la que la Dra. Jorge Villa nos
+por varios cambios motivados por la forma en la que la Dra. Jorge Villar nos
 enviaba los datos que probar la aplicación. En secciones posteriores se explica
 como estos cambios afectaron también al almacenamiento de los datos y la
 interfaz del visor.
@@ -200,17 +202,17 @@ En primera instancia se optó por guardar los conjuntos de datos como un
 documento en el que estaban contenidos varios \textit{DataFrames} (cada uno
 representando un espectro) agrupados según la carpeta en la que estuvieran
 localizados los espectros. Cada \textit{DataFrame} contenía dos columnas, una
-con los valores del eje X y otra con los valores del eje Y.
+con los valores del eje $X$ y otra con los valores del eje $Y$.
 
 Pero justo a continuación de adoptar esta estructura y tener la aplicación
 adaptada para ello llegó el cambio en como recibíamos los datos, provocando otra
 modificación en la estructura. Esta vez se decidió agrupar todo el conjunto de
 datos subido en un solo \textit{DataFrame}, en el que cada fila se corresponde
-con un espectro, las columnas representan el eje X y los valores de cada fila en
-esas columnas representan el valor del eje Y. Cada fila contiene adicionalmente
-columnas que indican el nombre del espectro y sus metadatos asociados (ver
-figura~\ref{fig:dataframe-def}). En la sección~\ref{sec:integracion} se explican
-más en profundidad este cambio.
+con un espectro, las columnas representan el eje $X$ y los valores de cada fila 
+en esas columnas representan el valor del eje $Y$. Cada fila contiene 
+adicionalmente columnas que indican el nombre del espectro y sus metadatos 
+asociados (ver figura~\ref{fig:dataframe-def}). En la 
+sección~\ref{sec:integracion} se explican más en profundidad este cambio.
 
 \begin{figure}[!h]
 	\centering
@@ -237,7 +239,7 @@ Cuando llegó el momento de integrar los algoritmos en la aplicación había dos
 opciones para hacerlo funcionar, modificar la aplicación para adaptarse a los
 algoritmos o modificar los algoritmos para adaptarse a la aplicación.
 
-En primera instancia se intento modificar los algoritmos, pero se vio que era un
+En primera instancia se intentó modificar los algoritmos, pero se vio que era un
 paquete con demasiadas dependencias dentro del mismo, por lo que cada cambio 
 producía gran cantidad de errores de funcionamiento, que al solucionar 
 producían todavía más errores dentro del paquete. Se optó por revertir estos
@@ -251,7 +253,7 @@ modificación el funcionamiento de la aplicación volvió a ser el correcto.
 
 La idea de realizar el proyecto como una aplicación web tiene relación más que
 directa con que pueda ser fácilmente accesible. Para ello se necesita que
-esté desplegada y accesible en Internet. En esta sección de describe las etapas
+esté desplegada y accesible en Internet. En esta sección de describen las etapas
 por las que pasó el despliegue, los problemas que surgieron y cómo se
 solucionaron.
 
@@ -263,11 +265,11 @@ proyecto.
 
 \subsection{Servidor}
 
-La plataforma escogida fue \hrefFootnote{https://www.heroku.com/}{Heroku}
-por su simplicidad y un plan gratuito que cubre las necesidades del proyecto.
-Aunque en primera instancia parecía que esta plataforma funcionaba bien para
-nuestras necesidades, se vio que no contaba con almacenamiento persistente,
-convirtiendo su uso en inviable.
+La plataforma escogida inicialemte fue 
+\hrefFootnote{https://www.heroku.com/}{Heroku} por su simplicidad y un plan 
+gratuito que cubre las necesidades del proyecto. Aunque en primera instancia 
+parecía que esta plataforma funcionaba bien para nuestras necesidades, se vio 
+que no contaba con almacenamiento persistente, convirtiendo su uso en inviable.
 
 Las opciones que se plantearon fueron buscar una forma de añadir este
 almacenamiento y cambiar de servidor por completo. Para añadirlo en Heroku había
