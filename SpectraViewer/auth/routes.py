@@ -5,7 +5,7 @@
     This module contains the routes for the auth blueprint.
 
     :copyright: (c) 2018 by Iván Iglesias
-    :license: license_name, see LICENSE for more details
+    :license: GPL-3.0, see LICENSE for more details
 """
 from flask import session, redirect, url_for, flash, abort
 from flask_dance.contrib.google import google

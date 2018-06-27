@@ -5,7 +5,7 @@
     This file contains the forms used by the main module.
 
     :copyright: (c) 2018 by Iván Iglesias
-    :license: license_name, see LICENSE for more details
+    :license: GPL-3.0, see LICENSE for more details
 """
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired, FileAllowed

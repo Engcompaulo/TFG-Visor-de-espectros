@@ -5,7 +5,7 @@
     This module contains things related to the visualization of datasets.
 
     :copyright: (c) 2018 by Iván Iglesias
-    :license: license_name, see LICENSE for more details
+    :license: GPL-3.0, see LICENSE for more details
 """
 import dash_core_components as dcc
 import dash_html_components as html

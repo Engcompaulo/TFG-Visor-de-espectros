@@ -5,7 +5,7 @@
     This file contains the routes of the main module.
 
     :copyright: (c) 2018 by Iván Iglesias
-    :license: license_name, see LICENSE for more details
+    :license: GPL-3.0, see LICENSE for more details
 """
 from flask import render_template, redirect, url_for, request, session, flash, \
     send_from_directory, current_app

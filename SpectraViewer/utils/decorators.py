@@ -5,7 +5,7 @@
     This module contains function decorators useful for the application.
 
     :copyright: (c) 2018 by Iván Iglesias
-    :license: license_name, see LICENSE for more details
+    :license: GPL-3.0, see LICENSE for more details
 """
 from functools import wraps
 from flask import flash, redirect, url_for

@@ -5,7 +5,7 @@
     This file contains the error handlers of the application.
 
     :copyright: (c) 2018 by Iván Iglesias
-    :license: license_name, see LICENSE for more details
+    :license: GPL-3.0, see LICENSE for more details
 """
 from flask import render_template
 from . import main

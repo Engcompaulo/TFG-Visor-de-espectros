@@ -6,7 +6,7 @@
     with Google.
 
     :copyright: (c) 2018 by Iván Iglesias
-    :license: license_name, see LICENSE for more details
+    :license: GPL-3.0, see LICENSE for more details
 """
 from flask_dance.contrib.google import make_google_blueprint
 
