@@ -2,56 +2,233 @@
 
 \section{Introducción}
 
+En este apéndice se describen los objetivos generales de la aplicación y se 
+detallan sus requisitos, tanto funcionales como no funcionales.
+
 \section{Objetivos generales}
 
-\section{Catalogo de requisitos}
-\subsection{Requisitos funcionales}
 \begin{itemize}
-	\tightlist
-	\item RF-1 Control de usuarios: la aplicación debe permitir controlar usuarios.
+	\item Ofrecer control de usuarios.
+	\item Permitir a los usuarios subir \textit{datasets} y espectros.
+	\item Que los \textit{datasets} y espectros se puedan visualizar.
+	\item Que sobre la visualización se pueda aplicar operaciones de 
+	procesamiento.
+	\item Poder entrenar modelos de aprendizaje automático con los
+	\textit{datasets} subidos.
+	\item Poder usar los modelos mencionados anteriormente para predecir nuevos
+	ejemplos subidos.
+	\item Que la aplicación final sea útil para la investigadora.
+\end{itemize}
+
+\section{Catalogo de requisitos}
+
+\subsection{Requisitos funcionales}
+
+\begin{itemize}
+	\item \textbf{RF-1 Control de usuarios}: la aplicación debe permitir 
+	controlar usuarios.
 	\begin{itemize}
-		\tightlist
-		\item RF-1.1 Integración con Google: la aplicación debe poder hacer uso de
-		cuentas de Google para el control de usuarios.
-		\item RF-1.2 Inicio de sesión: el usuario debe poder iniciar sesión con una
-		cuenta de Google.
-		\item RF-1.3 Cierre de sesión: el usuario debe poder cerrar sesión cuando haya
-		terminado.
+		\item \textbf{RF-1.1 Integración con Google}: la aplicación debe poder 
+		hacer uso de cuentas de Google para el control de usuarios.
+		\item \textbf{RF-1.2 Inicio de sesión}: el usuario debe poder iniciar 
+		sesión con una	cuenta de Google.
+		\item \textbf{RF-1.3 Cierre de sesión}: el usuario debe poder cerrar 
+		sesión cuando haya terminado.
 	\end{itemize}
-	\item RF-2 Gestión de Datasets: la aplicación debe poder almacenar y gestionar
-	datasets de los usuarios.
+	\item \textbf{RF-2 Datasets}: la aplicación debe poder almacenar y 
+	gestionar conjuntos de espectros.
 	\begin{itemize}
-		\tightlist
-		\item RF-2.1 Creación: el usuario debe poder subir y almacenar un dataset.
-		\item RF-2.2 Edición: el usuario debe poder modificar un dataset creado
-		anteriormente.
-		\item RF-2.3 Borrado: el usuario debe poder borrar un dataset creado
-		anteriormente.
-		\item RF-2.4 Visualización: el usuario debe poder visualizar un dataset creado
-		anteriormente. 
+		\item \textbf{RF-2.1 Subida}: el usuario debe poder subir un 
+		\textit{dataset}.
+		\item \textbf{RF-2.2 Eliminado}: el usuario debe poder eliminar un 
+		\textit{dataset} almacenado.
+		\item \textbf{RF-2.3 Visualización}: el usuario debe poder visualizar 
+		un \textit{dataset} almacenado.
 	\end{itemize}
-	\item RF-3 Procesamiento: el usuario debe poder procesar los datos de un
-	dataset creado anteriormente.
+	\item \textbf{RF-3 Espectros}: la aplicación debe poder almacenar y 
+	gestionar espectros.
 	\begin{itemize}
-		\tightlist
-		\item RF-3.1: Procesamiento de dataset: el usuario debe poder realizar
-		operaciones de procesamiento de datos sobre un dataset creado.
-		\item RF-3.2: Exportación: la aplicación debe poder exportar los datos después
-		del procesado.
+		\item \textbf{RF-3.1 Subida}: el usuario debe poder subir un espectro.
+		\item \textbf{RF-3.2 Eliminado}: el usuario debe poder eliminar un 
+		espectro.
+		\item \textbf{RF-3.3 Visualización}: el usuario debe poder visualizar 
+		un espectro.
 	\end{itemize}
-	\item RF-4 Gestión de modelos: la aplicación debe poder trabajar con modelos de
-	aprendizaje automático.
+	\item \textbf{RF-4 Procesamiento}: el usuario debe poder aplicar 
+	operaciones de preprocesamiento.
 	\begin{itemize}
-		\tightlist
-		\item RF-4.1 Creación/entrenamiento: el usuario debe poder crear y entrenar un
-		modelo basado en un dataset creado.
-		\item RF-4.2 Predicción: el usuario debe poder predecir un espectro basado en
-		un modelo creado anteriormente.
-		\item RF-4.3 Interpretación: la aplicación debe poder dar una interpretación
-		del modelo creado y de la predicción.
+		\item \textbf{RF-4.1: Procesamiento de \textit{dataset}}: el usuario 
+		debe poder aplicar operaciones de preprocesamiento sobre un 
+		\textit{dataset} visualizado.
+		\item \textbf{RF-4.2: Procesamiento de espectro}: el usuario debe poder 
+		aplicar operaciones de preprocesamiento sobre un espectro visualizado.
+	\end{itemize}
+	\item \textbf{RF-5 Minería de datos}: el usuario debe poder usar técnicas 
+	de minería de datos.
+	\begin{itemize}
+		\item \textbf{RF-5.1 Creación}: el usuario debe poder crear modelos 
+		personalizados.
+		\item \textbf{RF-5.2 Evaluación}: la aplicación debe ofrecer métricas 
+		del modelo entrenado.
+		\item \textbf{RF-5.3 Predicción}: el usuario debe poder usar los 
+		modelos que ha creado para predecir nuevos espectros.
 	\end{itemize}
 \end{itemize}
+
+\subsection{Requisitos no funcionales}
+
+	\begin{itemize}
+	\item \textbf{RNF-1 Usabilidad}: la aplicación debe ser intuitiva y fácil 
+	de usar.
+	\item \textbf{RNF-2 Escalabilidad}: el rendimiento debe poder aumentar al 
+	aumentar los recursos.
+	\item \textbf{RNF-3 Manteninibilidad}: debe ser sencillo añadir 
+	funcionalidad nueva a la aplicación.
+	\item \textbf{RNF-4 Compatibilidad}: la aplicación debe poder funcionar en 
+	los principales navegadores.
+	\item \textbf{RNF-5 Responsividad}: la aplicación debe adaptarse al tamaño 
+	de la pantalla.
+	\item \textbf{RNF-6 Facilidad de despliegue}: la aplicación debe poder 
+	desplegarse en un servidor de forma sencilla.
+	\end{itemize}
+
 \section{Especificación de requisitos}
 
+En esta sección se presentan el diagrama de casos de uso. A continuación, se 
+desarrollan los casos de uso mostrados en el diagrama.
 
+\imagen{casos-uso}{Diagrama de casos de uso}
+
+\casoDeUso{1}{Iniciar sesión}
+{RF-1, RF-1.1, RF-1.2}
+{El usuario inicia sesión en la aplicación}
+{Navegador web abierto y página de la aplicación cargada}
+{
+	\item Pulsar botón ``Iniciar sesión con Google''.
+	\item Introducir o seleccionar cuenta de Google.
+}
+{Redirección a la aplicación con sesión iniciada}
+{	\item Cuenta no existente.
+	\item Combinación de nombre y contraseña incorrecta.
+}
+{Alta}
+
+\casoDeUso{2}{Cerrar sesión}
+{RF-1, RF-1.3}
+{El usuario cierra sesión en la aplicación}
+{Sesión iniciada en la aplicación}
+{
+	\item Pulsar en el botón cuyo texto es el correo.
+	\item Pulsar ``Cerrar sesión''.
+}
+{Redirección a la aplicación con sesión cerrada}
+{	\item La sesión no estaba iniciada.
+}
+{Alta}
+
+\casoDeUso{3}{Subir dataset}
+{RF-2, RF-2.1}
+{El usuario sube un dataset a la aplicación para su guardado}
+{Sesión iniciada en la aplicación}
+{
+	\item Pulsar en el botón ``Subir dataset''.
+	\item Descargar y rellenar la plantilla.
+	\item Crear un fichero \code{.zip} con los datos y la plantilla.
+	\item Rellenar el formulario de subida.
+	\item Seleccionar el fichero creado.
+	\item Presionar el botón ``Subir''.
+}
+{Redirección a la página de los archivos guardados}
+{	\item El formato del dataset no es correcto.
+	\item Existe un dataset con el mismo nombre.
+}
+{Alta}
+
+\casoDeUso{4}{Subir espectro}
+{RF-3, RF-3.1}
+{El usuario sube un espectro a la aplicación para su guardado}
+{Sesión iniciada en la aplicación}
+{
+	\item Pulsar en el botón ``Subir espectro''.
+	\item Rellenar el formulario de subida.
+	\item Seleccionar el espectro.
+	\item Presionar botón ``Subir''.
+}
+{Redirección a la página de los archivos guardados}
+{	\item El formato del espectro no es correcto.
+	\item Existe un espectro con el mismo nombre.
+}
+{Alta}
+
+\casoDeUso{5}{Visualizar dataset}
+{RF-2, RF-2.3, RF-4, RF-4.1}
+{El usuario visualiza un espectro en la aplicación}
+{Sesión iniciada en la aplicación, dataset guardado en la aplicación y estar en 
+la página de ``Mis ficheros''}
+{
+	\item Escoger un dataset que visualizar.
+	\item Pulsar el botón ``Visualizar'' en el dataset escogido.
+}
+{Se muestra la página de visualización}
+{	\item No se ha podido cargar el dataset.
+}
+{Alta}
+
+\casoDeUso{6}{Visualizar espectro}
+{RF-3, RF-3.3, RF-4, RF-4.2}
+{El usuario visualiza un espectro en la aplicación}
+{Sesión iniciada en la aplicación, espectro guardado en la aplicación y estar 
+en la página de ``Mis ficheros''}
+{
+	\item Escoger un espectro que visualizar.
+	\item Pulsar el botón ``Visualizar'' en el espectro escogido.
+}
+{Se muestra la página de visualización}
+{	\item No se ha podido cargar el espectro.
+}
+{Alta}
+
+\casoDeUso{7}{Guardar clasificador}
+{RF-5, RF-5.1, RF-5.2}
+{El usuario crear y entrena un modelo usando como datos un dataset guardado}
+{Sesión iniciada en la aplicación, dataset guardado en la aplicación y estar en 
+la página de ``Mis ficheros''}
+{
+	\item Escoger el dataset que se quiera usar como base.
+	\item Pulsar el botón ``Crear modelo'' en el dataset escogido.
+	\item Seleccionar en el desplegable el modelo a usar.
+	\item (Opcional) Rellenar el formulario con los parámetros del modelo.
+	\item Pulsar el botón ``Crear y evaluar modelo''.
+	\item Para guardar el clasificador:
+	\begin{enumerate}
+		\item Completar el formulario.
+		\item Pulsar el botón ``Guardar''.
+	\end{enumerate}
+	\item Para no guardar el clasificador:
+	\begin{enumerate}
+		\item Pulsar el botón ``Descartar''.
+	\end{enumerate}
+}
+{Se redirige a los archivos guardados}
+{	\item Los parámetros del modelo introducidos son erróneos.
+	\item Ya existe un clasificador con el nombre introducido.
+}
+{Media}
+
+\casoDeUso{8}{Predecir espectro}
+{RF-5, RF-5.3}
+{El usuario usa un clasificador creado para predecir un espectro.}
+{Sesión iniciada en la aplicación, dataset guardado en la aplicación, algún 
+clasificador creado y estar en la página de ``Mis ficheros''}
+{
+	\item Escoger el espectro que se quiera predecir.
+	\item Pulsar el botón ``Predecir'' en el espectro escogido.
+	\item Seleccionar en el desplegable el clasificador a usar.
+	\item Pulsar el botón ``Predecir espectro''.
+	\item Para guardar el clasificador:
+}
+{Se muestra la predicción}
+{	\item No se puede cargar el clasificador.
+}
+{Media}
 

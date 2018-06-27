@@ -8,6 +8,11 @@
 \usepackage{lmodern} % scalable font
 \usepackage{microtype}
 \usepackage{placeins}
+\usepackage{listings}
+\usepackage{eurosym}
+\usepackage{longtable,booktabs}
+\usepackage[export]{adjustbox}
+\usepackage{dirtree}
 
 \RequirePackage{booktabs}
 \RequirePackage[table]{xcolor}
@@ -276,7 +281,81 @@
 	\end{center}
 }
 
+\newcommand{\hrefFootnote}[2]{%
+	\href{#1}{#2}\footnote{\url{#1}}
+}
 
+
+\newcommand{\code}[1]{\texttt{#1}}
+
+\newcommand{\casoDeUso}[9]{
+	\begin{longtable}[H]{@{}ll@{}}
+		\toprule
+		\begin{minipage}[b]{0.23\columnwidth}\raggedright\strut
+			\textbf{CU-#1}\strut
+		\end{minipage} & \begin{minipage}[b]{0.71\columnwidth}\raggedright\strut
+			\textbf{#2}\strut
+		\end{minipage}\tabularnewline
+		\midrule
+		\endhead
+		\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+			\textbf{Versión}\strut
+		\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+			1.0\strut
+		\end{minipage}\tabularnewline
+		\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+			\textbf{Autor}\strut
+		\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+			Iván Iglesias Cuesta\strut
+		\end{minipage}\tabularnewline
+		\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+			\textbf{Requisitos asociados}\strut
+		\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+			#3\strut
+		\end{minipage}\tabularnewline
+		\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+			\textbf{Descripción}\strut
+		\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+			#4\strut
+		\end{minipage}\tabularnewline
+		\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+			\textbf{Precondición}\strut
+		\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+			#5\strut
+		\end{minipage}\tabularnewline
+		\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+			\textbf{Acciones}\strut
+		\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+			\begin{enumerate}
+				\def\labelenumi{\arabic{enumi}.}
+				\tightlist
+				#6
+			\end{enumerate}\strut
+		\end{minipage}\tabularnewline
+		\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+			\textbf{Postcondición}\strut
+		\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+			#7\strut
+		\end{minipage}\tabularnewline
+		\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+			\textbf{Excepciones}\strut
+		\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+			\begin{itemize}
+				\tightlist
+				#8
+			\end{itemize}\strut
+		\end{minipage}\tabularnewline
+		\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+			\textbf{Importancia}\strut
+		\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+			#9\strut
+		\end{minipage}\tabularnewline
+		\bottomrule
+		\caption{#2.}
+		\label{cu:#1}
+	\end{longtable}
+	\newpage
+}
 
 
 \graphicspath{ {./img/} }
