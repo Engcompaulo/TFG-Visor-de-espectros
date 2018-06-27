@@ -2,10 +2,59 @@
 
 \section{Introducción}
 
+En este apéndice se expone el diseño que ha dado lugar a la aplicación. Se 
+incluye el diseño de datos, diseño procedimental y diseño arquitectónico.
+
 \section{Diseño de datos}
+
+En esta sección se explican las entidades usadas por la aplicación:
+
+\begin{itemize}
+	\item Dataset: esta entidad representa los conjuntos de espectros subidos 
+	por los usuarios.
+	\item Spectrum: esta entidad representa un espectro subido por los usuarios.
+	\item ClassifierSet: esta entidad representa los clasificadores entrenados 
+	por los usuarios, se compone de tres clasificadores, uno por cada atributo 
+	a predecir.
+\end{itemize}
+
+\imagen{clases}{Diagrama de clases}
 
 \section{Diseño procedimental}
 
+En esta sección se explican las interacciones más importantes de la aplicación. 
+Las interacción principal de la aplicación es, dentro de la visualización de 
+datasets, cuando se selecciona un espectro para visualizar, ya que entran en 
+juego todas las partes de la aplicación (ver figura~\ref{fig:carga-espectro}).
+
+\imagen{carga-espectro}{Diagrama de secuencia de visualización de espectro}
+
+Cuando el usuario selecciona un espectro, se envía al servidor la fila 
+seleccionada, el servidor pide a la base de datos el dataset que se está 
+visualizando y lo devuelve, el servidor extrae del dataset el espectro 
+seleccionado, lo convierte en una figura que se pueda visualizar y lo envía a 
+la interfaz, que se lo muestra al usuario.
+
+A continuación, para mostrar el espectro procesado, la interfaz envía al 
+servidor los valores actuales de los controles, el servidor aplica las acciones 
+de procesamiento al espectro, lo convierte en una figura para poder 
+visualizarlo y lo envía a la interfaz, que lo muestra al usuario.
+
 \section{Diseño arquitectónico}
 
+Al haber desarrollado una aplicación web, la arquitectura del proyecto está 
+condicionada por ello.
 
+\subsection{Modelo Vista Controlador (MVC)}
+
+Se ha seguido el patrón de MVC con el objetivo de separar la lógica de la 
+aplicación (controlador), los datos (modelo) y la interfaz (vista). Este patrón 
+permite facilitar la tarea del mantenimiento. Además, al ser un patrón 
+conocido, se facilita la tarea de trabajar en la aplicación a futuros 
+desarrolladores. 
+
+\imagen{mvc}{Diagrama del patrón MVC~\cite{wiki:mvc}}
+
+Los modelos se encuentran presentes en \code{SpectraViewer/models.py}, los 
+controladores se encuentran en \code{SpectraViewer/main/routes.py} y las vistas 
+se encuentran en \code{SpectraViewer/templates/}.
