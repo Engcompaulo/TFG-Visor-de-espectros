@@ -2,10 +2,196 @@
 
 \section{Introducción}
 
+En este apéndice se explica los requisitos que debe cumplir el usuario para 
+ejecutar la aplicación, como lanzarla y como usarla.
+
 \section{Requisitos de usuarios}
+
+Al tratarse de una aplicación los requisitos que debe cumplir el usuario son 
+los siguientes:
+\begin{itemize}
+	\tightlist
+	\item Navegador web instalado.
+	\item Cuenta de Google activa.
+	\item JavaScript avtivo en el navegador.
+	\item \textit{Cookies} activas en el navegador.
+\end{itemize}
+
+La aplicación se ha probado en los siguientes navegadores y se certifica que 
+funciona:
+\begin{itemize}
+	\tightlist
+	\item Google Chrome 67.0.3396.99.
+	\item Chromium 66.0.3359.181.
+	\item Mozilla Firefox 60.0.2.
+\end{itemize}
+
+Aunque la aplicación funciona en dispositivos móvil no se recomienda hacerlo 
+debido a que la visualización sería demasiado pequeña y no estarían disponibles 
+las acciones sobre los gráficos.
 
 \section{Instalación}
 
+Debido a que se proporciona una aplicación web no es necesario instalarla para 
+poder usarla. Sin embargo, si se quiere proceder a la instalación se pueden 
+seguir las instrucciones en la sección~\ref{sec:instalacion}.
+
+De cara a probar la aplicación con ejemplos ya cargados se proporciona un 
+cuenta con ejemplos cargados para su uso. El usuario proporcionado es  
+\code{tfg.visor.ejemplos@gmail.com} y su contraseña es 
+\code{tfg\_visor\_ejemplos}.
+
+Hay que tener en cuenta que al ser una cuenta de prueba la pueden usar varias 
+personas por lo que se recomienda encarecidamente no borrar los espectros ni 
+los datasets que se encuentran subidos.
+
 \section{Manual del usuario}
 
+En esta sección se enseña al usuario como manejar la aplicación.
+
+\subsection{Inicio}
+
+Nada más entrar a la aplicación se muestra la bienvenida. Si no se ha iniciado 
+sesión aparece el mensaje de la imagen~\ref{fig:manual-uso/bienvenida}.
+
+\imagen{manual-uso/bienvenida}{Bienvenida}
+
+Después de iniciar sesión (botón en la esquina superior derecha), o si no se 
+había cerrado sesión anteriormente, se muestra el mensaje de la 
+imagen~\ref{fig:manual-uso/bienvenida-inicio}.
+
+\imagen{manual-uso/bienvenida-inicio}{Bienvenida después de iniciar sesión}
+
+Las opciones presentadas en la barra de navegación y en las tarjetas situadas 
+debajo del mensaje son las mismas, con la excepción de que en las tarjetas 
+aparece una pequeña descripción de la acción.
+
+\subsection{Mis ficheros}
+
+Pulsando en ``Mis ficheros'' nos aparece la página con todo lo que tenemos 
+asociado en nuestra cuenta (ver figura~\ref{fig:manual-uso/ficheros}), 
+organizado en tres columnas, datasets, espectros y clasificadores. Para cada 
+entidad se muestra el nombre, los comentarios y las opciones disponibles.
+
+\imagen{manual-uso/ficheros}{Mis ficheros}
+
+\subsection{Subir dataset}
+
+Pulsando en ``Subir dataset'' nos dirigimos a la página en la que podemos subir 
+en conjunto de espectros. A la izquierda se muestran las instrucciones a seguir 
+y unas notas respecto al formulario, presente a la derecha. En la 
+imagen~\ref{fig:manual-uso/subir-dataset} se puede ver la página con el 
+formulario completo.
+
+\imagen{manual-uso/subir-dataset}{Página para subir un dataset}
+
+ Después de pulsar el botón ``Subir'' se muestra un mensaje 
+de espera mientra se procesa la petición (ver 
+figura~\ref{fig:manual-uso/espera}).
+
+\imagen{manual-uso/espera-dataset}{Mensaje de espera al subir un dataset}
+
+Cuando la subida del fichero termine, mostrará la página con los ficheros 
+guardados, indicando que el dataset se ha subido correctamente.
+
+\subsection{Subir espectro}
+
+Pulsando en ``Subir espectro'' nos dirigimos a la página en la que podemos 
+subir un espectro. A la izquierda se muestran las indicaciones respecto al 
+formato requerido en el fichero del espectros. En la 
+imagen~\ref{fig:manual-uso/subir-espectro} se puede ver la página con el 
+formulario completo.
+
+\imagen{manual-uso/subir-espectro}{Página para subir un espectro}
+
+Después de pulsar el botón ``Subir'' se muestra un mensaje 
+de espera mientra se procesa la petición (ver 
+figura~\ref{fig:manual-uso/espera}). Sin embargo, como esta operación suele 
+tardar poco tiempo, el mensaje no llega a leerse.
+
+\imagen{manual-uso/espera-espectro}{Mensaje de espera al subir un espectro}
+
+Cuando la subida del fichero termine, mostrará la página con los ficheros 
+guardados, indicando que el espectro se ha subido correctamente.
+
+\subsection{Eliminado}
+
+Cuando se quiera eliminar cualquiera de los elementos guardados, es suficiente 
+con presionar el botón ``Eliminar''. A continuación se muestra una ventana para 
+confirmar la acción. Si se acepta la eliminación, se borra el elemento de la 
+cuenta y se muestra un mensaje indicando que la acción se ha completado.
+
+\subsection{Visualización y procesamiento}
+
+Para visualizar un dataset o espectro hay que pulsar en el botón ``Visualizar'' 
+en el elemento que se desee. Esta acción nos redirige a la vista de 
+visualización.
+
+\subsubsection{Datasets}
+
+La visualización de datasets se compone de cuatro elementos 
+(figura~\ref{fig:manual-uso/vis-dataset}), la tabla con los espectros 
+contenidos, los controles de procesamiento, la visualización del 
+espectro original y la visualización del espectro procesado. Se proporciona una 
+ayuda integrada en esta vista.
+
+\imagen{manual-uso/vis-dataset}{Visualización de dataset}
+
+Para visualizar un espectro hay que seleccionarlo en la tabla. Pasados unos 
+segundos, el espectro original y procesado aparecen en sus gráficos 
+correspondientes. La aplicación soporta la visualización de varios espectros a 
+la vez para poder compararlos (ver 
+figura~\ref{fig:manual-uso/dataset-visualizado}).
+
+\imagen{manual-uso/dataset-visualizado}{Visualización de dataset con espectros}
+
+El espectro procesado se actualiza automáticamente al modificar las opciones de 
+procesamiento.
+
+\subsubsection{Espectro}
+
+La visualización de espectro se compone de tres elementos (ver figura~\ref{f})
+(figura~\ref{fig:manual-uso/vis-espectro}), los controles de procesamiento, la 
+visualización del espectro original y la visualización del espectro procesado. 
+Se proporciona una ayuda integrada en esta vista.
+
+\imagen{manual-uso/vis-espectro}{Visualización de espectro}
+
+El espectro procesado se actualiza automáticamente al modificar las opciones de 
+procesamiento.
+
+\subsection{Creación de modelos}
+
+Para crear un modelo primero hay que escoger que dataset se quiere usar como 
+referencia. Una vez decidido, se pulsa en el botón ``Crear modelo'', esto 
+redirige a la página de creación de modelos (ver 
+figura~\ref{fig:manual-uso/seleccionar-modelo}). 
+
+\imagen{manual-uso/seleccionar-modelo}{Página de creación de modelos}
+
+Para poder crear el modelo hay que seleccionar uno de los disponibles en el 
+desplegable, esta acción hace visible un formulario con los posibles parámetros 
+del modelo (ver figura~\ref{fig:manual-uso/modelo-seleccionado} El 
+formulario se actualiza cada vez que se cambia el modelo seleccionado.
+
+\imagen{manual-uso/modelo-seleccionado}{Formulario de creación de 
+modelos}
+
+Cuando se haya terminado de rellenar el formulario, todos los campos son 
+opcionales, hay que pulsar el botón ``Crear y evaluar modelo''. Esto crea el 
+modelo con los parámetros introducidos, lo entrena con el dataset seleccionado 
+y lo evalúa. Mientras se realiza este proceso, se le muestra un mensaje de 
+espera al usuario hasta que se completa la acción (ver 
+figura~\ref{fig:manual-uso/espera-modelo}).
+
+\imagen{manual-uso/espera-modelo}{Mensaje de espera en la creación de modelos}
+
+Cuando se termina el entrenamiento, se muestra una página con los resultados de 
+la evaluación y un formulario en caso de querer guardar el clasificador (ver 
+figura~\ref{fig:manual-uso/resultados}). Ambos botones, ``Guardar'' y 
+``Descartar'', llevan de vuelta a la página con los ficheros guardados, pero al 
+pulsar el de guardar, guarda el clasificador en la cuenta del usuario mientras 
+que pulsar el botón de descarte no.
+
+\imagen{manual-uso/resultados}{Resultados de la evaluación}
 
