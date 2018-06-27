@@ -239,4 +239,192 @@ de documentación, se avanzaba en ellas en paralelo y se cerraron al final del
 
 \subsection{Viabilidad económica}
 
+\subsubsection{Costes de personal}
+
+El proyecto se ha llevado a cabo por un desarrollador contratado a tiempo 
+parcial durante 4 meses. Se considera un salario neto de \EUR{1000} mensuales 
+(ver tabla~\ref{tab:personal}).
+
+La cotización a la seguridad social se ha calculado como horas comunes, según 
+el régimen general de 2018 (28,30\%)~\cite{seguridad-social}.
+
+\begin{table}[!h]
+	\centering
+	\begin{tabular}{@{}l|l@{}}
+		\toprule
+		\textbf{Concepto} & \textbf{Coste} \\
+		\midrule
+		Salario neto & \EUR{1000}  \\
+		Retención IRPF (19 \%) & \EUR{360,53} \\
+		Seguridad social (28,30 \%) & \EUR{537,00} \\
+		\midrule
+		Salario bruto (mensual) & \EUR{1897,53} \\
+		\midrule
+		\textbf{Total 4 meses} & \EUR{7590,12} \\
+		\bottomrule
+	\end{tabular}
+	\caption{Costes de personal}
+	\label{tab:personal}
+\end{table}
+
+\subsubsection{Costes de hardware}
+En esta sección se enumeran los costes del hardware usado durante el desarrollo.
+
+Para el desarrollo se ha usado un ordenador portátil valorado en \EUR{800}, con 
+amortización en 4 años (ver tabla~\ref{tab:hardware}).
+
+$$\dfrac{\textup{\EUR{800}}}{4 \;años * 12 \;meses} = 
+\textup{\EUR{16,67}} $$
+
+\begin{table}[!h]
+	\centering
+	\begin{tabular}{@{}l|l|l@{}}
+		\toprule
+		\textbf{Concepto} & \textbf{Coste} & \textbf{Amortización} \\
+		\midrule
+		Ordenador portátil & \EUR{800} & \EUR{16,67} \\
+		\midrule
+		\textbf{Total 4 meses} & \EUR{66,67} \\
+		\bottomrule
+	\end{tabular}
+	\caption{Costes de hardware}
+	\label{tab:hardware}
+\end{table}
+
+\subsubsection{Costes de software}
+El proyecto se ha desarrollado usando el sistema Ubuntu, por lo que en este 
+aspecto no habría costes. La licencia de PyCharm Professional supone un gasto 
+de \EUR{8,90} mensuales~\cite{pycharm-price}. La licencia de GitKraken Pro 
+supone un pago único anual de 49\$, que aproximadamente corresponde a 
+\EUR{42}~\cite{gitkraken-price}. Los costes se resumen en la 
+tabla~\ref{tab:software}.
+
+\begin{table}[!h]
+	\centering
+	\begin{tabular}{@{}l|l@{}}
+		\toprule
+		\textbf{Concepto} & \textbf{Coste} \\
+		\midrule
+		PyCharm Professional (mensual) & \EUR{8,90} \\
+		GitKraken Pro  &  \EUR{42} \\
+		\midrule
+		\textbf{Total 4 meses} & \EUR{77.60} \\
+		\bottomrule
+	\end{tabular}
+	\caption{Costes de software}
+	\label{tab:software}
+\end{table}
+
+\subsubsection{Costes del servidor}
+Como servidor se ha elegido un \textit{Droplet} estándar con 2GB de memoria, 1 
+CPU virtual, 50GB de disco duro y 2TB de transferencia cuyo coste es de 10\$ 
+mensuales, aproximadamente \EUR{8,60} mensuales~\cite{digital-price}. Los 
+costes se resumen en la tabla~\ref{tab:servidor}.
+
+\begin{table}[!h]
+	\centering
+	\begin{tabular}{@{}l|l@{}}
+		\toprule
+		\textbf{Concepto} & \textbf{Coste} \\
+		\midrule
+		Digital Ocean (mensual) & \EUR{8,60} \\
+		\midrule
+		\textbf{Total 4 meses} & \EUR{34,40} \\
+		\bottomrule
+	\end{tabular}
+	\caption{Costes del servidor}
+	\label{tab:servidor}
+\end{table}
+
+\subsubsection{Costes totales}
+
+En la tabla~\ref{tab:total} se agrupan todos los costes calculados del 
+proyecto, dando el total de \EUR{7768,99}.
+
+\begin{table}[!h]
+	\centering
+	\begin{tabular}{@{}l|l@{}}
+		\toprule
+		\textbf{Concepto} & \textbf{Coste} \\
+		\midrule
+		Personal & \EUR{7590,12} \\
+		Hardware & \EUR{66,67} \\
+		Software & \EUR{77,60} \\
+		Servidor & \EUR{34,60} \\
+		\midrule
+		\textbf{Total} & \EUR{7768,99} \\
+		\bottomrule
+	\end{tabular}
+	\caption{Costes totales del proyecto}
+	\label{tab:total}
+\end{table}
+
+\subsubsection{Beneficios}
+
+Para obtener beneficios del proyecto se podría plantear añadir a la aplicación 
+las siguientes alternativas:
+\begin{itemize}
+	\item Limitaciones de almacenamiento: la cantidad de ficheros que puede 
+	subir un usuario estaría limitada por un plan de pago.
+	\item \textit{Freemium}~\cite{wiki:freemium}: este modelo funciona 
+	ofreciendo unas funcionalidades básicas a todos los usuarios, pero 
+	bloqueando algunas a usuarios que no hayan pagado, por ejemplo, la creación 
+	de clasificadores.
+	\item Publicidad: podría incluirse en la aplicación publicidad relacionado 
+	con el tema.
+\end{itemize}
+
+Para obtener el máximo beneficio estas opciones podrían combinarse.
+
 \subsection{Viabilidad legal}
+
+A lo hora de añadir una licencia al proyecto hay que tener en cuenta a que 
+licencias están sometidas las dependencias. Con la ayuda de la herramienta 
+\hrefFootnote{https://requires.io/}{Requires.io}, se han listado las 
+dependencias, versión usada y licencia (ver tabla~\ref{tab:dependencias}).
+
+\begin{table}[]
+	\centering
+	\begin{tabular}{lll}
+		\hline
+		Dependencia            & Versión & Licencia           \\
+		\hline
+		dash                   & 0.21.1  & MIT                \\
+		dash-core-components   & 0.22.1  & MIT                \\
+		dash-html-components   & 0.10.1  & MIT                \\
+		dash-table-experiments & 0.6.0   & MIT                \\
+		dash\_renderer         & 0.11.3  & MIT                \\
+		Flask                  & 1.0.2   & BSD                \\
+		Flask-Bootstrap        & 3.3.7.1 & BSD                \\
+		Flask-Dance            & 0.14.0  & MIT                \\
+		Flask-PyMongo          & 0.5.1   & BSD                \\
+		Flask-WTF              & 0.14.2  & BSD                \\
+		gunicorn               & 19.8.1  & MIT                \\
+		ipython                & 6.3.1   & BSD                \\
+		numpy                  & 1.14.3  & BSD                \\
+		numpydoc               & 0.8.0   & BSD                \\
+		pandas                 & 0.23.0  & BSD                \\
+		plotly                 & 2.5.1   & MIT                \\
+		pymongo                & 3.6.1   & Apache License 2.0 \\
+		pyOpenSSL              & 17.5.0  & Apache License 2.0 \\
+		PyWavelets             & 0.5.2   & MIT                \\
+		scikit-learn           & 0.19.1  & BSD 3-Clause       \\
+		scipy                  & 1.1.0   & BSD                \\
+		Werkzeug               & 0.14.1  & BSD                \\
+		WTForms                & 2.2.1   & BSD                \\
+		xlrd                   & 1.1.0   & BSD                \\
+		\hline
+	\end{tabular}
+	\caption{Dependencias del proyecto}
+	\label{tab:dependencias}
+\end{table}
+
+De las dependencias usadas, todas son licencias bastante permisivas que 
+permiten el uso con libertad, por lo que no tenemos que preocuparnos de 
+incompatibilidades con la licencia que se escoja.
+
+Con ayuda de las recomendaciones GNU~\cite{gnu-choose}, se ha escodigo la 
+licencia GPL-3.0~\cite{gpl3}. Esta licencia permite la modificación, uso y 
+distribución del software, siempre que esto se haga bajo la misma licencia, se 
+indiquen los cambios y se mencione al autor original.
+
