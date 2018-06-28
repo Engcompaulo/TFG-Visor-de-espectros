@@ -61,9 +61,74 @@ breve descripción de cada uno.\\
 En esta sección se explican los puntos más importantes que los desarrolladores 
 deben tener en cuenta para mantener o seguir ampliando este proyecto.
 
-\subsection{Actualización de los gráficos}
+\subsection{Definir funciones de actualización}
 
+Dentro de la parte de visualización, las funciones de actualización son una 
+parte esencial, por lo que un punto importante es saber codificarlas 
+correctamente.
 
+Para empezar, son funciones de Python asociadas a elementos HTML de la interfaz 
+que se ejecutan cuando una propiedad seleccionada del elemento se modifica. 
+Esta asociación se realizado por medio de un decorador, que recibe como 
+parámetros un elemento que actualizar y una lista de elementos que tomar como 
+entradas del método. El siguiente método se encarga de mostrar los espectros 
+cuando se seleccionan en la tabla.
+\begin{lstlisting}[caption=Carga de espectros al ser seleccionados,frame=single,
+breaklines=true,
+language=Python,
+tabsize=2,
+captionpos=b,
+keywordstyle=\color{blue},
+stringstyle=\color{red}]
+import dash
+import dash_core_components as dcc
+import dash_html_components as html
+import dash_table_experiments as dt
+from dash.dependencies import Input, Output
+
+@app.callback(Output('spectrum-original', 'figure'),
+			[Input('metadata', 'rows'),
+			Input('metadata', 'selected_row_indices')])
+def update_spectrum(rows, spectra_index):
+	dataset = session['current_dataset']
+	user_id = session['user_id']
+	dataset_data = get_user_dataset(dataset, user_id)
+	figure = {
+		'layout': {
+			'title': 'Espectro original',
+			'xaxis': {'title': 'Raman shift'},
+			'yaxis': {'title': 'Intensity'}
+		},
+		'data': list()
+	}
+	for i in spectra_index:
+		name = rows[i]['Nombre']
+		spectrum = dataset_data[dataset_data['Nombre'] == name]
+		spectrum = spectrum.drop(
+			columns=['Nombre', 'Etiqueta', 'Mina', 'Profundidad',
+				'Profundidad_num'])
+		figure['data'].append({
+			'x': spectrum.columns.tolist(),
+			'y': spectrum.values[0],
+			'name': f'{name}'
+		})
+	return figure
+\end{lstlisting}
+
+En el decorador se recibe una elemento \code{Output}, con parámetros 
+\code{spectrum-original}, como elemento de salida, el grafico con el espectro 
+original, y \code{figure} como la propiedad a modificar del elemento.
+
+Como entradas se reciben dos \code{Input}, el primero corresponde a la tabla 
+con los espectros, con la propiedad de las filas, y el segundo se refiere 
+también a la tabla, pero con la propiedad asociada a las filas seleccionadas. 
+Cada vez que se modifique una de esas propiedades se ejecutaría el método. Los 
+parámetros que recibe el método son los valores de las propiedades definidas en 
+los \code{Input}
+
+Al terminar la ejecución del método, el valor devuelto ocupará el valor de la 
+propiedad definida en el \code{Output}, en este caso la propiedad \code{figure} 
+del espectro original.
 
 \subsection{Manual de despliegue}
 
